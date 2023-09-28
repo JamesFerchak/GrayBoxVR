@@ -2600,6 +2600,174 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "GrayBox",
+            "id": "4ad1ccf8-9621-4351-8227-dc953a01872a",
+            "actions": [
+                {
+                    "name": "A Button Debug",
+                    "type": "Button",
+                    "id": "40039490-89d1-4aa2-bdc5-770b0bf9961e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "B Button Debug",
+                    "type": "Button",
+                    "id": "ca6cf6bc-deb2-455f-b301-cc0060719e5d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "R Trigger Debug",
+                    "type": "Value",
+                    "id": "fc030329-5c68-45d7-9061-8eaa86a9d1b4",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "R Grip Debug",
+                    "type": "Value",
+                    "id": "3fb52540-ccdd-4f15-ae9e-dbb11d263a9a",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "X Button Debug",
+                    "type": "Button",
+                    "id": "fd27a490-4a1f-4ab2-a5a4-871cb592ad78",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Y Button Debug",
+                    "type": "Button",
+                    "id": "8c62aef7-dcc2-4894-a5fb-f10b9d8a1755",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "L Trigger Debug",
+                    "type": "Value",
+                    "id": "c7943f22-6e37-45c9-97bc-0079fc6a8482",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "L Grip Debug",
+                    "type": "Value",
+                    "id": "19d93829-bf3a-4a75-91d1-ba835c6c7dd0",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "72d9c0c1-e059-4580-8351-915b78116faf",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "A Button Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41a1d93c-7407-4420-ac90-d44ec5c89e1a",
+                    "path": "<XRController>{RightHand}/{Trigger}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "R Trigger Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc61c83f-043e-4a97-95bc-2a35fee8e069",
+                    "path": "<XRController>{RightHand}/{Grip}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "R Grip Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "614454c8-24f2-46b9-aff9-9094195478d3",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "X Button Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b4902f80-2043-47bb-8a98-92b9b19fd27a",
+                    "path": "<XRController>{LeftHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Y Button Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a412c8b-3ed3-467d-aea8-ebb49af36c6d",
+                    "path": "<XRController>{RightHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "B Button Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ca88a90-fcc1-4c8b-94c5-3fa100f559f8",
+                    "path": "<XRController>{LeftHand}/{Trigger}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "L Trigger Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "25ef47bb-0113-409b-b9d5-189cf89da570",
+                    "path": "<XRController>{LeftHand}/{Grip}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "L Grip Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
