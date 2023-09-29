@@ -28,7 +28,7 @@ public class BlockRangler : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        
+        GameObject instance = Instantiate(Resources.Load("Cube"))
     }
 
     // Update is called once per frame
