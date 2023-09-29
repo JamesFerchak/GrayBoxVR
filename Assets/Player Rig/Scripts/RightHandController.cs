@@ -13,7 +13,10 @@ public class RightHandController : MonoBehaviour
     public InputActionReference bButton = null;
     public InputActionReference rGrip = null;
 
-//  -------------------------------------------------------------------------------------------------------------------  
+    // Other script
+    PaletteScript p; 
+
+    //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update
     public void Awake() // tutorial used awake so I did as well. Not sure yet if start changes how it works at all.
     {
@@ -35,6 +38,8 @@ public class RightHandController : MonoBehaviour
     public void aToggle(InputAction.CallbackContext context)
     {
         Debug.Log("A button pressed.");
+        GetComponent<PaletteScript>().PlaceObject();
+        p.PlaceObject();
     }
     public void bToggle(InputAction.CallbackContext context)
     {
