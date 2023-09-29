@@ -20,6 +20,13 @@ public class BlockRangler : MonoBehaviour
         }
     }
 
+    private static List<GameObject> Blocks;
+
+    public void AddToBlockList(GameObject blockToAdd)
+    {
+
+    }
+
 	private void Awake()
 	{
         Singleton = this;

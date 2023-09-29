@@ -8,6 +8,7 @@ public class BuildingBlockBehavior : MonoBehaviour
     void Start()
     {
         Debug.Log($"Hi! I'm {gameObject.name}!!");
+
     }
 
     // Update is called once per frame
