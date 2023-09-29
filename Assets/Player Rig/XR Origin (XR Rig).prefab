@@ -216,6 +216,7 @@ GameObject:
   - component: {fileID: 759641709107901862}
   - component: {fileID: 5757300315169982128}
   - component: {fileID: 5401351250651019237}
+  - component: {fileID: 454085526235355316}
   m_Layer: 0
   m_Name: Left Controller
   m_TagString: Untagged
@@ -858,6 +859,18 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_SortAtRoot: 0
+--- !u!114 &454085526235355316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145291626996409425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2367edbbd4769f43873db5516399627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &743498072475960620
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,6 +1067,7 @@ GameObject:
   - component: {fileID: 2712029989616234287}
   - component: {fileID: 628225567068703961}
   - component: {fileID: 2192052488332167594}
+  - component: {fileID: 7844753863572510603}
   m_Layer: 0
   m_Name: Right Controller
   m_TagString: Untagged
@@ -1696,6 +1710,20 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_SortAtRoot: 0
+--- !u!114 &7844753863572510603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8806562425752923384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22645505ac4d59d4ab00d4616579f4c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aButton: {fileID: 4494234338583451440, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  trigger: {fileID: 1592152498474701456, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &9201458801429162284
 GameObject:
   m_ObjectHideFlags: 0
