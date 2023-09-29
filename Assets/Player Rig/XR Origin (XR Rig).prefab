@@ -871,6 +871,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2367edbbd4769f43873db5516399627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xButton: {fileID: 0}
+  lTrigger: {fileID: 0}
+  yButton: {fileID: 0}
+  lGrip: {fileID: 0}
 --- !u!1 &743498072475960620
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,6 +1072,7 @@ GameObject:
   - component: {fileID: 628225567068703961}
   - component: {fileID: 2192052488332167594}
   - component: {fileID: 7844753863572510603}
+  - component: {fileID: 7000703697393119593}
   m_Layer: 0
   m_Name: Right Controller
   m_TagString: Untagged
@@ -1723,7 +1728,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aButton: {fileID: 4494234338583451440, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  trigger: {fileID: 1592152498474701456, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rTrigger: {fileID: 0}
+  bButton: {fileID: 0}
+  rGrip: {fileID: 0}
+--- !u!114 &7000703697393119593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8806562425752923384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c1eab76e0d07b428f319dd8c280e68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubePrefab: {fileID: 6528006687007448033, guid: e6bcdebe56df31441880894bd59cb71c, type: 3}
+  editArray: []
 --- !u!1 &9201458801429162284
 GameObject:
   m_ObjectHideFlags: 0
