@@ -24,7 +24,8 @@ public class BlockRangler : MonoBehaviour
 
     public void AddToBlockList(GameObject blockToAdd)
     {
-
+        Blocks.Add(blockToAdd);
+        Debug.Log($"{blockToAdd.name} added to list. he is at {blockToAdd.transform.position}");
     }
 
 	private void Awake()
