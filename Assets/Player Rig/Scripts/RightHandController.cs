@@ -41,12 +41,12 @@ public class RightHandController : MonoBehaviour
     {
         Debug.Log("A button pressed.");
         GetComponent<PaletteScript>().PlaceObject();
-        p.PlaceObject();
+        //p.PlaceObject();
     }
     public void bToggle(InputAction.CallbackContext context)
     {
         Debug.Log("B button pressed.");
         GetComponent<PaletteScript>().EraseObject();
-        p.EraseObject();
+        //p.EraseObject();
     }
 }
