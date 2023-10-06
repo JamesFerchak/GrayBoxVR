@@ -41,12 +41,12 @@ public class LeftHandController : MonoBehaviour
     {
         Debug.Log("X button pressed.");
         GetComponent<PaletteScript>().EditObject();
-        p.EditObject();
+        //p.EditObject();
     }
     public void yToggle(InputAction.CallbackContext context)
     {
         Debug.Log("Y button pressed.");
         GetComponent<PaletteScript>().MoveObject();
-        p.MoveObject();
+        //p.MoveObject();
     }
 }

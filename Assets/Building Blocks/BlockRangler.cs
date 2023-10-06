@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class BlockRangler : MonoBehaviour
 {
-    private static BlockRangler _singleton;
+
+	public static string settingsPath;
+
+	private static BlockRangler _singleton;
     public static BlockRangler Singleton
     {
         get => _singleton;
@@ -20,7 +25,7 @@ public class BlockRangler : MonoBehaviour
         }
     }
 
-    private static List<GameObject> Blocks;
+    private static List<GameObject> Blocks = new List<GameObject>();
 
     public void AddToBlockList(GameObject blockToAdd)
     {
@@ -31,12 +36,14 @@ public class BlockRangler : MonoBehaviour
 	private void Awake()
 	{
         Singleton = this;
+		settingsPath = Application.persistentDataPath + "/PlayerSettings.kek";
 	}
 
 	// Start is called before the first frame update
 	void Start()
     {
         GameObject instance = Instantiate(Resources.Load("Blocks/Cube", typeof(GameObject))) as GameObject;
+        Debug.LogWarning("WORK ON SAVEPLAYERLEVEL!!!");
     }
 
     // Update is called once per frame
@@ -44,4 +51,14 @@ public class BlockRangler : MonoBehaviour
     {
         
     }
+	public static void SavePlayerLevel()
+	{
+		/*BinaryFormatter myFormatter = new BinaryFormatter();
+		FileStream myStream = new FileStream(settingsPath, FileMode.Create);
+
+		PlayerSettingsData myData = new PlayerSettingsData(ourPlayerBehavior);
+
+		myFormatter.Serialize(myStream, myData);
+		myStream.Close();*/
+	}
 }
