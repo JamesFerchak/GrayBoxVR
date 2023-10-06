@@ -7,7 +7,7 @@ public class BuildingBlockBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"Hi! I'm {gameObject.name}!!");
+        BlockRangler.Singleton.AddToBlockList(gameObject);
     }
 
     // Update is called once per frame
