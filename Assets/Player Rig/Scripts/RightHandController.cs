@@ -27,12 +27,14 @@ public class RightHandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /**
         float tValue = rTrigger.action.ReadValue<float>();
         float gValue = rGrip.action.ReadValue<float>();
         if (tValue > 0 || gValue > 0)
         {
             Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
         }
+        **/
     }
 
     public void aToggle(InputAction.CallbackContext context)
@@ -44,5 +46,7 @@ public class RightHandController : MonoBehaviour
     public void bToggle(InputAction.CallbackContext context)
     {
         Debug.Log("B button pressed.");
+        GetComponent<PaletteScript>().EraseObject();
+        p.EraseObject();
     }
 }

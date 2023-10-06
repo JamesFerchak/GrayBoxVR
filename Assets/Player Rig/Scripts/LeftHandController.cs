@@ -15,6 +15,9 @@ public class LeftHandController : MonoBehaviour
     public InputActionReference yButton = null;
     public InputActionReference lGrip = null;
 
+    // Other script
+    PaletteScript p;
+
     //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update
     public void Awake() // tutorial used awake so I did as well. Not sure yet if start changes how it works at all.
@@ -26,20 +29,26 @@ public class LeftHandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /**
         float tValue = lTrigger.action.ReadValue<float>();
         float gValue = lGrip.action.ReadValue<float>();
         if (tValue > 0 || gValue > 0)
         {
             Debug.Log("Left \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
         }
+        **/
     }
 
     public void xToggle(InputAction.CallbackContext context)
     {
         Debug.Log("X button pressed.");
+        GetComponent<PaletteScript>().EditObject();
+        p.EditObject();
     }
     public void yToggle(InputAction.CallbackContext context)
     {
         Debug.Log("Y button pressed.");
+        GetComponent<PaletteScript>().MoveObject();
+        p.MoveObject();
     }
 }
