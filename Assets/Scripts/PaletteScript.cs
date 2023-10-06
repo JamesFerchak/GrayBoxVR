@@ -38,7 +38,7 @@ public class PaletteScript : MonoBehaviour
         }
     }
 
-    public void EnlargeObject()
+    public void EditObject()
     {
         Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
 
@@ -49,14 +49,14 @@ public class PaletteScript : MonoBehaviour
         }
     }
 
-    public void DownsizeObject()
+    public void MoveObject()
     {
         Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            // Downsize the hit object
-            hit.transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f);
+            // Move the object upwards
+            hit.transform.position += new Vector3(0.1f, 0.1f, 0.1f);
         }
     }
 }
