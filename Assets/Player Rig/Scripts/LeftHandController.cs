@@ -29,14 +29,12 @@ public class LeftHandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /**
         float tValue = lTrigger.action.ReadValue<float>();
         float gValue = lGrip.action.ReadValue<float>();
         if (tValue > 0 || gValue > 0)
         {
             Debug.Log("Left \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
         }
-        **/
     }
 
     public void xToggle(InputAction.CallbackContext context)
