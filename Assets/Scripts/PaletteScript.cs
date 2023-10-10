@@ -11,6 +11,9 @@ public class PaletteScript : MonoBehaviour
     public Material selectedMaterial; // Material for the selected GameObject
     public Vector3 savedHandPos; // Vector3 recording the hand position
 
+    public GameObject mainMenuPanel; // Panel for the main menu
+    public bool inMenuMode; // True if the menu is open
+
     public bool inMoveMode; // True if there is currently a selected object in move mode
     public bool inEditMode; // True if there is currently a selected object in edit mode
 
@@ -106,6 +109,21 @@ public class PaletteScript : MonoBehaviour
             selectedObject.GetComponent<MeshRenderer>().material = defaultMaterial; // Reset the selected object's material
             selectedObject = null; // Remove any selected object that may be there
             inEditMode = false; // Reset bool variables so you can re-use edit function
+        }
+    }
+
+    public void InteractWithMainMenu()
+    {
+        if (mainMenuPanel != null) // If panel exists
+        {
+            if (inMenuMode) // If panel is already open
+            {
+                mainMenuPanel.SetActive(false); // Close panel
+            }
+            else // If panel is closed
+            {
+                mainMenuPanel.SetActive(true); // Open panel
+            }
         }
     }
 }
