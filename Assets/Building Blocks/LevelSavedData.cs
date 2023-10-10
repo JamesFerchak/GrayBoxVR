@@ -20,7 +20,10 @@ public class LevelSavedData
 
 		foreach (GameObject block in BlockRangler.Singleton.BlockList())
 		{
-			blockNames.Add(block.name);
+			string nameToAdd;
+			nameToAdd = block.name.Contains('(') ? block.name.Substring(0, (block.name.IndexOf('('))) : block.name;
+			Debug.Log($"saving block by name of: {nameToAdd}");
+			blockNames.Add(nameToAdd);
 
 			blockLocations.Add(block.transform.position.x);
 			blockLocations.Add(block.transform.position.y);
