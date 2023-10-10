@@ -29,10 +29,10 @@ public class LevelSavedData
 			blockLocations.Add(block.transform.position.y);
 			blockLocations.Add(block.transform.position.z);
 
-			blockRotations.Add(block.transform.rotation.w);
 			blockRotations.Add(block.transform.rotation.x);
 			blockRotations.Add(block.transform.rotation.y);
 			blockRotations.Add(block.transform.rotation.z);
+			blockRotations.Add(block.transform.rotation.w);
 
 			blockScales.Add(block.transform.localScale.x);
 			blockScales.Add(block.transform.localScale.y);
