@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 102932082710903612}
   - component: {fileID: 6191898617350927339}
   - component: {fileID: 888311422869325435}
+  - component: {fileID: 5995470507266144916}
   m_Layer: 0
   m_Name: Left Controller
   m_TagString: Untagged
@@ -687,6 +688,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bd4117c68e0764b904257985599fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5995470507266144916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891176156447803416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c1eab76e0d07b428f319dd8c280e68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubePrefab: {fileID: 6528006687007448033, guid: e6bcdebe56df31441880894bd59cb71c, type: 3}
+  selectedObject: {fileID: 0}
+  defaultMaterial: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
+  savedHandPos: {x: 0, y: 0, z: 0}
+  mainMenuPanel: {fileID: 3662196969690588409}
+  inMenuMode: 0
+  inMoveMode: 0
+  inEditMode: 0
 --- !u!1 &1122529289056507484
 GameObject:
   m_ObjectHideFlags: 0
