@@ -119,10 +119,12 @@ public class PaletteScript : MonoBehaviour
             if (inMenuMode) // If panel is already open
             {
                 mainMenuPanel.SetActive(false); // Close panel
+                inMenuMode = false;
             }
             else // If panel is closed
             {
                 mainMenuPanel.SetActive(true); // Open panel
+                inMenuMode = true;
             }
         }
     }
