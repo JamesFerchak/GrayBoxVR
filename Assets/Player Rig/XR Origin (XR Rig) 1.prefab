@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7680283194524838857}
   - component: {fileID: 102932082710903612}
   - component: {fileID: 6191898617350927339}
+  - component: {fileID: 888311422869325435}
   m_Layer: 0
   m_Name: Left Controller
   m_TagString: Untagged
@@ -673,6 +674,18 @@ MonoBehaviour:
   lTrigger: {fileID: -1608586445125895440, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   yButton: {fileID: -4782931982366383568, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   lGrip: {fileID: -3613858655746362428, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+--- !u!114 &888311422869325435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891176156447803416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35bd4117c68e0764b904257985599fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1122529289056507484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,6 +1089,7 @@ GameObject:
   - component: {fileID: 8607915983904702373}
   - component: {fileID: 6466911072458586733}
   - component: {fileID: 3416335762374617049}
+  - component: {fileID: 7215640607078643631}
   m_Layer: 0
   m_Name: Right Controller
   m_TagString: Untagged
@@ -1747,6 +1761,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 6528006687007448033, guid: e6bcdebe56df31441880894bd59cb71c, type: 3}
+  selectedObject: {fileID: 0}
+  defaultMaterial: {fileID: 0}
+  selectedMaterial: {fileID: 0}
+  savedHandPos: {x: 0, y: 0, z: 0}
+  inMoveMode: 0
+  inEditMode: 0
+--- !u!114 &7215640607078643631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4031031569664999400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35bd4117c68e0764b904257985599fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6663551697875354950
 GameObject:
   m_ObjectHideFlags: 0
