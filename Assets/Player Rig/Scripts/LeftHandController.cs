@@ -14,6 +14,7 @@ public class LeftHandController : MonoBehaviour
     public InputActionReference lTrigger = null; // reference to the trigger action in the input map.
     public InputActionReference yButton = null;
     public InputActionReference lGrip = null;
+    public InputActionReference menu = null;
 
     // Other script
     PaletteScript p;
@@ -24,6 +25,7 @@ public class LeftHandController : MonoBehaviour
     {
         xButton.action.started += xToggle; // How the a button is gets its pressed detected.
         yButton.action.started += yToggle;
+        menu.action.started += menuToggle;
     }
 
     // Update is called once per frame
@@ -48,5 +50,10 @@ public class LeftHandController : MonoBehaviour
         Debug.Log("Y button pressed.");
         GetComponent<PaletteScript>().MoveObject();
         //p.MoveObject();
+    }
+
+    public void menuToggle(InputAction.CallbackContext context)
+    {
+        Debug.Log("Menu button pressed.");
     }
 }
