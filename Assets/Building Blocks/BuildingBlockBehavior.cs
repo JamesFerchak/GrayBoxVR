@@ -18,4 +18,9 @@ public class BuildingBlockBehavior : MonoBehaviour
 	{
 		
 	}
+
+	private void OnDestroy()
+	{
+		BlockRangler.Singleton.RemoveFromBlockList(gameObject);
+	}
 }

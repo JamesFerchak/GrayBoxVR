@@ -4,11 +4,15 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEditor.Build;
 
 public class BlockRangler : MonoBehaviour
 {
 
-	public static string settingsPath;
+	public static string levelPath;
 
 	private static BlockRangler _singleton;
     public static BlockRangler Singleton
@@ -25,40 +29,107 @@ public class BlockRangler : MonoBehaviour
         }
     }
 
-    private static List<GameObject> Blocks = new List<GameObject>();
+    private static List<GameObject> blocks = new List<GameObject>();
+
+    public List<GameObject> BlockList()
+    {
+        return blocks;
+    }
 
     public void AddToBlockList(GameObject blockToAdd)
     {
-        Blocks.Add(blockToAdd);
-        Debug.Log($"{blockToAdd.name} added to list. he is at {blockToAdd.transform.position}");
+        blocks.Add(blockToAdd);
+    }
+
+    public void RemoveFromBlockList(GameObject blockToRemove)
+    {
+        blocks.Remove(blockToRemove);
+        Debug.Log($"{blockToRemove.name} removed from list. he was at {blockToRemove.transform.position}");
     }
 
 	private void Awake()
 	{
         Singleton = this;
-		settingsPath = Application.persistentDataPath + "/PlayerSettings.kek";
+		levelPath = Application.persistentDataPath + "/SavedLevel.kek";
 	}
 
 	// Start is called before the first frame update
 	void Start()
     {
-        GameObject instance = Instantiate(Resources.Load("Blocks/Cube", typeof(GameObject))) as GameObject;
-        Debug.LogWarning("WORK ON SAVEPLAYERLEVEL!!!");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-	public static void SavePlayerLevel()
-	{
-		/*BinaryFormatter myFormatter = new BinaryFormatter();
-		FileStream myStream = new FileStream(settingsPath, FileMode.Create);
+        if (Input.GetKeyDown(KeyCode.S))
+            SavePlayerLevel();
 
-		PlayerSettingsData myData = new PlayerSettingsData(ourPlayerBehavior);
+        if (Input.GetKeyDown(KeyCode.L))
+            BuildLevelFromSave();
+    }
+
+	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
+	private static void SavePlayerLevel()
+	{
+		BinaryFormatter myFormatter = new();
+		FileStream myStream = new(levelPath, FileMode.Create);
+
+		LevelSavedData myData = new();
 
 		myFormatter.Serialize(myStream, myData);
-		myStream.Close();*/
+		myStream.Close();
 	}
+
+	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
+	private static LevelSavedData LoadPlayerLevel()
+    {
+        if (File.Exists(levelPath))
+        {
+            BinaryFormatter myFormatter = new();
+            FileStream myStream = new(levelPath, FileMode.Open);
+
+            LevelSavedData myData = myFormatter.Deserialize(myStream) as LevelSavedData;
+            myStream.Close();
+
+            return myData;
+        }
+        else
+        {
+            Debug.LogError($"Tried to load level that doesn't exist!!! {levelPath}");
+            return null;
+        }
+    }
+
+    //COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
+    private void BuildLevelFromSave()
+    {
+        LevelSavedData levelToLoad = LoadPlayerLevel();
+        if (levelToLoad != null)
+        {
+            foreach (GameObject block in blocks)
+            {
+                Destroy(block);
+            }
+            foreach (string blockName in levelToLoad.blockNames)
+            {
+                Debug.LogWarning($"loading block by name: {blockName}");
+                //spawn object
+				GameObject instance = Instantiate(Resources.Load($"Blocks/{blockName}", typeof(GameObject))) as GameObject;
+
+                //set location
+                instance.transform.position = new Vector3(levelToLoad.blockLocations[0], levelToLoad.blockLocations[1], levelToLoad.blockLocations[2]);
+                levelToLoad.blockLocations.RemoveRange(0, 3);
+
+                //set rotation
+                instance.transform.rotation = new Quaternion(levelToLoad.blockRotations[0], levelToLoad.blockRotations[1], levelToLoad.blockRotations[2], levelToLoad.blockRotations[3]);
+                levelToLoad.blockRotations.RemoveRange(0, 4);
+
+                //set scale
+                instance.transform.localScale = new Vector3(levelToLoad.blockScales[0], levelToLoad.blockScales[1], levelToLoad.blockScales[2]);
+                levelToLoad.blockScales.RemoveRange(0, 3);
+			}
+        }
+
+    }
 }
