@@ -2678,13 +2678,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LeftStick",
-                    "type": "Button",
+                    "name": "Move",
+                    "type": "Value",
                     "id": "eb284024-055d-495d-a78d-efb57f22e2ab",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Turn",
@@ -2824,11 +2824,11 @@
                 {
                     "name": "",
                     "id": "1adc26b6-9055-4f18-9017-1e6beabb57b3",
-                    "path": "",
+                    "path": "<Joystick>/{Primary2DAxis}",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "LeftStick",
+                    "groups": "Generic XR Controller;Continuous Move",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
