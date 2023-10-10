@@ -8,6 +8,7 @@ MonoImporter:
   - lTrigger: {fileID: -1608586445125895440, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   - yButton: {fileID: -4782931982366383568, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   - lGrip: {fileID: -3613858655746362428, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - menu: {fileID: -4710085500694152614, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
