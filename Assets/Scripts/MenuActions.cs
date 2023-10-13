@@ -31,6 +31,7 @@ public class MenuActions : MonoBehaviour
 
     private void Update()
     {
+        // Rotate the canvas so it faces towards the camera
         mainMenuCanvas.transform.rotation = Quaternion.LookRotation(mainMenuCanvas.transform.position - cam.transform.position);
     }
 
