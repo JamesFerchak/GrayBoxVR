@@ -2856,7 +2856,7 @@
                     "name": "",
                     "id": "ab6ffc81-9de7-4431-96f9-ee64e7017635",
                     "path": "<XRController>{RightHand}/{Primary2DAxis}",
-                    "interactions": "Sector(directions=-1,sweepBehavior=3)",
+                    "interactions": "Sector(directions=1,sweepBehavior=3)",
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Teleport Select",
