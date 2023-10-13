@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -37,5 +38,10 @@ public class MenuActions : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("DEBUG: Quitting game...");
+    }
+
+    public void RelocateMainMenu()
+    {
+        mainMenuCanvas.transform.position = cam.transform.TransformPoint(Vector3.forward * 2); 
     }
 }

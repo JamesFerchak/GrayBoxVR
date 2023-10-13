@@ -123,6 +123,7 @@ public class PaletteScript : MonoBehaviour
             }
             else // If panel is closed
             {
+                MenuActions.Singleton.RelocateMainMenu();
                 mainMenuPanel.SetActive(true); // Open panel
                 inMenuMode = true;
             }
