@@ -313,6 +313,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
+--- !u!1 &259601210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2511608249233989799, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+  m_PrefabInstance: {fileID: 1750462031}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &308254257
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,6 +802,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b760fcbaf050c448c5f14fcdd27991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuCanvas: {fileID: 2111603959}
+  cam: {fileID: 259601210}
 --- !u!4 &1215870093
 Transform:
   m_ObjectHideFlags: 0
@@ -1021,7 +1028,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_TeleportationProvider: {fileID: 0}
+  m_TeleportationProvider: {fileID: 1379564794}
   m_MatchOrientation: 0
   m_MatchDirectionalInput: 0
   m_TeleportTrigger: 0
@@ -1341,6 +1348,17 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 0}
   m_ButtonPressPoint: 0.5
+--- !u!114 &1379564794 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3631766454003401905, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+  m_PrefabInstance: {fileID: 1750462031}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379564777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f69dc1cb084aa42b2f2f8cd87bc770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1535590575 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 261835933880748023, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
@@ -1354,6 +1372,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 124600318838744671, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: m_LineLength
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1094947954729497425, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: m_StartingSelectFilters.Array.size
       value: 0
@@ -1465,6 +1487,10 @@ PrefabInstance:
     - target: {fileID: 7680283194524838857, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7680283194524838857, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: m_LineLength
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 9055504280793634785, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: m_Enabled
