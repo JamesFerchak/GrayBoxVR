@@ -8,6 +8,20 @@ using UnityEngine.UI;
 
 public class LeftHandController : MonoBehaviour
 {
+    private static LeftHandController _singleton;
+    public static LeftHandController Singleton
+    {
+        get => _singleton;
+        private set
+        {
+            if (_singleton == null) _singleton = value;
+            else
+            {
+                Debug.LogWarning($"There is more than one left hand! Killing self!!!");
+                Destroy(value.gameObject);
+            }
+        }
+    }
     //  -------------------------------------------------------------------------------------------------------------------  
     // Input references
     public InputActionReference xButton = null; // reference to the A button action in the input map.
@@ -23,6 +37,7 @@ public class LeftHandController : MonoBehaviour
     // Start is called before the first frame update
     public void Awake() // tutorial used awake so I did as well. Not sure yet if start changes how it works at all.
     {
+        Singleton = this;
         xButton.action.started += xToggle; // How the a button is gets its pressed detected.
         yButton.action.started += yToggle;
         menu.action.started += menuToggle;
