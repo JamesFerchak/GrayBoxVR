@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class MenuActions : MonoBehaviour
@@ -33,6 +34,14 @@ public class MenuActions : MonoBehaviour
     {
         // Rotate the canvas so it faces towards the camera
         mainMenuCanvas.transform.rotation = Quaternion.LookRotation(mainMenuCanvas.transform.position - cam.transform.position);
+
+
+        // If player gets too close, teleport the UI away
+        if (Mathf.Abs(mainMenuCanvas.transform.position.x - cam.transform.position.x) < 5.0f &&
+            Mathf.Abs(mainMenuCanvas.transform.position.z - cam.transform.position.z) < 5.0f)
+        {
+            RelocateMainMenu();
+        }
     }
 
     public void QuitGame()
@@ -43,6 +52,8 @@ public class MenuActions : MonoBehaviour
 
     public void RelocateMainMenu()
     {
-        mainMenuCanvas.transform.position = cam.transform.TransformPoint(Vector3.forward * 2); 
+        Vector3 newMainMenuPosition = cam.transform.TransformPoint(Vector3.forward * 2);
+        newMainMenuPosition.y = 35;
+        mainMenuCanvas.transform.position = newMainMenuPosition; 
     }
 }
