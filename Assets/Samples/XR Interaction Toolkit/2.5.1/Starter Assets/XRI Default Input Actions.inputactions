@@ -2639,6 +2639,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Teleport",
+                    "type": "Value",
+                    "id": "eb01cd0e-7024-47e2-b179-62ee92d7d8d0",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -2804,6 +2813,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "124e2017-7535-435e-b3fd-bcbaa679075e",
+                    "path": "<XRController>{RightHand}/{Primary2DAxis}",
+                    "interactions": "Sector(directions=1)",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Teleport",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
