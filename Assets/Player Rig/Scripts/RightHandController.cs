@@ -51,7 +51,7 @@ public class RightHandController : MonoBehaviour
         {
             Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
         }
-        if (svalue.y > .8 || svalue.y <= 1)
+        if (svalue.y > .8 && svalue.y <= 1)
         {
             Teleport();
         }
