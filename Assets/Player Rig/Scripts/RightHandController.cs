@@ -26,6 +26,7 @@ public class RightHandController : MonoBehaviour
     public InputActionReference rTrigger = null; // reference to the trigger action in the input map.
     public InputActionReference bButton = null;
     public InputActionReference rGrip = null;
+    public InputActionReference stick = null;
 
     // Other script
     PaletteScript p; 
@@ -42,14 +43,17 @@ public class RightHandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        float sValue = stick.action.ReadValue<float>();
         float tValue = rTrigger.action.ReadValue<float>();
         float gValue = rGrip.action.ReadValue<float>();
         if (tValue > 0 || gValue > 0)
         {
             Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
         }
-        
+        if (sValue != 0)
+        {
+            Debug.Log("Stick is in use");
+        }
     }
 
     public void aToggle(InputAction.CallbackContext context)

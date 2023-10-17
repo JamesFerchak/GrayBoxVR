@@ -1373,6 +1373,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 124600318838744671, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: m_Reticle
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 124600318838744671, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: m_LineLength
       value: 50
       objectReference: {fileID: 0}
