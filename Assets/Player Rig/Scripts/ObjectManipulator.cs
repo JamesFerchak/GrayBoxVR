@@ -28,8 +28,6 @@ public class ObjectManipulator : MonoBehaviour
 
 	public void TryGrab(float grabValue)
 	{
-
-		//try to grab
 		if (currentlyHeldObject == null && grabValue >= grabTreshhold && !triedToGrabAlready)
 		{
 			//mark that we already tried to grab
@@ -47,6 +45,7 @@ public class ObjectManipulator : MonoBehaviour
 			{
 				if (collider.gameObject.tag == "Block")
 				{
+					Debug.Log($"found a block: {collider.gameObject.name}");
 					float distanceToThis = Vector3.Distance(cursor.transform.position, collider.transform.position);
 					if (distanceToThis < distanceToNearest)
 					{
@@ -61,15 +60,13 @@ public class ObjectManipulator : MonoBehaviour
 			}
 
 			//if there is a viable collider, make it the grabbed object
-			if (indexOfNearest >= 0 && indexOfNearest < possibleColliders.Count)
+			if (indexOfNearest >= 0 && 
+				indexOfNearest < possibleColliders.Count && 
+				possibleColliders[indexOfNearest] != null)
 			{
-				if (possibleColliders[indexOfNearest] != null)
-				{
-					currentlyHeldObject = possibleColliders[indexOfNearest].gameObject;
-					controllerStartingPosition = transform.position;
-					objectStartingPosition = currentlyHeldObject.transform.position;
-				}
-
+				currentlyHeldObject = possibleColliders[indexOfNearest].gameObject;
+				controllerStartingPosition = transform.position;
+				objectStartingPosition = currentlyHeldObject.transform.position;
 			}
 		}
 		//if we're holing something and we aren't holding the grab button, ungrab
