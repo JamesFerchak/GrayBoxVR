@@ -44,7 +44,7 @@ public class ObjectManipulator : MonoBehaviour
 			foreach (Collider collider in possibleColliders)
 			{
 				Debug.Log($"found a collider: {collider.gameObject.name}");
-				if (collider.gameObject.tag == "Block")
+				if (collider.gameObject.GetComponent<BuildingBlockBehavior>() != null)
 				{
 					Debug.Log($"found a block: {collider.gameObject.name}");
 					float distanceToThis = Vector3.Distance(cursor.transform.position, collider.transform.position);
