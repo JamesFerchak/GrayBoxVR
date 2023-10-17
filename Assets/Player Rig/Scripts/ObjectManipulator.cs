@@ -43,6 +43,7 @@ public class ObjectManipulator : MonoBehaviour
 			//go through list of near colliders and find the closest one with the Block tag
 			foreach (Collider collider in possibleColliders)
 			{
+				Debug.Log($"found a collider: {collider.gameObject.name}");
 				if (collider.gameObject.tag == "Block")
 				{
 					Debug.Log($"found a block: {collider.gameObject.name}");
