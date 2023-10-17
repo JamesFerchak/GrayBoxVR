@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem; 
 using UnityEngine.UI;
@@ -26,7 +27,8 @@ public class RightHandController : MonoBehaviour
     public InputActionReference rTrigger = null; // reference to the trigger action in the input map.
     public InputActionReference bButton = null;
     public InputActionReference rGrip = null;
-
+    public InputActionReference stick = null;
+    public GameObject cam;
     // Other script
     PaletteScript p; 
 
@@ -42,11 +44,16 @@ public class RightHandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 svalue = stick.action.ReadValue<Vector2>();
         float tValue = rTrigger.action.ReadValue<float>();
         float gValue = rGrip.action.ReadValue<float>();
         if (tValue > 0 || gValue > 0)
         {
             Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
+        }
+        if (svalue.y > .8 || svalue.y <= 1)
+        {
+            Teleport();
         }
     }
 
@@ -61,5 +68,22 @@ public class RightHandController : MonoBehaviour
         Debug.Log("B button pressed.");
         GetComponent<PaletteScript>().EraseObject();
         //p.EraseObject();
+    }
+
+    public void Teleport()
+    {
+        Debug.Log("Stick y value = 1.");
+        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
+        {
+            cam.transform.position = hit.transform.position; // Select the hit object
+            
+        }
+        else // If nothing in line of sight
+        {
+            
+        }
+
     }
 }
