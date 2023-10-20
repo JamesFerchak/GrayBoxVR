@@ -51,6 +51,7 @@ public class RightHandController : MonoBehaviour
         {
             Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
         }
+        
         if (svalue.y > .8 && svalue.y <= 1)
         {
             Teleport();
@@ -77,7 +78,7 @@ public class RightHandController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
         {
-            cam.transform.position = hit.transform.position; // Select the hit object
+            cam.transform.position = hit.point; // Select the hit object
             
         }
         else // If nothing in line of sight

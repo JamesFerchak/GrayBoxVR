@@ -8,68 +8,71 @@ using UnityEngine.UI;
 
 public class LeftHandController : MonoBehaviour
 {
-    private static LeftHandController _singleton;
-    public static LeftHandController Singleton
-    {
-        get => _singleton;
-        private set
-        {
-            if (_singleton == null) _singleton = value;
-            else
-            {
-                Debug.LogWarning($"There is more than one left hand! Killing self!!!");
-                Destroy(value.gameObject);
-            }
-        }
-    }
-    //  -------------------------------------------------------------------------------------------------------------------  
-    // Input references
-    public InputActionReference xButton = null; // reference to the A button action in the input map.
-    public InputActionReference lTrigger = null; // reference to the trigger action in the input map.
-    public InputActionReference yButton = null;
-    public InputActionReference lGrip = null;
-    public InputActionReference menu = null;
+	private static LeftHandController _singleton;
+	public static LeftHandController Singleton
+	{
+		get => _singleton;
+		private set
+		{
+			if (_singleton == null) _singleton = value;
+			else
+			{
+				Debug.LogWarning($"There is more than one left hand! Killing self!!!");
+				Destroy(value.gameObject);
+			}
+		}
+	}
 
-    // Other script
-    PaletteScript p;
+	ObjectManipulator myOM;
 
-    //  -------------------------------------------------------------------------------------------------------------------  
-    // Start is called before the first frame update
-    public void Awake() // tutorial used awake so I did as well. Not sure yet if start changes how it works at all.
-    {
-        Singleton = this;
-        xButton.action.started += xToggle; // How the a button is gets its pressed detected.
-        yButton.action.started += yToggle;
-        menu.action.started += menuToggle;
-    }
+	//  -------------------------------------------------------------------------------------------------------------------  
+	// Input references
+	public InputActionReference xButton = null; // reference to the A button action in the input map.
+	public InputActionReference lTrigger = null; // reference to the trigger action in the input map.
+	public InputActionReference yButton = null;
+	public InputActionReference lGrip = null;
+	public InputActionReference menu = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        float tValue = lTrigger.action.ReadValue<float>();
-        float gValue = lGrip.action.ReadValue<float>();
-        if (tValue > 0 || gValue > 0)
-        {
-            Debug.Log("Left \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
-        }
-    }
+	//  -------------------------------------------------------------------------------------------------------------------  
+	// Start is called before the first frame update
+	public void Awake() // tutorial used awake so I did as well. Not sure yet if start changes how it works at all.
+	{
+		Singleton = this;
+		xButton.action.started += xToggle; // How the a button is gets its pressed detected.
+		yButton.action.started += yToggle;
+		menu.action.started += menuToggle;
+		myOM = GetComponent<ObjectManipulator>();
+		if (myOM == null) Debug.LogError("NO OBJECT MANIPULATOR ON THIS SCRIPT!!!");
+	}
 
-    public void xToggle(InputAction.CallbackContext context)
-    {
-        Debug.Log("X button pressed.");
-        GetComponent<PaletteScript>().EditObject();
-        //p.EditObject();
-    }
-    public void yToggle(InputAction.CallbackContext context)
-    {
-        Debug.Log("Y button pressed.");
-        GetComponent<PaletteScript>().MoveObject();
-        //p.MoveObject();
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		float tValue = lTrigger.action.ReadValue<float>();
+		float gValue = lGrip.action.ReadValue<float>();
+		if (tValue > 0 || gValue > 0)
+		{
+			//Debug.Log("Left \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
+		}
+		if (gValue > 0) myOM.TryGrab(gValue);
+	}
 
-    public void menuToggle(InputAction.CallbackContext context)
-    {
-        Debug.Log("Menu button pressed.");
-        GetComponent<PaletteScript>().InteractWithMainMenu();
-    }
+	public void xToggle(InputAction.CallbackContext context)
+	{
+		Debug.Log("X button pressed.");
+		GetComponent<PaletteScript>().EditObject();
+		//p.EditObject();
+	}
+	public void yToggle(InputAction.CallbackContext context)
+	{
+		Debug.Log("Y button pressed.");
+		GetComponent<PaletteScript>().MoveObject();
+		//p.MoveObject();
+	}
+
+	public void menuToggle(InputAction.CallbackContext context)
+	{
+		Debug.Log("Menu button pressed.");
+		GetComponent<PaletteScript>().InteractWithMainMenu();
+	}
 }
