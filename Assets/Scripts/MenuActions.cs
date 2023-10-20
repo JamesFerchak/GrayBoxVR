@@ -23,6 +23,8 @@ public class MenuActions : MonoBehaviour
     }
 
     [SerializeField] GameObject mainMenuCanvas;
+    [SerializeField] GameObject menuUI;
+    [SerializeField] GameObject catalogUI;
     [SerializeField] GameObject cam;
 
     private void Awake()
@@ -48,6 +50,30 @@ public class MenuActions : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("DEBUG: Quitting game...");
+    }
+
+    public void SwapMenu()
+    {
+        if (menuUI.active)
+        {
+            menuUI.SetActive(false);
+            catalogUI.SetActive(true);
+        }
+        else
+        {
+            menuUI.SetActive(true);
+            catalogUI.SetActive(false);
+        }
+    }
+
+    public void SelectSquare()
+    {
+
+    }
+
+    public void SelectCircle()
+    {
+
     }
 
     public void RelocateMainMenu()
