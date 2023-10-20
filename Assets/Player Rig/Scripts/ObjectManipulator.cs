@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class ObjectManipulator : MonoBehaviour
@@ -11,8 +12,10 @@ public class ObjectManipulator : MonoBehaviour
 
 	private GameObject currentlyHeldObject = null;
 	bool triedToGrabAlready = false;
-	Vector3 controllerStartingPosition = Vector3.zero;
-	Vector3 objectStartingPosition = Vector3.zero;
+	Vector3 contStartPos = Vector3.zero;
+	Quaternion contStartRot = Quaternion.identity;
+	Vector3 objStartPos = Vector3.zero;
+	Quaternion objStartRot = Quaternion.identity;
 
 	// Start is called before the first frame update
 	void Start()
@@ -65,8 +68,8 @@ public class ObjectManipulator : MonoBehaviour
 				possibleColliders[indexOfNearest] != null)
 			{
 				currentlyHeldObject = possibleColliders[indexOfNearest].gameObject;
-				controllerStartingPosition = transform.position;
-				objectStartingPosition = currentlyHeldObject.transform.position;
+				contStartPos = transform.position;
+				objStartPos = currentlyHeldObject.transform.position;
 			}
 		}
 		//if we're holing something and we aren't holding the grab button, ungrab
@@ -83,8 +86,9 @@ public class ObjectManipulator : MonoBehaviour
 	{
 		if (currentlyHeldObject != null)
 		{
-			Vector3 positionToAdd = transform.position - controllerStartingPosition;
-			currentlyHeldObject.transform.position = objectStartingPosition + positionToAdd;
+			Vector3 positionToAdd = transform.position - contStartPos;
+			currentlyHeldObject.transform.position = objStartPos + positionToAdd;
+			Quaternion rotationToAdd = transform.rotation * contStartRot;
 		}
 	}
 }
