@@ -54,7 +54,7 @@ public class LeftHandController : MonoBehaviour
 		{
 			//Debug.Log("Left \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
 		}
-		if (gValue > 0) myOM.TryGrab(gValue);
+		myOM.TryGrab(gValue);
 	}
 
 	public void xToggle(InputAction.CallbackContext context)

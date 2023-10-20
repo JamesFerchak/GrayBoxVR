@@ -21,6 +21,9 @@ public class RightHandController : MonoBehaviour
             }
         }
     }
+
+    ObjectManipulator myOM;
+
     //  -------------------------------------------------------------------------------------------------------------------  
     // Input references
     public InputActionReference aButton = null; // reference to the A button action in the input map.
@@ -39,7 +42,9 @@ public class RightHandController : MonoBehaviour
         Singleton = this;
         aButton.action.started += aToggle; // How the a button is gets its pressed detected.
         bButton.action.started += bToggle;
-    }
+		myOM = GetComponent<ObjectManipulator>();
+		if (myOM == null) Debug.LogError("NO OBJECT MANIPULATOR ON THIS SCRIPT!!!");
+	}
 
     // Update is called once per frame
     void Update()
@@ -56,6 +61,8 @@ public class RightHandController : MonoBehaviour
         {
             Teleport();
         }
+
+        myOM.TryGrab(gValue);
     }
 
     public void aToggle(InputAction.CallbackContext context)
