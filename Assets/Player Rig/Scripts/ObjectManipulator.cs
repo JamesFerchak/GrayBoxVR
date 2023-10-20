@@ -33,7 +33,6 @@ public class ObjectManipulator : MonoBehaviour
 			//mark that we already tried to grab
 			triedToGrabAlready = true;
 
-			//create list of colliders
 			List<Collider> possibleColliders = new(Physics.OverlapSphere(cursor.transform.position, .05f));
 
 			//get ready to go through list

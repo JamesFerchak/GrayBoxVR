@@ -70,7 +70,7 @@ public class BlockRangler : MonoBehaviour
     }
 
 	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
-	private static void SavePlayerLevel()
+	public static void SavePlayerLevel()
 	{
 		BinaryFormatter myFormatter = new();
 		FileStream myStream = new(levelPath, FileMode.Create);
@@ -102,7 +102,7 @@ public class BlockRangler : MonoBehaviour
     }
 
     //COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
-    private void BuildLevelFromSave()
+    public void BuildLevelFromSave()
     {
         LevelSavedData levelToLoad = LoadPlayerLevel();
         if (levelToLoad != null)

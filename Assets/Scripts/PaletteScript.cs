@@ -35,7 +35,8 @@ public class PaletteScript : MonoBehaviour
 
         Vector3 rotation = new Vector3(0, gameObject.transform.rotation.y * 90, 0); // Places block flat, only keeping y rotation of controller
 
-        Instantiate(cubePrefab.gameObject, position, Quaternion.Euler(rotation)); // Places cube in level
+        GameObject block = Instantiate(cubePrefab.gameObject, position, Quaternion.Euler(rotation)); // Places cube in level
+        block.tag = "Block";
     }
 
     public void EraseObject()
