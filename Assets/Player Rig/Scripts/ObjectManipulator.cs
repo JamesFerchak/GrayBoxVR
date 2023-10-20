@@ -85,7 +85,6 @@ public class ObjectManipulator : MonoBehaviour
 		{
 			Vector3 positionToAdd = transform.position - controllerStartingPosition;
 			currentlyHeldObject.transform.position = objectStartingPosition + positionToAdd;
-			if ()
 		}
 	}
 }
