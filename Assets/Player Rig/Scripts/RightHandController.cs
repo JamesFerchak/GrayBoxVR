@@ -32,8 +32,6 @@ public class RightHandController : MonoBehaviour
     public InputActionReference rGrip = null;
     public InputActionReference stick = null;
     public GameObject cam;
-    // Other script
-    PaletteScript p; 
 
     //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update

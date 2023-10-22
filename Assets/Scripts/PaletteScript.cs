@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class PaletteScript : MonoBehaviour
 {
+    public GameObject currentObjectType; // The type of "block" being placed (square, circle, etc.)
     public GameObject cubePrefab; // Cube GameObject
+    public GameObject spherePrefab; // Sphere GameObject
     public GameObject selectedObject; // The selected object in edit mode
+
     public Material defaultMaterial; // Material for Cube GameObject
     public Material selectedMaterial; // Material for the selected GameObject
     public Vector3 savedHandPos; // Vector3 recording the hand position
@@ -20,7 +23,7 @@ public class PaletteScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        currentObjectType = cubePrefab;
     }
 
     // Update is called once per frame
@@ -35,7 +38,7 @@ public class PaletteScript : MonoBehaviour
 
         Vector3 rotation = new Vector3(0, gameObject.transform.rotation.y * 90, 0); // Places block flat, only keeping y rotation of controller
 
-        GameObject block = Instantiate(cubePrefab.gameObject, position, Quaternion.Euler(rotation)); // Places cube in level
+        GameObject block = Instantiate(currentObjectType.gameObject, position, Quaternion.Euler(rotation)); // Places cube in level
         block.tag = "Block";
     }
 
@@ -129,5 +132,15 @@ public class PaletteScript : MonoBehaviour
                 inMenuMode = true;
             }
         }
+    }
+
+    public void ChangeToSquare()
+    {
+        currentObjectType = cubePrefab;
+    }
+
+    public void ChangeToSphere()
+    {
+        currentObjectType = spherePrefab;
     }
 }

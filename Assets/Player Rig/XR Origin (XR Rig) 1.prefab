@@ -291,7 +291,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -8811388872089202044, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 0}
   m_TranslateAnchorAction:
     m_UseReference: 1
     m_Action:
@@ -516,8 +516,17 @@ LineRenderer:
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -764,7 +773,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c1eab76e0d07b428f319dd8c280e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentObjectType: {fileID: 0}
   cubePrefab: {fileID: 6528006687007448033, guid: e6bcdebe56df31441880894bd59cb71c, type: 3}
+  spherePrefab: {fileID: 0}
   selectedObject: {fileID: 0}
   defaultMaterial: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
   selectedMaterial: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
@@ -1614,8 +1625,17 @@ LineRenderer:
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1850,7 +1870,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c1eab76e0d07b428f319dd8c280e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentObjectType: {fileID: 0}
   cubePrefab: {fileID: 6528006687007448033, guid: e6bcdebe56df31441880894bd59cb71c, type: 3}
+  spherePrefab: {fileID: 0}
   selectedObject: {fileID: 0}
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 0}

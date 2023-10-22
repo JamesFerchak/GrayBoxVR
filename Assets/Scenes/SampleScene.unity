@@ -2088,7 +2088,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1215870092}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: SelectSphere
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2839,7 +2839,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1215870092}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: SelectSquare
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3009,6 +3009,10 @@ MonoBehaviour:
   menuUI: {fileID: 576167789}
   catalogUI: {fileID: 1135376665}
   cam: {fileID: 259601210}
+  rightHandController: {fileID: 1231282345}
+  catalogCurrentSelection: {fileID: 1398747792}
+  squareAsset: {fileID: 21300000, guid: fc76f75fc7930f142bf4800e08cc4823, type: 3}
+  sphereAsset: {fileID: 21300000, guid: 9d3919290835bc744bacad770ccdbbed, type: 3}
 --- !u!4 &1215870093
 Transform:
   m_ObjectHideFlags: 0
@@ -3024,6 +3028,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1231282345 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4031031569664999400, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+  m_PrefabInstance: {fileID: 1750462031}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1261325577
 GameObject:
   m_ObjectHideFlags: 0
@@ -3392,7 +3401,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c1eab76e0d07b428f319dd8c280e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentObjectType: {fileID: 0}
   cubePrefab: {fileID: 0}
+  spherePrefab: {fileID: 0}
   selectedObject: {fileID: 0}
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 0}
@@ -4742,6 +4753,22 @@ PrefabInstance:
       propertyPath: m_EnableInputActions
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: spherePrefab
+      value: 
+      objectReference: {fileID: 2460721882056925077, guid: 75d469cec00a1ae47a0e763c4b4a3914, type: 3}
+    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: mainMenuPanel
+      value: 
+      objectReference: {fileID: 581869014}
+    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: defaultMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
+    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: selectedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
     - target: {fileID: 5108953179821041981, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -4762,6 +4789,10 @@ PrefabInstance:
       propertyPath: inMenuMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: spherePrefab
+      value: 
+      objectReference: {fileID: 2460721882056925077, guid: 75d469cec00a1ae47a0e763c4b4a3914, type: 3}
     - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: mainMenuPanel
       value: 

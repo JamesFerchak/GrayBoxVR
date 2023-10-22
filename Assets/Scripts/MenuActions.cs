@@ -26,6 +26,11 @@ public class MenuActions : MonoBehaviour
     [SerializeField] GameObject menuUI;
     [SerializeField] GameObject catalogUI;
     [SerializeField] GameObject cam;
+    [SerializeField] GameObject rightHandController;
+
+    [SerializeField] Image catalogCurrentSelection;
+    [SerializeField] Sprite squareAsset;
+    [SerializeField] Sprite sphereAsset;
 
     private void Awake()
     {
@@ -68,12 +73,14 @@ public class MenuActions : MonoBehaviour
 
     public void SelectSquare()
     {
-
+        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToSquare();
+        catalogCurrentSelection.sprite = squareAsset;
     }
 
-    public void SelectCircle()
+    public void SelectSphere()
     {
-
+        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToSphere();
+        catalogCurrentSelection.sprite = sphereAsset;
     }
 
     public void RelocateMainMenu()
