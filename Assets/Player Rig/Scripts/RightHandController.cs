@@ -33,6 +33,8 @@ public class RightHandController : MonoBehaviour
     public InputActionReference stick = null;
     public GameObject cam;
 
+    bool teleportToggle;
+
     //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update
     public void Awake() // tutorial used awake so I did as well. Not sure yet if start changes how it works at all.
@@ -50,6 +52,14 @@ public class RightHandController : MonoBehaviour
         Vector2 svalue = stick.action.ReadValue<Vector2>();
         float tValue = rTrigger.action.ReadValue<float>();
         float gValue = rGrip.action.ReadValue<float>();
+        if (!teleportToggle)
+        {
+            if (svalue.y > .8 && svalue.y <= 1)
+            {
+                Teleport();
+                teleportToggle = true;
+            }
+        }
         if (tValue > 0 || gValue > 0)
         {
             Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
@@ -83,7 +93,7 @@ public class RightHandController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
         {
-            cam.transform.position = hit.point; // Select the hit object
+            cam.transform.position = new Vector3(hit.point.x, cam.transform.position.y, hit.point.z); // Select the hit object
             
         }
         else // If nothing in line of sight
