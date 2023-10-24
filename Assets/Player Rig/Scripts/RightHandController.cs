@@ -33,7 +33,8 @@ public class RightHandController : MonoBehaviour
     public InputActionReference stick = null;
     public GameObject cam;
 
-    bool teleportToggle;
+    bool teleportToggle; //Prevents user from constantly teleporting when holding up on the right stick
+    bool tourModeToggle; //Puts user in a state of selecting where to shrink down
 
     //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update
@@ -42,9 +43,9 @@ public class RightHandController : MonoBehaviour
         Singleton = this;
         aButton.action.started += aToggle; // How the a button is gets its pressed detected.
         bButton.action.started += bToggle;
-		myOM = GetComponent<ObjectManipulator>();
-		if (myOM == null) Debug.LogError("NO OBJECT MANIPULATOR ON THIS SCRIPT!!!");
-	}
+        myOM = GetComponent<ObjectManipulator>();
+        if (myOM == null) Debug.LogError("NO OBJECT MANIPULATOR ON THIS SCRIPT!!!");
+    }
 
     // Update is called once per frame
     void Update()
@@ -94,12 +95,18 @@ public class RightHandController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
         {
             cam.transform.position = new Vector3(hit.point.x, cam.transform.position.y, hit.point.z); // Select the hit object
-            
+
         }
         else // If nothing in line of sight
         {
-            
+
         }
 
     }
+
+    public void TouristMode()
+    {
+
+    }
+    
 }
