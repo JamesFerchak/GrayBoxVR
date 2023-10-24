@@ -16,6 +16,7 @@ public class ObjectManipulator : MonoBehaviour
 	Quaternion contStartRot = Quaternion.identity;
 	Vector3 objStartPos = Vector3.zero;
 	Quaternion objStartRot = Quaternion.identity;
+	Quaternion contLastRot = Quaternion.identity;
 
 	// Start is called before the first frame update
 	void Start()
@@ -68,7 +69,7 @@ public class ObjectManipulator : MonoBehaviour
 				possibleColliders[indexOfNearest] != null)
 			{
 				currentlyHeldObject = possibleColliders[indexOfNearest].gameObject;
-				contStartPos = transform.position;
+				contStartPos = cursor.transform.position;
 				objStartPos = currentlyHeldObject.transform.position;
 			}
 		}
@@ -86,9 +87,17 @@ public class ObjectManipulator : MonoBehaviour
 	{
 		if (currentlyHeldObject != null)
 		{
-			Vector3 positionToAdd = transform.position - contStartPos;
+			Vector3 positionToAdd = cursor.transform.position - contStartPos;
 			currentlyHeldObject.transform.position = objStartPos + positionToAdd;
-			Quaternion rotationToAdd = transform.rotation * contStartRot;
+
+			currentlyHeldObject.transform.rotation = contStartRot * transform.rotation;
+			currentlyHeldObject.transform.rotation *= Quaternion.Inverse(contStartRot);
+
+			//currentlyHeldObject.transform.localEulerAngles = contLastRot.eulerAngles - transform.rotation.eulerAngles;
+
+			/*Quaternion rotationToAdd = Quaternion.Inverse(contStartRot) * transform.rotation;
+			currentlyHeldObject.transform.rotation = currentlyHeldObject.transform.rotation * rotationToAdd;*/
 		}
+		contLastRot = transform.rotation;
 	}
 }
