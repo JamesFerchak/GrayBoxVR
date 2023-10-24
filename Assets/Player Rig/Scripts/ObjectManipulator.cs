@@ -1,8 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Unity.VisualScripting;
+using Unity.XR.CoreUtils;
 using UnityEditor;
 using UnityEngine;
+
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class ObjectManipulator : MonoBehaviour
 {
@@ -71,12 +76,17 @@ public class ObjectManipulator : MonoBehaviour
 				currentlyHeldObject = possibleColliders[indexOfNearest].gameObject;
 				contStartPos = cursor.transform.position;
 				objStartPos = currentlyHeldObject.transform.position;
+
+				currentlyHeldObject.transform.parent = transform; 
+
 			}
 		}
 		//if we're holing something and we aren't holding the grab button, ungrab
 		else if (currentlyHeldObject != null && grabValue < grabTreshhold)
 		{
+			currentlyHeldObject.transform.parent = null;
 			currentlyHeldObject = null;
+
 		}
 
 		//if we've ungrabbed, get ready to try again
@@ -87,16 +97,20 @@ public class ObjectManipulator : MonoBehaviour
 	{
 		if (currentlyHeldObject != null)
 		{
-			Vector3 positionToAdd = cursor.transform.position - contStartPos;
-			currentlyHeldObject.transform.position = objStartPos + positionToAdd;
 
-			currentlyHeldObject.transform.rotation = contStartRot * transform.rotation;
-			currentlyHeldObject.transform.rotation *= Quaternion.Inverse(contStartRot);
 
-			//currentlyHeldObject.transform.localEulerAngles = contLastRot.eulerAngles - transform.rotation.eulerAngles;
 
-			/*Quaternion rotationToAdd = Quaternion.Inverse(contStartRot) * transform.rotation;
-			currentlyHeldObject.transform.rotation = currentlyHeldObject.transform.rotation * rotationToAdd;*/
+			if (false)
+			{
+				Vector3 positionToAdd = cursor.transform.position - contStartPos;
+				currentlyHeldObject.transform.position = objStartPos + positionToAdd;
+
+				currentlyHeldObject.transform.rotation = transform.rotation;
+			}
+
+			// weird euler way that doesn't work
+			/*Vector3 eulerToAdd = contStartRot.eulerAngles - transform.rotation.eulerAngles;
+			currentlyHeldObject.transform.rotation = Quaternion.Euler(objStartRot.eulerAngles + eulerToAdd);*/
 		}
 		contLastRot = transform.rotation;
 	}
