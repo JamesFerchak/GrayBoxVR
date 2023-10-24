@@ -208,7 +208,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1215870092}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: SelectCylinder
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3013,6 +3013,8 @@ MonoBehaviour:
   catalogCurrentSelection: {fileID: 1398747792}
   squareAsset: {fileID: 21300000, guid: fc76f75fc7930f142bf4800e08cc4823, type: 3}
   sphereAsset: {fileID: 21300000, guid: 9d3919290835bc744bacad770ccdbbed, type: 3}
+  cylinderAsset: {fileID: 21300000, guid: 5a2f22e29489b734c8618e00c606d132, type: 3}
+  pyramidAsset: {fileID: 21300000, guid: 40fdd81536850344ba831c51f5740572, type: 3}
 --- !u!4 &1215870093
 Transform:
   m_ObjectHideFlags: 0
@@ -3336,7 +3338,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1215870092}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: SelectPyramid
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3404,6 +3406,8 @@ MonoBehaviour:
   currentObjectType: {fileID: 0}
   cubePrefab: {fileID: 0}
   spherePrefab: {fileID: 0}
+  cylinderPrefab: {fileID: 0}
+  pyramidPrefab: {fileID: 0}
   selectedObject: {fileID: 0}
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 0}
@@ -4576,7 +4580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fdcad01d23593ad468ba1ea29d4d8e47, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 40fdd81536850344ba831c51f5740572, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4761,6 +4765,14 @@ PrefabInstance:
       propertyPath: mainMenuPanel
       value: 
       objectReference: {fileID: 581869014}
+    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: pyramidPrefab
+      value: 
+      objectReference: {fileID: 7323685956055578646, guid: c1b803c3b2e5de04d82757468be5e2c3, type: 3}
+    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: cylinderPrefab
+      value: 
+      objectReference: {fileID: 9134883110955198979, guid: cb9fb99b299a83145bfc37220b48e5cd, type: 3}
     - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: defaultMaterial
       value: 
@@ -5372,7 +5384,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fdcad01d23593ad468ba1ea29d4d8e47, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a2f22e29489b734c8618e00c606d132, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

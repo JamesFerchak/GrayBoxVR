@@ -8,6 +8,8 @@ public class PaletteScript : MonoBehaviour
     public GameObject currentObjectType; // The type of "block" being placed (square, circle, etc.)
     public GameObject cubePrefab; // Cube GameObject
     public GameObject spherePrefab; // Sphere GameObject
+    public GameObject cylinderPrefab; // Cylinder GameObject
+    public GameObject pyramidPrefab; // Pyramid GameObject
     public GameObject selectedObject; // The selected object in edit mode
 
     public Material defaultMaterial; // Material for Cube GameObject
@@ -142,5 +144,15 @@ public class PaletteScript : MonoBehaviour
     public void ChangeToSphere()
     {
         currentObjectType = spherePrefab;
+    }
+
+    public void ChangeToCylinder()
+    {
+        currentObjectType = cylinderPrefab;
+    }
+
+    public void ChangeToPyramid()
+    {
+        currentObjectType = pyramidPrefab;
     }
 }

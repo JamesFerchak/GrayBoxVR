@@ -31,6 +31,8 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Image catalogCurrentSelection;
     [SerializeField] Sprite squareAsset;
     [SerializeField] Sprite sphereAsset;
+    [SerializeField] Sprite cylinderAsset;
+    [SerializeField] Sprite pyramidAsset;
 
     private void Awake()
     {
@@ -81,6 +83,18 @@ public class MenuActions : MonoBehaviour
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToSphere();
         catalogCurrentSelection.sprite = sphereAsset;
+    }
+
+    public void SelectCylinder()
+    {
+        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToCylinder();
+        catalogCurrentSelection.sprite = cylinderAsset;
+    }
+
+    public void SelectPyramid()
+    {
+        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToPyramid();
+        catalogCurrentSelection.sprite = pyramidAsset;
     }
 
     public void RelocateMainMenu()
