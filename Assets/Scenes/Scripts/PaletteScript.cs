@@ -10,6 +10,10 @@ public class PaletteScript : MonoBehaviour
     public GameObject spherePrefab; // Sphere GameObject
     public GameObject cylinderPrefab; // Cylinder GameObject
     public GameObject pyramidPrefab; // Pyramid GameObject
+    public GameObject floorPrefab; // Cube GameObject
+    public GameObject pillarPrefab; // Long pillar GameObject
+    public GameObject shortPillarPrefab; // Short pillar GameObject
+    public GameObject wallPrefab; // Wall GameObject
     public GameObject selectedObject; // The selected object in edit mode
 
     public Material defaultMaterial; // Material for Cube GameObject
@@ -154,5 +158,25 @@ public class PaletteScript : MonoBehaviour
     public void ChangeToPyramid()
     {
         currentObjectType = pyramidPrefab;
+    }
+
+    public void ChangeToFloor()
+    {
+        currentObjectType = floorPrefab;
+    }
+
+    public void ChangeToPillar()
+    {
+        currentObjectType = pillarPrefab;
+    }
+
+    public void ChangeToShortPillar()
+    {
+        currentObjectType = shortPillarPrefab;
+    }
+
+    public void ChangeToWall()
+    {
+        currentObjectType = wallPrefab;
     }
 }

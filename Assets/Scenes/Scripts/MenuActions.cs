@@ -33,6 +33,10 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Sprite sphereAsset;
     [SerializeField] Sprite cylinderAsset;
     [SerializeField] Sprite pyramidAsset;
+    [SerializeField] Sprite floorAsset;
+    [SerializeField] Sprite pillarAsset;
+    [SerializeField] Sprite shortPillarAsset;
+    [SerializeField] Sprite wallAsset;
 
     private void Awake()
     {
@@ -95,6 +99,30 @@ public class MenuActions : MonoBehaviour
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToPyramid();
         catalogCurrentSelection.sprite = pyramidAsset;
+    }
+
+    public void SelectFloor()
+    {
+        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToFloor();
+        catalogCurrentSelection.sprite = floorAsset;
+    }
+
+    public void SelectPillar()
+    {
+        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToPillar();
+        catalogCurrentSelection.sprite = pillarAsset;
+    }
+
+    public void SelectShortPillar()
+    {
+        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToShortPillar();
+        catalogCurrentSelection.sprite = shortPillarAsset;
+    }
+
+    public void SelectWall()
+    {
+        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToWall();
+        catalogCurrentSelection.sprite = wallAsset;
     }
 
     public void RelocateMainMenu()

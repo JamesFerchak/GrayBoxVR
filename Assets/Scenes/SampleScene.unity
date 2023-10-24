@@ -1224,7 +1224,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1215870092}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: SelectPillar
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1411,7 +1411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fdcad01d23593ad468ba1ea29d4d8e47, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cfb3b35aa49ac3048831657316801be2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1443,7 +1443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5492662194834274311, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6963056440210438827, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Color.a
@@ -1782,7 +1782,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1215870092}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: SelectShortPillar
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2736,7 +2736,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fdcad01d23593ad468ba1ea29d4d8e47, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 31d034b81ed173c48b1b581689acbbe8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3015,6 +3015,10 @@ MonoBehaviour:
   sphereAsset: {fileID: 21300000, guid: 9d3919290835bc744bacad770ccdbbed, type: 3}
   cylinderAsset: {fileID: 21300000, guid: 5a2f22e29489b734c8618e00c606d132, type: 3}
   pyramidAsset: {fileID: 21300000, guid: 40fdd81536850344ba831c51f5740572, type: 3}
+  floorAsset: {fileID: 21300000, guid: cfb3b35aa49ac3048831657316801be2, type: 3}
+  pillarAsset: {fileID: 21300000, guid: 31d034b81ed173c48b1b581689acbbe8, type: 3}
+  shortPillarAsset: {fileID: 21300000, guid: 7014f304d804987478f138985e467ef9, type: 3}
+  wallAsset: {fileID: 21300000, guid: 26ff526d69796f3428a12ccec8b18892, type: 3}
 --- !u!4 &1215870093
 Transform:
   m_ObjectHideFlags: 0
@@ -3408,6 +3412,10 @@ MonoBehaviour:
   spherePrefab: {fileID: 0}
   cylinderPrefab: {fileID: 0}
   pyramidPrefab: {fileID: 0}
+  floorPrefab: {fileID: 0}
+  pillarPrefab: {fileID: 0}
+  shortPillarPrefab: {fileID: 0}
+  wallPrefab: {fileID: 0}
   selectedObject: {fileID: 0}
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 0}
@@ -3622,7 +3630,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1215870092}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: SelectWall
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4339,7 +4347,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1215870092}
         m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: SelectFloor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4655,7 +4663,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fdcad01d23593ad468ba1ea29d4d8e47, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 26ff526d69796f3428a12ccec8b18892, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5100,7 +5108,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fdcad01d23593ad468ba1ea29d4d8e47, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7014f304d804987478f138985e467ef9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
