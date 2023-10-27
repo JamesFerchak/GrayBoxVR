@@ -70,8 +70,8 @@ public class ObjectManipulator : MonoBehaviour
 
 			//if there is a viable collider, make it the grabbed object
 			if (indexOfNearest >= 0 && 
-				indexOfNearest < possibleColliders.Count && 
-				possibleColliders[indexOfNearest] != null)
+			indexOfNearest < possibleColliders.Count && 
+			possibleColliders[indexOfNearest] != null)
 			{
 				currentlyHeldObject = possibleColliders[indexOfNearest].gameObject;
 				contStartPos = cursor.transform.position;
