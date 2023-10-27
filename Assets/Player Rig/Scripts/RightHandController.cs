@@ -100,13 +100,19 @@ public class RightHandController : MonoBehaviour
     public void aToggle(InputAction.CallbackContext context)
     {
         //Debug.Log("A button pressed.");
-        GetComponent<PaletteScript>().PlaceObject();
+        if (!inTourMode)
+        {
+            GetComponent<PaletteScript>().PlaceObject();
+        }
         //p.PlaceObject();
     }
     public void bToggle(InputAction.CallbackContext context)
     {
         //Debug.Log("B button pressed.");
-        GetComponent<PaletteScript>().EraseObject();
+        if (!inTourMode)
+        {
+            GetComponent<PaletteScript>().PlaceObject();
+        }
         //p.EraseObject();
     }
 
