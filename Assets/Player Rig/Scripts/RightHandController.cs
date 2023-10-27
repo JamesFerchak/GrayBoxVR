@@ -36,7 +36,7 @@ public class RightHandController : MonoBehaviour
 
     bool teleportToggle = false; // Prevents user from constantly teleporting when holding up on the right stick
     public bool tourModeTeleportToggle = false; // Puts user in a state of selecting where to shrink down
-    bool inTourMode = false;
+    public bool inTourMode = false;
     public int tourModeShrinkMultiplier = 5;
 
     Vector3 LastEditModePosition; //Records the last position of player before going into
