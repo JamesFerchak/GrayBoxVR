@@ -133,6 +133,10 @@ public class RightHandController : MonoBehaviour
 
     }
 
+    public void ActivateTourToggle()
+    {
+        tourModeTeleportToggle = true;
+    }
     public void TouristMode()
     {
         Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
