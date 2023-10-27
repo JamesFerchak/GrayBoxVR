@@ -4766,29 +4766,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
-      propertyPath: spherePrefab
-      value: 
-      objectReference: {fileID: 2460721882056925077, guid: 75d469cec00a1ae47a0e763c4b4a3914, type: 3}
-    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: mainMenuPanel
       value: 
       objectReference: {fileID: 581869014}
-    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
-      propertyPath: pyramidPrefab
-      value: 
-      objectReference: {fileID: 7323685956055578646, guid: c1b803c3b2e5de04d82757468be5e2c3, type: 3}
-    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
-      propertyPath: cylinderPrefab
-      value: 
-      objectReference: {fileID: 9134883110955198979, guid: cb9fb99b299a83145bfc37220b48e5cd, type: 3}
-    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
-      propertyPath: defaultMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
-    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
-      propertyPath: selectedMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
     - target: {fileID: 5108953179821041981, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: m_Enabled
       value: 1
