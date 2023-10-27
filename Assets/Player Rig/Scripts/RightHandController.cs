@@ -112,7 +112,7 @@ public class RightHandController : MonoBehaviour
         //Debug.Log("B button pressed.");
         if (!inTourMode)
         {
-            GetComponent<PaletteScript>().PlaceObject();
+            GetComponent<PaletteScript>().EraseObject();
         }
         //p.EraseObject();
     }

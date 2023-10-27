@@ -61,7 +61,7 @@ public class LeftHandController : MonoBehaviour
 	public void xToggle(InputAction.CallbackContext context)
 	{
 		//Debug.Log("X button pressed.");
-		if (RightHandController.Singleton.inTourMode)
+		if (!RightHandController.Singleton.inTourMode)
 		{
             GetComponent<PaletteScript>().EditObject();
         }
