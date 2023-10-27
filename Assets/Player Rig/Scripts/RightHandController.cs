@@ -34,10 +34,13 @@ public class RightHandController : MonoBehaviour
     public GameObject cam; //reference to camera offset
     public GameObject rig; //reference to XR rig
 
-    bool teleportToggle; // Prevents user from constantly teleporting when holding up on the right stick
-    bool tourModeTeleportToggle; // Puts user in a state of selecting where to shrink down
-    bool inTourMode;
-    public int tourModeShrinkMultiplier;
+    bool teleportToggle = false; // Prevents user from constantly teleporting when holding up on the right stick
+    public bool tourModeTeleportToggle = false; // Puts user in a state of selecting where to shrink down
+    bool inTourMode = false;
+    public int tourModeShrinkMultiplier = 5;
+
+    Vector3 LastEditModePosition; //Records the last position of player before going into
+
 
     //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update
@@ -56,7 +59,7 @@ public class RightHandController : MonoBehaviour
         Vector2 svalue = stick.action.ReadValue<Vector2>();
         float tValue = rTrigger.action.ReadValue<float>();
         float gValue = rGrip.action.ReadValue<float>();
-        if (!tourModeTeleportToggle && !inTourMode)
+        if (!tourModeTeleportToggle && !inTourMode) //
         {
             // Edit Mode
             if (!teleportToggle)
@@ -69,7 +72,7 @@ public class RightHandController : MonoBehaviour
             }
             if (tValue > 0 || gValue > 0)
             {
-                Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
+                //Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
             }
 
             if (svalue.y < .8 && svalue.y >= 0)
@@ -79,30 +82,37 @@ public class RightHandController : MonoBehaviour
 
             myOM.TryGrab(gValue);
         }
-        if(tourModeTeleportToggle)
+        if (tourModeTeleportToggle)
         { //Next Teleport will put player into tour mode
             if (tValue > .8)
             {
                 TouristMode();
             }
         }
+        if (inTourMode)
+        {
+            if (gValue > .8 && gValue <= 1)
+            {
+                BackToEditMode();
+            }
+        }
     }
     public void aToggle(InputAction.CallbackContext context)
     {
-        Debug.Log("A button pressed.");
+        //Debug.Log("A button pressed.");
         GetComponent<PaletteScript>().PlaceObject();
         //p.PlaceObject();
     }
     public void bToggle(InputAction.CallbackContext context)
     {
-        Debug.Log("B button pressed.");
+        //Debug.Log("B button pressed.");
         GetComponent<PaletteScript>().EraseObject();
         //p.EraseObject();
     }
 
     public void Teleport()
     {
-        Debug.Log("Stick y value = 1.");
+        //Debug.Log("Stick y value = 1.");
         Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
 
         if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
@@ -122,9 +132,11 @@ public class RightHandController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
         {
+            LastEditModePosition = cam.transform.position;
             rig.transform.localScale = new Vector3(rig.transform.localScale.x / tourModeShrinkMultiplier, rig.transform.localScale.y / tourModeShrinkMultiplier, rig.transform.localScale.z / tourModeShrinkMultiplier);
             cam.transform.position = hit.point; // Select the hit object
-            
+            tourModeTeleportToggle = false;
+            inTourMode = true;
         }
         else // If nothing in line of sight
         {
@@ -132,4 +144,12 @@ public class RightHandController : MonoBehaviour
         }
     }
     
+    public void BackToEditMode()
+    {
+        Debug.Log("Back to Edit Mode Called");
+        cam.transform.position = LastEditModePosition;
+        rig.transform.localScale = new Vector3(rig.transform.localScale.x * tourModeShrinkMultiplier, rig.transform.localScale.y * tourModeShrinkMultiplier, rig.transform.localScale.z * tourModeShrinkMultiplier);
+        inTourMode = false;
+        tourModeTeleportToggle = false;
+    }
 }

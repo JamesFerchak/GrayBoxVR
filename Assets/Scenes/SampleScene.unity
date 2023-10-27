@@ -953,7 +953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateTrackingType: 0
   m_EnableInputTracking: 1
-  m_EnableInputActions: 1
+  m_EnableInputActions: 0
   m_ModelPrefab: {fileID: 0}
   m_ModelParent: {fileID: 0}
   m_Model: {fileID: 0}
@@ -1313,9 +1313,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 494598540}
     - target: {fileID: 6466911072458586733, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: rig
+      value: 
+      objectReference: {fileID: 1379564777}
+    - target: {fileID: 6466911072458586733, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: stick
       value: 
       objectReference: {fileID: 6785001733958941053, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    - target: {fileID: 6466911072458586733, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: tourModeTeleportToggle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466911072458586733, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: tourModeShrinkMultiplier
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7613797399247120251, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: m_Enabled
       value: 1

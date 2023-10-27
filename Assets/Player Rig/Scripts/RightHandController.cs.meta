@@ -8,6 +8,9 @@ MonoImporter:
   - rTrigger: {fileID: 1592152498474701456, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   - bButton: {fileID: 4822750037461183173, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   - rGrip: {fileID: 4569334403090337415, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - stick: {fileID: 4822750037461183173, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - cam: {instanceID: 0}
+  - rig: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
