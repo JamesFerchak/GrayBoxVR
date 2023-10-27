@@ -31,10 +31,13 @@ public class RightHandController : MonoBehaviour
     public InputActionReference bButton = null;
     public InputActionReference rGrip = null;
     public InputActionReference stick = null;
-    public GameObject cam;
+    public GameObject cam; //reference to camera offset
+    public GameObject rig; //reference to XR rig
 
-    bool teleportToggle; //Prevents user from constantly teleporting when holding up on the right stick
-    bool tourModeToggle; //Puts user in a state of selecting where to shrink down
+    bool teleportToggle; // Prevents user from constantly teleporting when holding up on the right stick
+    bool tourModeTeleportToggle; // Puts user in a state of selecting where to shrink down
+    bool inTourMode;
+    public int tourModeShrinkMultiplier;
 
     //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update
@@ -53,27 +56,37 @@ public class RightHandController : MonoBehaviour
         Vector2 svalue = stick.action.ReadValue<Vector2>();
         float tValue = rTrigger.action.ReadValue<float>();
         float gValue = rGrip.action.ReadValue<float>();
-        if (!teleportToggle)
+        if (!tourModeTeleportToggle && !inTourMode)
         {
-            if (svalue.y > .8 && svalue.y <= 1)
+            // Edit Mode
+            if (!teleportToggle)
             {
-                Teleport();
-                teleportToggle = true;
+                if (svalue.y > .8 && svalue.y <= 1)
+                {
+                    Teleport();
+                    teleportToggle = true;
+                }
+            }
+            if (tValue > 0 || gValue > 0)
+            {
+                Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
+            }
+
+            if (svalue.y < .8 && svalue.y >= 0)
+            {
+                teleportToggle = false;
+            }
+
+            myOM.TryGrab(gValue);
+        }
+        if(tourModeTeleportToggle)
+        { //Next Teleport will put player into tour mode
+            if (tValue > .8)
+            {
+                TouristMode();
             }
         }
-        if (tValue > 0 || gValue > 0)
-        {
-            Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
-        }
-
-        if (svalue.y < .8 && svalue.y >= 0)
-        {
-            teleportToggle = false;
-        }
-
-        myOM.TryGrab(gValue);
     }
-
     public void aToggle(InputAction.CallbackContext context)
     {
         Debug.Log("A button pressed.");
@@ -95,7 +108,6 @@ public class RightHandController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
         {
             cam.transform.position = new Vector3(hit.point.x, cam.transform.position.y, hit.point.z); // Select the hit object
-
         }
         else // If nothing in line of sight
         {
@@ -106,7 +118,18 @@ public class RightHandController : MonoBehaviour
 
     public void TouristMode()
     {
+        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
 
+        if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
+        {
+            rig.transform.localScale = new Vector3(rig.transform.localScale.x / tourModeShrinkMultiplier, rig.transform.localScale.y / tourModeShrinkMultiplier, rig.transform.localScale.z / tourModeShrinkMultiplier);
+            cam.transform.position = hit.point; // Select the hit object
+            
+        }
+        else // If nothing in line of sight
+        {
+
+        }
     }
     
 }
