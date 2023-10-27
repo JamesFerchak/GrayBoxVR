@@ -85,8 +85,16 @@ public class ObjectManipulator : MonoBehaviour
 
 			if (stretchingCollider != null) {
 				currentlyHeldObject = stretchingCollider.gameObject;
+
+				Debug.Log($"Man, I sure am stretching rn. {currentlyHeldObject.transform.localPosition - transform.localPosition}");
 			}
 		}
+		else if (currentlyHeldObject != null && triggerValue < grabTreshhold)
+		{
+			currentlyHeldObject = null;
+		}
+
+		if (triggerValue < grabTreshhold) triedToStretchAlready = false;
 	}
 
 	public void TryGrab(float grabValue)
@@ -104,7 +112,6 @@ public class ObjectManipulator : MonoBehaviour
 			}
 
 		}
-		//if we're holing something and we aren't holding the grab button, ungrab
 		else if (currentlyHeldObject != null && grabValue < grabTreshhold)
 		{
 			currentlyHeldObject.transform.parent = null;
