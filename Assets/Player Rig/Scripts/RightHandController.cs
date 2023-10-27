@@ -81,6 +81,7 @@ public class RightHandController : MonoBehaviour
             }
 
             myOM.TryGrab(gValue);
+            myOM.TryStretch(tValue);
         }
         if (tourModeTeleportToggle)
         { //Next Teleport will put player into tour mode
