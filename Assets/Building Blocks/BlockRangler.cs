@@ -63,14 +63,14 @@ public class BlockRangler : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
-            SavePlayerLevel();
+            SaveLevel();
 
         if (Input.GetKeyDown(KeyCode.L))
-            BuildLevelFromSave();
+            LoadLevel();
     }
 
 	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
-	public static void SavePlayerLevel()
+	public static void SaveLevel()
 	{
 		BinaryFormatter myFormatter = new();
 		FileStream myStream = new(levelPath, FileMode.Create);
@@ -82,7 +82,7 @@ public class BlockRangler : MonoBehaviour
 	}
 
 	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
-	private static LevelSavedData LoadPlayerLevel()
+	private static LevelSavedData GetLevelFromFile()
     {
         if (File.Exists(levelPath))
         {
@@ -102,9 +102,9 @@ public class BlockRangler : MonoBehaviour
     }
 
     //COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
-    public void BuildLevelFromSave()
+    public void LoadLevel()
     {
-        LevelSavedData levelToLoad = LoadPlayerLevel();
+        LevelSavedData levelToLoad = GetLevelFromFile();
         if (levelToLoad != null)
         {
             foreach (GameObject block in blocks)

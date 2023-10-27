@@ -72,7 +72,7 @@ public class LeftHandController : MonoBehaviour
 
 	public void menuToggle(InputAction.CallbackContext context)
 	{
-		Debug.Log("Menu button pressed.");
+		//Debug.Log("Menu button pressed.");
 		GetComponent<PaletteScript>().InteractWithMainMenu();
 	}
 }
