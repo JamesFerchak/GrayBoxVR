@@ -23,8 +23,10 @@ public class MenuActions : MonoBehaviour
     }
 
     [SerializeField] GameObject mainMenuCanvas;
-    [SerializeField] GameObject menuUI;
+    [SerializeField] GameObject optionsUI;
     [SerializeField] GameObject catalogUI;
+    [SerializeField] GameObject saveUI;
+    [SerializeField] GameObject loadUI;
     [SerializeField] GameObject cam;
     [SerializeField] GameObject rightHandController;
 
@@ -61,20 +63,6 @@ public class MenuActions : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("DEBUG: Quitting game...");
-    }
-
-    public void SwapMenu()
-    {
-        if (menuUI.active)
-        {
-            menuUI.SetActive(false);
-            catalogUI.SetActive(true);
-        }
-        else
-        {
-            menuUI.SetActive(true);
-            catalogUI.SetActive(false);
-        }
     }
 
     public void SelectSquare()
@@ -129,6 +117,49 @@ public class MenuActions : MonoBehaviour
     {
         Vector3 newMainMenuPosition = cam.transform.TransformPoint(Vector3.forward * 2);
         newMainMenuPosition.y = 35;
-        mainMenuCanvas.transform.position = newMainMenuPosition; 
+        mainMenuCanvas.transform.position = newMainMenuPosition;
+    }
+
+    public void OpenOptionsMenu()
+    {
+        optionsUI.SetActive(true);
+        catalogUI.SetActive(false);
+        saveUI.SetActive(false);
+        loadUI.SetActive(false);
+
+    }
+
+    public void OpenCatalogMenu()
+    {
+        optionsUI.SetActive(false);
+        catalogUI.SetActive(true);
+        saveUI.SetActive(false);
+        loadUI.SetActive(false);
+    }
+
+    public void OpenSaveMenu()
+    {
+        optionsUI.SetActive(false);
+        catalogUI.SetActive(false);
+        saveUI.SetActive(true);
+        loadUI.SetActive(false);
+    }
+
+    public void OpenLoadMenu()
+    {
+        optionsUI.SetActive(false);
+        catalogUI.SetActive(false);
+        saveUI.SetActive(false);
+        loadUI.SetActive(true);
+    }
+
+    public void SaveLevelWithButton()
+    {
+        BlockRangler.SaveLevel();
+    }
+
+    public void LoadLevelWithButton()
+    {
+        BlockRangler.LoadLevel();
     }
 }
