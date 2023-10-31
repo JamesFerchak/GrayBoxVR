@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PaletteScript : MonoBehaviour
 {
@@ -22,6 +24,9 @@ public class PaletteScript : MonoBehaviour
 
     public GameObject mainMenuPanel; // Panel for the main menu
     public bool inMenuMode; // True if the menu is open
+    public Text placementAssistDegree;
+    public Text rotationAssistDegree;
+    public Text scalingAssistDegree;
 
     public bool inMoveMode; // True if there is currently a selected object in move mode
     public bool inEditMode; // True if there is currently a selected object in edit mode

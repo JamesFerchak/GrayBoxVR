@@ -56,17 +56,17 @@ public class MenuActions : MonoBehaviour
     {
         placementAssistanceSlider.onValueChanged.AddListener((value) =>
         {
-            placementAssistanceText.text = value.ToString("0");
+            placementAssistanceText.text = Mathf.Pow(2, value).ToString("0");
         });
 
         rotationAssistanceSlider.onValueChanged.AddListener((value) =>
         {
-            rotationAssistanceText.text = value.ToString("0");
+            rotationAssistanceText.text = Mathf.Pow(2, value).ToString("0");
         });
 
         scalingAssistanceSlider.onValueChanged.AddListener((value) =>
         {
-            scalingAssistanceText.text = value.ToString("0");
+            scalingAssistanceText.text = Mathf.Pow(2, value).ToString("0");
         });
     }
 
@@ -186,26 +186,5 @@ public class MenuActions : MonoBehaviour
     public void LoadLevelWithButton()
     {
         BlockRangler.LoadLevel();
-    }
-
-    private int ReturnClosestPowerOfTwo(float input)
-    {
-        int higherPower = 1;
-
-        while (higherPower < input)
-        {
-            higherPower *= 2;
-        }
-
-        int lowerPower = higherPower / 2;
-
-        if ((higherPower - input) >= ((lowerPower - input) * -1)) // If higher power is closer to input than lower
-        {
-            return higherPower;
-        }
-        else
-        {
-            return lowerPower;
-        }
     }
 }
