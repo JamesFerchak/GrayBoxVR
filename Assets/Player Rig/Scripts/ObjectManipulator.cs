@@ -15,6 +15,8 @@ public class ObjectManipulator : MonoBehaviour
 	[SerializeField] GameObject cursor;
 	readonly float grabTreshhold = 0.8f;
 
+	float grabRadius;
+
 	private GameObject currentlyHeldObject = null;
 	private GameObject currentlyStretchingObject = null;
 	bool triedToGrabAlready = false;
@@ -24,6 +26,11 @@ public class ObjectManipulator : MonoBehaviour
 	Vector3 objStartPos = Vector3.zero;
 	Quaternion objStartRot = Quaternion.identity;
 	Quaternion contLastRot = Quaternion.identity;
+
+	private void Awake()
+	{
+		grabRadius = cursor.transform.localScale.x;
+	}
 
 	// Start is called before the first frame update
 	void Start()
@@ -41,7 +48,7 @@ public class ObjectManipulator : MonoBehaviour
 
 	private Collider GetGrabbedCollider()
 	{
-		List<Collider> possibleColliders = new(Physics.OverlapSphere(cursor.transform.position, .05f));
+		List<Collider> possibleColliders = new(Physics.OverlapSphere(cursor.transform.position, grabRadius));
 
 		//get ready to go through list
 		float distanceToNearest = Mathf.Infinity;
@@ -80,18 +87,17 @@ public class ObjectManipulator : MonoBehaviour
 
 	public void TryStretch(float triggerValue)
 	{
-		triedToStretchAlready = true;
 
-		if (currentlyStretchingObject == null && triggerValue >= grabTreshhold && !triedToStretchAlready)
-		{
+		if (currentlyStretchingObject == null && triggerValue >= grabTreshhold && !triedToStretchAlready) {
+		
 			triedToStretchAlready = true;
 
 			Collider stretchingCollider = GetGrabbedCollider();
 
 			if (stretchingCollider != null) {
 				currentlyStretchingObject = stretchingCollider.gameObject;
+				Debug.Log($"Man, I sure am stretching rn. {triggerValue}");
 
-				Debug.Log($"Man, I sure am stretching rn. {currentlyStretchingObject.transform.localPosition - transform.localPosition}");
 			}
 		}
 		else if (currentlyStretchingObject != null && triggerValue < grabTreshhold)
