@@ -250,7 +250,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'OFF
+  m_Text: '0
 
 '
 --- !u!1 &1070171080386705658
@@ -3454,7 +3454,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'OFF
+  m_Text: '0
 
 '
 --- !u!1 &5100412136016222167
@@ -5479,7 +5479,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'OFF
+  m_Text: '0
 
 '
 --- !u!1 &8202355124572224129
