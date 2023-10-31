@@ -16,6 +16,7 @@ public class ObjectManipulator : MonoBehaviour
 	readonly float grabTreshhold = 0.8f;
 
 	private GameObject currentlyHeldObject = null;
+	private GameObject currentlyStretchingObject = null;
 	bool triedToGrabAlready = false;
 	bool triedToStretchAlready = false;
 	Vector3 contStartPos = Vector3.zero;
@@ -36,6 +37,8 @@ public class ObjectManipulator : MonoBehaviour
 
 	}
 
+
+
 	private Collider GetGrabbedCollider()
 	{
 		List<Collider> possibleColliders = new(Physics.OverlapSphere(cursor.transform.position, .05f));
@@ -47,10 +50,10 @@ public class ObjectManipulator : MonoBehaviour
 		//go through list of near colliders and find the closest one with the Block tag
 		foreach (Collider collider in possibleColliders)
 		{
-			Debug.Log($"found a collider: {collider.gameObject.name}");
+			//Debug.Log($"found a collider: {collider.gameObject.name}");
 			if (collider.gameObject.GetComponent<BuildingBlockBehavior>() != null)
 			{
-				Debug.Log($"found a block: {collider.gameObject.name}");
+				//Debug.Log($"found a block: {collider.gameObject.name}");
 				float distanceToThis = Vector3.Distance(cursor.transform.position, collider.transform.position);
 				if (distanceToThis < distanceToNearest)
 				{
@@ -73,29 +76,33 @@ public class ObjectManipulator : MonoBehaviour
 			return null;
 	}
 
+
+
 	public void TryStretch(float triggerValue)
 	{
 		triedToStretchAlready = true;
 
-		if (currentlyHeldObject == null && triggerValue >= grabTreshhold && !triedToStretchAlready)
+		if (currentlyStretchingObject == null && triggerValue >= grabTreshhold && !triedToStretchAlready)
 		{
 			triedToStretchAlready = true;
 
 			Collider stretchingCollider = GetGrabbedCollider();
 
 			if (stretchingCollider != null) {
-				currentlyHeldObject = stretchingCollider.gameObject;
+				currentlyStretchingObject = stretchingCollider.gameObject;
 
-				Debug.Log($"Man, I sure am stretching rn. {currentlyHeldObject.transform.localPosition - transform.localPosition}");
+				Debug.Log($"Man, I sure am stretching rn. {currentlyStretchingObject.transform.localPosition - transform.localPosition}");
 			}
 		}
-		else if (currentlyHeldObject != null && triggerValue < grabTreshhold)
+		else if (currentlyStretchingObject != null && triggerValue < grabTreshhold)
 		{
-			currentlyHeldObject = null;
+			currentlyStretchingObject = null;
 		}
 
 		if (triggerValue < grabTreshhold) triedToStretchAlready = false;
 	}
+
+
 
 	public void TryGrab(float grabValue)
 	{

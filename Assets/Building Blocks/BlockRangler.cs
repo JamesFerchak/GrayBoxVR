@@ -102,7 +102,7 @@ public class BlockRangler : MonoBehaviour
 	}
 
 	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
-	public void LoadLevel()
+	public static void LoadLevel()
 	{
 		LevelSavedData levelToLoad = GetLevelFromFile();
 		if (levelToLoad != null)
