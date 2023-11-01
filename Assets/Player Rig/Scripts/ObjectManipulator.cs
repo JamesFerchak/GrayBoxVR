@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEditor;
 using UnityEngine;
+using System;
 
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
@@ -13,19 +14,28 @@ public class ObjectManipulator : MonoBehaviour
 {
 
 	[SerializeField] GameObject cursor;
+	Vector3 cursorPosition => cursor.transform.position;
 	readonly float grabTreshhold = 0.8f;
 
 	float grabRadius;
 
 	private GameObject currentlyHeldObject = null;
-	private GameObject currentlyStretchingObject = null;
 	bool triedToGrabAlready = false;
+	//Vector3 cursorStartPosition = Vector3.zero;
+	//Quaternion controllerStartRotation = Quaternion.identity;
+	//Vector3 objectStartPosition = Vector3.zero;
+	//Quaternion objectStartRotation = Quaternion.identity;
+	//Quaternion controllerLastRotation = Quaternion.identity;
+	
+	//stretching
 	bool triedToStretchAlready = false;
-	Vector3 contStartPos = Vector3.zero;
-	Quaternion contStartRot = Quaternion.identity;
-	Vector3 objStartPos = Vector3.zero;
-	Quaternion objStartRot = Quaternion.identity;
-	Quaternion contLastRot = Quaternion.identity;
+	private GameObject currentlyStretchingObject = null;
+	Vector3 objectToCursorAtStart = Vector3.zero;
+	Vector3 objectScaleAtStart = Vector3.one;
+	Vector3 objectPositionAtStart = Vector3.zero;
+	float XScalar = 0;
+	float YScalar = 0;
+	float ZScalar = 0;
 
 	private void Awake()
 	{
@@ -41,7 +51,7 @@ public class ObjectManipulator : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
+		StretchObject();
 	}
 
 
@@ -61,7 +71,7 @@ public class ObjectManipulator : MonoBehaviour
 			if (collider.gameObject.GetComponent<BuildingBlockBehavior>() != null)
 			{
 				//Debug.Log($"found a block: {collider.gameObject.name}");
-				float distanceToThis = Vector3.Distance(cursor.transform.position, collider.transform.position);
+				float distanceToThis = Vector3.Distance(cursorPosition, collider.transform.position);
 				if (distanceToThis < distanceToNearest)
 				{
 					distanceToNearest = distanceToThis;
@@ -95,17 +105,71 @@ public class ObjectManipulator : MonoBehaviour
 			Collider stretchingCollider = GetGrabbedCollider();
 
 			if (stretchingCollider != null) {
+
 				currentlyStretchingObject = stretchingCollider.gameObject;
-				Debug.Log($"Man, I sure am stretching rn. {triggerValue}");
+				Vector3 objectToCursor = currentlyStretchingObject.transform.position - cursorPosition;
+				objectToCursor = currentlyStretchingObject.transform.rotation * objectToCursor;
+
+				float maxAxisValue = 0;
+
+				if (Mathf.Abs(objectToCursor.x * currentlyStretchingObject.transform.localScale.x) > maxAxisValue)
+				{
+					maxAxisValue = Mathf.Abs(objectToCursor.x * currentlyStretchingObject.transform.localScale.x);
+					XScalar = objectToCursor.x < 0 ? -1 : 1;
+					YScalar = 0;
+					ZScalar = 0;
+				}
+				if (Mathf.Abs(objectToCursor.y * currentlyStretchingObject.transform.localScale.y) > maxAxisValue)
+				{
+					maxAxisValue = Mathf.Abs(objectToCursor.y * currentlyStretchingObject.transform.localScale.y);
+					XScalar = 0;
+					YScalar = objectToCursor.y < 0 ? -1 : 1;
+					ZScalar = 0;
+				}
+				if (Mathf.Abs(objectToCursor.z * currentlyStretchingObject.transform.localScale.z) > maxAxisValue)
+				{
+					maxAxisValue = Mathf.Abs(objectToCursor.z * currentlyStretchingObject.transform.localScale.z);
+					XScalar = 0;
+					YScalar = 0;
+					ZScalar = objectToCursor.z < 0 ? -1 : 1;
+				}
+
+				objectToCursorAtStart = objectToCursor;
+				objectScaleAtStart = currentlyStretchingObject.transform.localScale;
+				objectPositionAtStart = currentlyStretchingObject.transform.position;
 
 			}
 		}
 		else if (currentlyStretchingObject != null && triggerValue < grabTreshhold)
 		{
 			currentlyStretchingObject = null;
+			XScalar = 0;
+			YScalar = 0;
+			ZScalar = 0;
 		}
 
 		if (triggerValue < grabTreshhold) triedToStretchAlready = false;
+	}
+
+	private void StretchObject()
+	{
+		if (currentlyStretchingObject != null)
+		{
+			Vector3 objectToCursor = currentlyStretchingObject.transform.position - cursorPosition;
+			objectToCursor = currentlyStretchingObject.transform.rotation * objectToCursor;
+
+			Vector3 setScaleTo = new Vector3(
+				objectScaleAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * MathF.Abs(XScalar),
+				objectScaleAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * MathF.Abs(YScalar),
+				objectScaleAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * MathF.Abs(ZScalar));
+			currentlyStretchingObject.transform.localScale = setScaleTo;
+
+			Vector3 moveObjectTo = new Vector3(
+				objectPositionAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * 0.5f * Mathf.Abs(XScalar),
+				objectPositionAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * 0.5f * Mathf.Abs(YScalar),
+				objectPositionAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * 0.5f * Mathf.Abs(ZScalar));
+			currentlyStretchingObject.transform.position = moveObjectTo;
+		}																	   
 	}
 
 
