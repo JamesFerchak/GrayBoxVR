@@ -30,6 +30,13 @@ public class MenuActions : MonoBehaviour
     [SerializeField] GameObject cam;
     [SerializeField] GameObject rightHandController;
 
+    [SerializeField] Slider placementAssistanceSlider;
+    [SerializeField] Text placementAssistanceText;
+    [SerializeField] Slider rotationAssistanceSlider;
+    [SerializeField] Text rotationAssistanceText;
+    [SerializeField] Slider scalingAssistanceSlider;
+    [SerializeField] Text scalingAssistanceText;
+
     [SerializeField] Image catalogCurrentSelection;
     [SerializeField] Sprite squareAsset;
     [SerializeField] Sprite sphereAsset;
@@ -43,6 +50,24 @@ public class MenuActions : MonoBehaviour
     private void Awake()
     {
         Singleton = this;
+    }
+
+    private void Start()
+    {
+        placementAssistanceSlider.onValueChanged.AddListener((value) =>
+        {
+            placementAssistanceText.text = Mathf.Pow(2, value).ToString("0");
+        });
+
+        rotationAssistanceSlider.onValueChanged.AddListener((value) =>
+        {
+            rotationAssistanceText.text = Mathf.Pow(2, value).ToString("0");
+        });
+
+        scalingAssistanceSlider.onValueChanged.AddListener((value) =>
+        {
+            scalingAssistanceText.text = Mathf.Pow(2, value).ToString("0");
+        });
     }
 
     private void Update()
