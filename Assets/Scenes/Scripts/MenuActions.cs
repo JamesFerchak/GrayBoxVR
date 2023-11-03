@@ -181,10 +181,14 @@ public class MenuActions : MonoBehaviour
     public void SaveLevelWithButton()
     {
         BlockRangler.SaveLevel();
+        OpenCatalogMenu(); // Switches to catalog
+        rightHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu(); // Closes menu
     }
 
     public void LoadLevelWithButton()
     {
         BlockRangler.LoadLevel();
+        OpenCatalogMenu();
+        rightHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu();
     }
 }
