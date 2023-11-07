@@ -56,17 +56,24 @@ public class MenuActions : MonoBehaviour
     {
         placementAssistanceSlider.onValueChanged.AddListener((value) =>
         {
-            placementAssistanceText.text = Mathf.Pow(2, value).ToString("0");
+            if (value != 0)
+            {
+                placementAssistanceText.text = (1.0f / (6.0f - value)).ToString("0.00");
+            }
+            else
+            {
+                placementAssistanceText.text = "0";
+            }
         });
 
         rotationAssistanceSlider.onValueChanged.AddListener((value) =>
         {
-            rotationAssistanceText.text = Mathf.Pow(2, value).ToString("0");
+            rotationAssistanceText.text = (15.0f * value).ToString("0");
         });
 
         scalingAssistanceSlider.onValueChanged.AddListener((value) =>
         {
-            scalingAssistanceText.text = Mathf.Pow(2, value).ToString("0");
+            scalingAssistanceText.text = (1.0f / (6.0f - value)).ToString("0.00");
         });
     }
 

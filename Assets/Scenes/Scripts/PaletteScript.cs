@@ -28,6 +28,10 @@ public class PaletteScript : MonoBehaviour
     public Text rotationAssistDegree;
     public Text scalingAssistDegree;
 
+    public float placementAssistValue;
+    public float rotationAssistValue;
+    public float scalingAssistValue;
+
     public bool inMoveMode; // True if there is currently a selected object in move mode
     public bool inEditMode; // True if there is currently a selected object in edit mode
 
@@ -45,9 +49,12 @@ public class PaletteScript : MonoBehaviour
 
     public void PlaceObject()
     {
-        Vector3 position = gameObject.transform.position; // Needs to record location of block placement instead
+        Vector3 position = gameObject.transform.position;
+        position.x = RoundForPlacementAssistance(position.x);
+        position.y = RoundForPlacementAssistance(position.y);
+        position.z = RoundForPlacementAssistance(position.z);
 
-        Vector3 rotation = new Vector3(0, gameObject.transform.rotation.y * 90, 0); // Places block flat, only keeping y rotation of controller
+        Vector3 rotation = new Vector3(0, RoundForRotationAssistance(gameObject.transform.rotation.y * 90), 0); // Places block flat, only keeping y rotation of controller
 
         GameObject block = Instantiate(currentObjectType.gameObject, position, Quaternion.Euler(rotation)); // Places cube in level
         block.tag = "Block";
@@ -183,5 +190,51 @@ public class PaletteScript : MonoBehaviour
     public void ChangeToWall()
     {
         currentObjectType = wallPrefab;
+    }
+
+    public float RoundForPlacementAssistance(float realPosition)
+    {
+        placementAssistValue = float.Parse(placementAssistDegree.text);
+        if (placementAssistValue == 0.0f)
+        {
+            return realPosition;
+        }
+
+        float difference = realPosition % placementAssistValue; // Gets the difference between the actual position and the next piece of the grid
+        realPosition = realPosition - difference; // Snaps to next lowest grid position
+
+        if (Mathf.Abs(difference) > (placementAssistValue / 2)) // If the real position is closer to the next highest position, snap up
+        {
+            if (realPosition >= 0)
+            {
+                realPosition = realPosition + placementAssistValue;
+            }
+            else // If on the negative side, snap down
+            {
+                realPosition = realPosition - placementAssistValue;
+            }
+        }
+
+        return realPosition;
+    }
+
+    public float RoundForRotationAssistance(float realRotation)
+    {
+        rotationAssistValue = float.Parse(rotationAssistDegree.text);
+
+        if (rotationAssistValue == 0.0f)
+        {
+            return realRotation;
+        }
+
+        float difference = realRotation % rotationAssistValue; // Gets the difference between the actual rotation and the next snap value
+        realRotation = realRotation - difference; // Snaps to next lowest snap rotation
+
+        if (Mathf.Abs(difference) > (rotationAssistValue / 2)) // If the real rotation is closer to the next highest rotation, snap up
+        {
+            realRotation = realRotation + rotationAssistValue;
+        }
+
+        return realRotation;
     }
 }
