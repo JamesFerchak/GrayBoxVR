@@ -158,8 +158,9 @@ public class RightHandController : MonoBehaviour
     public void BackToEditMode()
     {
         Debug.Log("Back to Edit Mode Called");
-        cam.transform.position = LastEditModePosition;
         rig.transform.localScale = new Vector3(rig.transform.localScale.x * tourModeShrinkMultiplier, rig.transform.localScale.y * tourModeShrinkMultiplier, rig.transform.localScale.z * tourModeShrinkMultiplier);
+        cam.transform.position = LastEditModePosition;
+        
         inTourMode = false;
         tourModeTeleportToggle = false;
     }
