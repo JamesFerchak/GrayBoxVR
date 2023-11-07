@@ -135,7 +135,10 @@ public class RightHandController : MonoBehaviour
 
     public void ActivateTourToggle()
     {
-        tourModeTeleportToggle = true;
+        if (!inTourMode)
+        {
+            tourModeTeleportToggle = true;
+        }
     }
     public void TouristMode()
     {
