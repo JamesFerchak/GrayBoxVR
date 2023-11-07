@@ -17,6 +17,8 @@ public class PaletteScript : MonoBehaviour
     public GameObject shortPillarPrefab; // Short pillar GameObject
     public GameObject wallPrefab; // Wall GameObject
     public GameObject selectedObject; // The selected object in edit mode
+    [SerializeField] GameObject cursor;
+    Vector3 cursorPosition => cursor.transform.position;
 
     public Material defaultMaterial; // Material for Cube GameObject
     public Material selectedMaterial; // Material for the selected GameObject
@@ -49,7 +51,7 @@ public class PaletteScript : MonoBehaviour
 
     public void PlaceObject()
     {
-        Vector3 position = gameObject.transform.position;
+        Vector3 position = cursorPosition;
         position.x = RoundForPlacementAssistance(position.x);
         position.y = RoundForPlacementAssistance(position.y);
         position.z = RoundForPlacementAssistance(position.z);
@@ -67,6 +69,7 @@ public class PaletteScript : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             // Destroy the hit object
+            if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
             Destroy(hit.transform.gameObject);
         }
     }

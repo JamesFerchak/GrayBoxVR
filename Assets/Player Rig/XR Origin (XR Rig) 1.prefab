@@ -721,11 +721,18 @@ MonoBehaviour:
   shortPillarPrefab: {fileID: 0}
   wallPrefab: {fileID: 0}
   selectedObject: {fileID: 0}
+  cursor: {fileID: 7614306960812354058}
   defaultMaterial: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
   selectedMaterial: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
   savedHandPos: {x: 0, y: 0, z: 0}
   mainMenuPanel: {fileID: 0}
   inMenuMode: 0
+  placementAssistDegree: {fileID: 0}
+  rotationAssistDegree: {fileID: 0}
+  scalingAssistDegree: {fileID: 0}
+  placementAssistValue: 0
+  rotationAssistValue: 0
+  scalingAssistValue: 0
   inMoveMode: 0
   inEditMode: 0
 --- !u!1 &1122529289056507484
@@ -786,7 +793,7 @@ GameObject:
   - component: {fileID: 3557211680660129382}
   - component: {fileID: 7240156885555624988}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1062,7 +1069,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 100000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1911,11 +1918,18 @@ MonoBehaviour:
   shortPillarPrefab: {fileID: 6192684873239664979, guid: 3eea3cb3538779f42a9e3a13bca5f124, type: 3}
   wallPrefab: {fileID: 2007752775300737385, guid: cf49af8f0084a214bb159047a1c66034, type: 3}
   selectedObject: {fileID: 0}
+  cursor: {fileID: 1301752916869206891}
   defaultMaterial: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
   selectedMaterial: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
   savedHandPos: {x: 0, y: 0, z: 0}
   mainMenuPanel: {fileID: 0}
   inMenuMode: 0
+  placementAssistDegree: {fileID: 0}
+  rotationAssistDegree: {fileID: 0}
+  scalingAssistDegree: {fileID: 0}
+  placementAssistValue: 0
+  rotationAssistValue: 0
+  scalingAssistValue: 0
   inMoveMode: 0
   inEditMode: 0
 --- !u!114 &7215640607078643631
@@ -2143,7 +2157,7 @@ GameObject:
   - component: {fileID: 7530091931975709911}
   - component: {fileID: 3036455273708185074}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

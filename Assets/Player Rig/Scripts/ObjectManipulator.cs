@@ -77,10 +77,6 @@ public class ObjectManipulator : MonoBehaviour
 					distanceToNearest = distanceToThis;
 					indexOfNearest = possibleColliders.IndexOf(collider);
 				}
-				else
-				{
-					possibleColliders.Remove(collider);
-				}
 			}
 		}
 		if (indexOfNearest >= 0 &&
@@ -112,27 +108,42 @@ public class ObjectManipulator : MonoBehaviour
 
 				float maxAxisValue = 0;
 
-				if (Mathf.Abs(objectToCursor.x * currentlyStretchingObject.transform.localScale.x) > maxAxisValue)
+				if (Mathf.Abs(objectToCursor.x / currentlyStretchingObject.transform.localScale.x) > maxAxisValue)
 				{
-					maxAxisValue = Mathf.Abs(objectToCursor.x * currentlyStretchingObject.transform.localScale.x);
+					maxAxisValue = Mathf.Abs(objectToCursor.x / currentlyStretchingObject.transform.localScale.x);
 					XScalar = objectToCursor.x < 0 ? -1 : 1;
 					YScalar = 0;
 					ZScalar = 0;
 				}
-				if (Mathf.Abs(objectToCursor.y * currentlyStretchingObject.transform.localScale.y) > maxAxisValue)
+				if (Mathf.Abs(objectToCursor.y / currentlyStretchingObject.transform.localScale.y) > maxAxisValue)
 				{
-					maxAxisValue = Mathf.Abs(objectToCursor.y * currentlyStretchingObject.transform.localScale.y);
+					maxAxisValue = Mathf.Abs(objectToCursor.y / currentlyStretchingObject.transform.localScale.y);
 					XScalar = 0;
 					YScalar = objectToCursor.y < 0 ? -1 : 1;
 					ZScalar = 0;
 				}
-				if (Mathf.Abs(objectToCursor.z * currentlyStretchingObject.transform.localScale.z) > maxAxisValue)
+				if (Mathf.Abs(objectToCursor.z / currentlyStretchingObject.transform.localScale.z) > maxAxisValue)
 				{
-					maxAxisValue = Mathf.Abs(objectToCursor.z * currentlyStretchingObject.transform.localScale.z);
+					maxAxisValue = Mathf.Abs(objectToCursor.z / currentlyStretchingObject.transform.localScale.z);
 					XScalar = 0;
 					YScalar = 0;
 					ZScalar = objectToCursor.z < 0 ? -1 : 1;
 				}
+
+				if (XScalar < 0)
+					Debug.Log($"Scaling on Negative X");
+				else if (XScalar > 0)
+					Debug.Log($"Scaling on Positive X");
+				
+				if (ZScalar < 0)
+					Debug.Log($"Scaling on Negative Z");
+				else if (ZScalar > 0)
+					Debug.Log($"Scaling on Positive Z");
+
+				if (YScalar < 0)
+					Debug.Log($"Scaling on Negative Y");
+				else if (YScalar > 0)
+					Debug.Log($"Scaling on Positive Y");
 
 				objectToCursorAtStart = objectToCursor;
 				objectScaleAtStart = currentlyStretchingObject.transform.localScale;
@@ -159,15 +170,15 @@ public class ObjectManipulator : MonoBehaviour
 			objectToCursor = currentlyStretchingObject.transform.rotation * objectToCursor;
 
 			Vector3 setScaleTo = new Vector3(
-				objectScaleAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * MathF.Abs(XScalar),
-				objectScaleAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * MathF.Abs(YScalar),
-				objectScaleAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * MathF.Abs(ZScalar));
+				objectScaleAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * XScalar,
+				objectScaleAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * YScalar,
+				objectScaleAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * ZScalar);
 			currentlyStretchingObject.transform.localScale = setScaleTo;
 
 			Vector3 moveObjectTo = new Vector3(
-				objectPositionAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * 0.5f * Mathf.Abs(XScalar),
-				objectPositionAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * 0.5f * Mathf.Abs(YScalar),
-				objectPositionAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * 0.5f * Mathf.Abs(ZScalar));
+				objectPositionAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * 0.5f * -Mathf.Abs(XScalar),
+				objectPositionAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * 0.5f * -Mathf.Abs(YScalar),
+				objectPositionAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * 0.5f * -Mathf.Abs(ZScalar));
 			currentlyStretchingObject.transform.position = moveObjectTo;
 		}																	   
 	}
