@@ -328,6 +328,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 533557090633748887, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1215870092}
+    - target: {fileID: 533557090633748887, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenWrapsMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 665548560889079558, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -390,15 +398,23 @@ PrefabInstance:
       objectReference: {fileID: 1215870092}
     - target: {fileID: 3531924347456592933, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenCatalogMenu
+      value: OpenShapesMenu
       objectReference: {fileID: 0}
     - target: {fileID: 3766209762422410621, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3821271700390845075, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3821271700390845075, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3821271700390845075, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3966445340113163037, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -451,6 +467,10 @@ PrefabInstance:
     - target: {fileID: 5492662194834274311, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5734860026250672247, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5734860026250672247, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -834,7 +854,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuCanvas: {fileID: 2111603959}
   optionsUI: {fileID: 576167789}
-  catalogUI: {fileID: 1135376665}
+  shapesUI: {fileID: 1135376665}
+  wrapsUI: {fileID: 1829086120}
   saveUI: {fileID: 1868322313}
   loadUI: {fileID: 448999594}
   cam: {fileID: 259601210}
@@ -1572,6 +1593,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1342697288}
   m_SourcePrefab: {fileID: 100100000, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+--- !u!1 &1829086120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4531056476059023988, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+  m_PrefabInstance: {fileID: 581869013}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1843362838
 GameObject:
   m_ObjectHideFlags: 0

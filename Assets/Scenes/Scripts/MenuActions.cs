@@ -24,7 +24,8 @@ public class MenuActions : MonoBehaviour
 
     [SerializeField] GameObject mainMenuCanvas;
     [SerializeField] GameObject optionsUI;
-    [SerializeField] GameObject catalogUI;
+    [SerializeField] GameObject shapesUI;
+    [SerializeField] GameObject wrapsUI;
     [SerializeField] GameObject saveUI;
     [SerializeField] GameObject loadUI;
     [SerializeField] GameObject cam;
@@ -162,16 +163,26 @@ public class MenuActions : MonoBehaviour
     public void OpenOptionsMenu()
     {
         optionsUI.SetActive(true);
-        catalogUI.SetActive(false);
+        shapesUI.SetActive(false);
         saveUI.SetActive(false);
         loadUI.SetActive(false);
 
     }
 
-    public void OpenCatalogMenu()
+    public void OpenShapesMenu()
     {
         optionsUI.SetActive(false);
-        catalogUI.SetActive(true);
+        shapesUI.SetActive(true);
+        saveUI.SetActive(false);
+        loadUI.SetActive(false);
+        wrapsUI.SetActive(false);
+    }
+
+    public void OpenWrapsMenu()
+    {
+        optionsUI.SetActive(false);
+        shapesUI.SetActive(false);
+        wrapsUI.SetActive(true);
         saveUI.SetActive(false);
         loadUI.SetActive(false);
     }
@@ -179,30 +190,32 @@ public class MenuActions : MonoBehaviour
     public void OpenSaveMenu()
     {
         optionsUI.SetActive(false);
-        catalogUI.SetActive(false);
+        shapesUI.SetActive(false);
         saveUI.SetActive(true);
         loadUI.SetActive(false);
+        wrapsUI.SetActive(false);
     }
 
     public void OpenLoadMenu()
     {
         optionsUI.SetActive(false);
-        catalogUI.SetActive(false);
+        shapesUI.SetActive(false);
         saveUI.SetActive(false);
         loadUI.SetActive(true);
+        wrapsUI.SetActive(false);
     }
 
     public void SaveLevelWithButton()
     {
         BlockRangler.SaveLevel();
-        OpenCatalogMenu(); // Switches to catalog
+        OpenShapesMenu(); // Switches to catalog
         rightHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu(); // Closes menu
     }
 
     public void LoadLevelWithButton()
     {
         BlockRangler.LoadLevel();
-        OpenCatalogMenu();
+        OpenShapesMenu();
         rightHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu();
     }
 }
