@@ -14,6 +14,8 @@ public class ObjectManipulator : MonoBehaviour
 {
 
 	[SerializeField] GameObject cursor;
+	[SerializeField] GameObject rightHandController;
+
 	Vector3 cursorPosition => cursor.transform.position;
 	readonly float grabTreshhold = 0.8f;
 
@@ -170,9 +172,9 @@ public class ObjectManipulator : MonoBehaviour
 			objectToCursor = currentlyStretchingObject.transform.rotation * objectToCursor;
 
 			Vector3 setScaleTo = new Vector3(
-				objectScaleAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * XScalar,
-				objectScaleAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * YScalar,
-				objectScaleAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * ZScalar);
+				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * XScalar),
+				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * YScalar),
+				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * ZScalar));
 			currentlyStretchingObject.transform.localScale = setScaleTo;
 
 			Vector3 moveObjectTo = new Vector3(
@@ -180,7 +182,9 @@ public class ObjectManipulator : MonoBehaviour
 				objectPositionAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * 0.5f * -Mathf.Abs(YScalar),
 				objectPositionAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * 0.5f * -Mathf.Abs(ZScalar));
 			currentlyStretchingObject.transform.position = moveObjectTo;
-		}																	   
+
+			// NOTE: COULD add RoundForPlacementAssistance to moveObjectTo code - Peter
+		}
 	}
 
 
@@ -202,6 +206,17 @@ public class ObjectManipulator : MonoBehaviour
 		}
 		else if (currentlyHeldObject != null && grabValue < grabTreshhold)
 		{
+			// Object scaling code, uses the RoundForPlacementAssistance and RoundForRotation functions from the rightHandController's palette script
+            float xPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(currentlyHeldObject.transform.position.x);
+            float yPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(currentlyHeldObject.transform.position.y);
+			float zPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(currentlyHeldObject.transform.position.z);
+			currentlyHeldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
+            Vector3 rotation = new Vector3(
+				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(currentlyHeldObject.transform.rotation.x * 90),
+            rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(currentlyHeldObject.transform.rotation.y * 90),
+            rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(currentlyHeldObject.transform.rotation.z * 90));
+			currentlyHeldObject.transform.rotation = Quaternion.Euler(rotation);
+
 			currentlyHeldObject.transform.parent = null;
 			currentlyHeldObject = null;
 		}

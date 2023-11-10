@@ -56,7 +56,9 @@ public class PaletteScript : MonoBehaviour
         position.y = RoundForPlacementAssistance(position.y);
         position.z = RoundForPlacementAssistance(position.z);
 
-        Vector3 rotation = new Vector3(0, RoundForRotationAssistance(gameObject.transform.rotation.y * 90), 0); // Places block flat, only keeping y rotation of controller
+        Vector3 rotation = new Vector3(RoundForRotationAssistance(gameObject.transform.rotation.x * 90), 
+            RoundForRotationAssistance(gameObject.transform.rotation.y * 90), 
+            RoundForRotationAssistance(gameObject.transform.rotation.z * 90));
 
         GameObject block = Instantiate(currentObjectType.gameObject, position, Quaternion.Euler(rotation)); // Places cube in level
         block.tag = "Block";
@@ -239,5 +241,31 @@ public class PaletteScript : MonoBehaviour
         }
 
         return realRotation;
+    }
+
+    public float RoundForScalingAssistance(float realScale)
+    {
+        scalingAssistValue = float.Parse(scalingAssistDegree.text);
+        if (scalingAssistValue == 0.0f)
+        {
+            return realScale;
+        }
+
+        float difference = realScale % scalingAssistValue; // Gets the difference between the actual scale and the next snap scale
+        realScale = realScale - difference; // Snaps to next lowest scale
+
+        if (Mathf.Abs(difference) > (scalingAssistValue / 2)) // If the real position is closer to the next highest position, snap up
+        {
+            if (realScale >= 0)
+            {
+                realScale = realScale + scalingAssistValue;
+            }
+            else // If on the negative side, snap down
+            {
+                realScale = realScale - scalingAssistValue;
+            }
+        }
+
+        return realScale;
     }
 }

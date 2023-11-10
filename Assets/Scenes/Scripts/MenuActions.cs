@@ -73,7 +73,14 @@ public class MenuActions : MonoBehaviour
 
         scalingAssistanceSlider.onValueChanged.AddListener((value) =>
         {
-            scalingAssistanceText.text = (1.0f / (6.0f - value)).ToString("0.00");
+            if (value != 0)
+            {
+                scalingAssistanceText.text = (1.0f / (6.0f - value)).ToString("0.00");
+            }
+            else
+            {
+                scalingAssistanceText.text = "0";
+            }
         });
     }
 

@@ -334,7 +334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 765831960893102332, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Text
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 981938924786586760, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -370,7 +370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3279848890194928350, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3279848890194928350, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_MaxValue
@@ -458,7 +458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5757224720552556720, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5757224720552556720, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_MaxValue
@@ -466,7 +466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5757224720552556720, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_MinValue
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5757224720552556720, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_WholeNumbers
@@ -1029,6 +1029,7 @@ MonoBehaviour:
   shortPillarPrefab: {fileID: 0}
   wallPrefab: {fileID: 0}
   selectedObject: {fileID: 0}
+  cursor: {fileID: 0}
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 0}
   savedHandPos: {x: 0, y: 0, z: 0}
@@ -1381,6 +1382,10 @@ PrefabInstance:
       propertyPath: m_LineLength
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 888311422869325435, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: rightHandController
+      value: 
+      objectReference: {fileID: 1231282345}
     - target: {fileID: 1094947954729497425, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: m_StartingSelectFilters.Array.size
       value: 0
@@ -1517,6 +1522,10 @@ PrefabInstance:
       propertyPath: tourModeShrinkMultiplier
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 7215640607078643631, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: rightHandController
+      value: 
+      objectReference: {fileID: 1231282345}
     - target: {fileID: 7613797399247120251, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: m_Enabled
       value: 1
