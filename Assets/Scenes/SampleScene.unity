@@ -1023,6 +1023,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1320553838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1320553839}
+  m_Layer: 0
+  m_Name: HologramDisplayObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1320553839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320553838}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.798721, y: 35.349136, z: -4.260907}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1342697280 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 891176156447803416, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
@@ -1064,6 +1095,10 @@ MonoBehaviour:
   scalingAssistValue: 0
   inMoveMode: 0
   inEditMode: 0
+  isRightHandController: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0}
+  hologramDisplay: {fileID: 0}
 --- !u!1 &1379564777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1479119625009411468, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
@@ -1480,6 +1515,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 581869014}
     - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: hologramDisplay
+      value: 
+      objectReference: {fileID: 2014765379}
+    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: scalingAssistDegree
       value: 
       objectReference: {fileID: 1589718583}
@@ -1487,6 +1526,10 @@ PrefabInstance:
       propertyPath: rotationAssistDegree
       value: 
       objectReference: {fileID: 817531230}
+    - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: isRightHandController
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3416335762374617049, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: placementAssistDegree
       value: 
@@ -1523,6 +1566,10 @@ PrefabInstance:
       propertyPath: mainMenuPanel
       value: 
       objectReference: {fileID: 581869014}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: hologramDisplay
+      value: 
+      objectReference: {fileID: 2014765379}
     - target: {fileID: 6466911072458586733, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: cam
       value: 
@@ -1813,6 +1860,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2014765378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014765380}
+  - component: {fileID: 2014765379}
+  m_Layer: 0
+  m_Name: HologramDisplayScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2014765379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014765378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a0a5e4fd7c9a488fb8e1fe7f0b8f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holoCubePrefab: {fileID: 6528006687007448033, guid: a50ccc5b931c71e4db27a255fc86f8d3, type: 3}
+  holoSpherePrefab: {fileID: 2460721882056925077, guid: 79d4e1668beb3fe4f95b6b17c824b1df, type: 3}
+  holoCylinderPrefab: {fileID: 9134883110955198979, guid: c1cc89d9c5e7b4b4c959be9b559f11a4, type: 3}
+  holoPyramidPrefab: {fileID: 7323685956055578646, guid: 8e8678df409ccaf44805b69a24629211, type: 3}
+  holoFloorPrefab: {fileID: 1848779836921310788, guid: 3077d1419452ae044b197c59f6ee1be0, type: 3}
+  holoPillarPrefab: {fileID: 1483614282619236612, guid: d18cf21570f425e4e8ff50c04cfbc04a, type: 3}
+  holoShortPillarPrefab: {fileID: 6192684873239664979, guid: 790127f29db8f3643bf457dd3fa3034c, type: 3}
+  holoWallPrefab: {fileID: 2007752775300737385, guid: 97a5fe4b52fc9c345a180c40577aab27, type: 3}
+  currentHologram: {fileID: 1320553838}
+--- !u!4 &2014765380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014765378}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.58063, y: 30.245817, z: 15.708559}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2111603959 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9006940693927713418, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
@@ -1850,3 +1950,5 @@ SceneRoots:
   - {fileID: 308254260}
   - {fileID: 581869013}
   - {fileID: 1215870093}
+  - {fileID: 2014765380}
+  - {fileID: 1320553839}

@@ -36,6 +36,12 @@ public class PaletteScript : MonoBehaviour
 
     public bool inMoveMode; // True if there is currently a selected object in move mode
     public bool inEditMode; // True if there is currently a selected object in edit mode
+    public bool isRightHandController;
+
+    public Vector3 position;
+    public Vector3 rotation;
+
+    public HologramDisplay hologramDisplay;
 
     // Start is called before the first frame update
     void Start()
@@ -46,20 +52,23 @@ public class PaletteScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isRightHandController)
+        {
+            position = cursorPosition;
+            position.x = RoundForPlacementAssistance(position.x);
+            position.y = RoundForPlacementAssistance(position.y);
+            position.z = RoundForPlacementAssistance(position.z);
 
+            rotation = new Vector3(RoundForRotationAssistance(gameObject.transform.rotation.x * 90),
+                RoundForRotationAssistance(gameObject.transform.rotation.y * 90),
+                RoundForRotationAssistance(gameObject.transform.rotation.z * 90));
+
+            hologramDisplay.ShowHologram(position, rotation);
+        }
     }
 
     public void PlaceObject()
     {
-        Vector3 position = cursorPosition;
-        position.x = RoundForPlacementAssistance(position.x);
-        position.y = RoundForPlacementAssistance(position.y);
-        position.z = RoundForPlacementAssistance(position.z);
-
-        Vector3 rotation = new Vector3(RoundForRotationAssistance(gameObject.transform.rotation.x * 90), 
-            RoundForRotationAssistance(gameObject.transform.rotation.y * 90), 
-            RoundForRotationAssistance(gameObject.transform.rotation.z * 90));
-
         GameObject block = Instantiate(currentObjectType.gameObject, position, Quaternion.Euler(rotation)); // Places cube in level
         block.tag = "Block";
     }

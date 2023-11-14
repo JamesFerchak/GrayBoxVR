@@ -699,6 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 7614306960812354058}
+  rightHandController: {fileID: 0}
 --- !u!114 &5995470507266144916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,6 +736,10 @@ MonoBehaviour:
   scalingAssistValue: 0
   inMoveMode: 0
   inEditMode: 0
+  isRightHandController: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0}
+  hologramDisplay: {fileID: 0}
 --- !u!1 &1122529289056507484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,6 +1937,10 @@ MonoBehaviour:
   scalingAssistValue: 0
   inMoveMode: 0
   inEditMode: 0
+  isRightHandController: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0}
+  hologramDisplay: {fileID: 0}
 --- !u!114 &7215640607078643631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1945,6 +1954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 1301752916869206891}
+  rightHandController: {fileID: 0}
 --- !u!1 &6663551697875354950
 GameObject:
   m_ObjectHideFlags: 0
