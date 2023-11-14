@@ -1036,7 +1036,7 @@ GameObject:
   m_Layer: 0
   m_Name: HologramDisplayObject
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1884,7 +1884,7 @@ GameObject:
   m_Layer: 0
   m_Name: HologramDisplayScript
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1908,7 +1908,7 @@ MonoBehaviour:
   holoPillarPrefab: {fileID: 1483614282619236612, guid: d18cf21570f425e4e8ff50c04cfbc04a, type: 3}
   holoShortPillarPrefab: {fileID: 6192684873239664979, guid: 790127f29db8f3643bf457dd3fa3034c, type: 3}
   holoWallPrefab: {fileID: 2007752775300737385, guid: 97a5fe4b52fc9c345a180c40577aab27, type: 3}
-  currentHologram: {fileID: 1320553838}
+  currentHologram: {fileID: 0}
 --- !u!4 &2014765380
 Transform:
   m_ObjectHideFlags: 0
