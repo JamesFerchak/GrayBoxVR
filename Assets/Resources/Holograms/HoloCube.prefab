@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1472113855288868975}
   - component: {fileID: 5586633911864665796}
   - component: {fileID: 1074063749357092326}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HoloCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2254013041766932238}
   - component: {fileID: -745986850283039945}
   - component: {fileID: 23014880367678447}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HoloPyramid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30

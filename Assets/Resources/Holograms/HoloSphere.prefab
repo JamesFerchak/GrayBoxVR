@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8384915560766740832}
   - component: {fileID: 2885476555366045862}
   - component: {fileID: 8154433658266702716}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HoloSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
