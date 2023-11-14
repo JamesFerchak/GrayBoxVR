@@ -57,42 +57,42 @@ public class HologramDisplay : MonoBehaviour
         currentHologram.transform.rotation = Quaternion.Euler(rotation);
     }
 
-    void SetHologramToCube()
+    public void SetHologramToCube()
     {
         currentHologram = holoCubePrefab;
     }
 
-    void SetHologramToSphere()
+    public void SetHologramToSphere()
     {
         currentHologram = holoSpherePrefab;
     }
 
-    void SetHologramToCylinder()
+    public void SetHologramToCylinder()
     {
         currentHologram = holoCylinderPrefab;
     }
 
-    void SetHologramToPyramid()
+    public void SetHologramToPyramid()
     {
         currentHologram = holoPyramidPrefab;
     }
 
-    void SetHologramToFloor()
+    public void SetHologramToFloor()
     {
         currentHologram = holoFloorPrefab;
     }
 
-    void SetHologramToPillar()
+    public void SetHologramToPillar()
     {
         currentHologram = holoPillarPrefab;
     }
 
-    void SetHologramToShortPillar()
+    public void SetHologramToShortPillar()
     {
         currentHologram = holoShortPillarPrefab;
     }
 
-    void SetHologramToWall()
+    public void SetHologramToWall()
     {
         currentHologram = holoWallPrefab;
     }

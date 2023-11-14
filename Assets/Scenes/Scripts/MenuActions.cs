@@ -48,6 +48,8 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Sprite shortPillarAsset;
     [SerializeField] Sprite wallAsset;
 
+    public HologramDisplay hologramDisplay;
+
     private void Awake()
     {
         Singleton = this;
@@ -109,48 +111,56 @@ public class MenuActions : MonoBehaviour
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToSquare();
         catalogCurrentSelection.sprite = squareAsset;
+        hologramDisplay.SetHologramToCube();
     }
 
     public void SelectSphere()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToSphere();
         catalogCurrentSelection.sprite = sphereAsset;
+        hologramDisplay.SetHologramToSphere();
     }
 
     public void SelectCylinder()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToCylinder();
         catalogCurrentSelection.sprite = cylinderAsset;
+        hologramDisplay.SetHologramToCylinder();
     }
 
     public void SelectPyramid()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToPyramid();
         catalogCurrentSelection.sprite = pyramidAsset;
+        hologramDisplay.SetHologramToPyramid();
     }
 
     public void SelectFloor()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToFloor();
         catalogCurrentSelection.sprite = floorAsset;
+        hologramDisplay.SetHologramToFloor();
     }
 
     public void SelectPillar()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToPillar();
         catalogCurrentSelection.sprite = pillarAsset;
+        hologramDisplay.SetHologramToPillar();
     }
 
     public void SelectShortPillar()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToShortPillar();
         catalogCurrentSelection.sprite = shortPillarAsset;
+        hologramDisplay.SetHologramToShortPillar();
     }
 
     public void SelectWall()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToWall();
         catalogCurrentSelection.sprite = wallAsset;
+        hologramDisplay.SetHologramToWall();
     }
 
     public void RelocateMainMenu()
