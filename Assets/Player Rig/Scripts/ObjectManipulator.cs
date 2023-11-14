@@ -21,17 +21,17 @@ public class ObjectManipulator : MonoBehaviour
 
 	float grabRadius;
 
-	private GameObject currentlyHeldObject = null;
+	private GameObject heldObject = null;
 	bool triedToGrabAlready = false;
 	//Vector3 cursorStartPosition = Vector3.zero;
 	//Quaternion controllerStartRotation = Quaternion.identity;
 	//Vector3 objectStartPosition = Vector3.zero;
 	//Quaternion objectStartRotation = Quaternion.identity;
 	//Quaternion controllerLastRotation = Quaternion.identity;
-	
+
 	//stretching
 	bool triedToStretchAlready = false;
-	private GameObject currentlyStretchingObject = null;
+	private GameObject stretchingObject = null;
 	Vector3 objectToCursorAtStart = Vector3.zero;
 	Vector3 objectScaleAtStart = Vector3.one;
 	Vector3 objectPositionAtStart = Vector3.zero;
@@ -96,66 +96,55 @@ public class ObjectManipulator : MonoBehaviour
 	public void TryStretch(float triggerValue)
 	{
 
-		if (currentlyStretchingObject == null && triggerValue >= grabTreshhold && !triedToStretchAlready) {
-		
+		if (stretchingObject == null && triggerValue >= grabTreshhold && !triedToStretchAlready)
+		{
+
 			triedToStretchAlready = true;
 
 			Collider stretchingCollider = GetGrabbedCollider();
 
-			if (stretchingCollider != null) {
+			if (stretchingCollider != null)
+			{
 
-				currentlyStretchingObject = stretchingCollider.gameObject;
-				Vector3 objectToCursor = currentlyStretchingObject.transform.position - cursorPosition;
-				objectToCursor = currentlyStretchingObject.transform.rotation * objectToCursor;
+				stretchingObject = stretchingCollider.gameObject;
+				Vector3 objectToCursor = stretchingObject.transform.position - cursorPosition;
+				objectToCursor = stretchingObject.transform.rotation * objectToCursor;
 
 				float maxAxisValue = 0;
 
-				if (Mathf.Abs(objectToCursor.x / currentlyStretchingObject.transform.localScale.x) > maxAxisValue)
+				if (Mathf.Abs(objectToCursor.x / stretchingObject.transform.localScale.x) > maxAxisValue)
 				{
-					maxAxisValue = Mathf.Abs(objectToCursor.x / currentlyStretchingObject.transform.localScale.x);
+					maxAxisValue = Mathf.Abs(objectToCursor.x / stretchingObject.transform.localScale.x);
 					XScalar = objectToCursor.x < 0 ? -1 : 1;
 					YScalar = 0;
 					ZScalar = 0;
 				}
-				if (Mathf.Abs(objectToCursor.y / currentlyStretchingObject.transform.localScale.y) > maxAxisValue)
+				if (Mathf.Abs(objectToCursor.y / stretchingObject.transform.localScale.y) > maxAxisValue)
 				{
-					maxAxisValue = Mathf.Abs(objectToCursor.y / currentlyStretchingObject.transform.localScale.y);
+					maxAxisValue = Mathf.Abs(objectToCursor.y / stretchingObject.transform.localScale.y);
 					XScalar = 0;
 					YScalar = objectToCursor.y < 0 ? -1 : 1;
 					ZScalar = 0;
 				}
-				if (Mathf.Abs(objectToCursor.z / currentlyStretchingObject.transform.localScale.z) > maxAxisValue)
+				if (Mathf.Abs(objectToCursor.z / stretchingObject.transform.localScale.z) > maxAxisValue)
 				{
-					maxAxisValue = Mathf.Abs(objectToCursor.z / currentlyStretchingObject.transform.localScale.z);
+					maxAxisValue = Mathf.Abs(objectToCursor.z / stretchingObject.transform.localScale.z);
 					XScalar = 0;
 					YScalar = 0;
 					ZScalar = objectToCursor.z < 0 ? -1 : 1;
 				}
 
-				if (XScalar < 0)
-					Debug.Log($"Scaling on Negative X");
-				else if (XScalar > 0)
-					Debug.Log($"Scaling on Positive X");
-				
-				if (ZScalar < 0)
-					Debug.Log($"Scaling on Negative Z");
-				else if (ZScalar > 0)
-					Debug.Log($"Scaling on Positive Z");
-
-				if (YScalar < 0)
-					Debug.Log($"Scaling on Negative Y");
-				else if (YScalar > 0)
-					Debug.Log($"Scaling on Positive Y");
-
 				objectToCursorAtStart = objectToCursor;
-				objectScaleAtStart = currentlyStretchingObject.transform.localScale;
-				objectPositionAtStart = currentlyStretchingObject.transform.position;
+				objectScaleAtStart = stretchingObject.transform.localScale;
+				objectPositionAtStart = stretchingObject.transform.position;
+
+				Debug.DrawRay(stretchingObject.transform.position, -objectToCursor, Color.red, 30f, false);
 
 			}
 		}
-		else if (currentlyStretchingObject != null && triggerValue < grabTreshhold)
+		else if (stretchingObject != null && triggerValue < grabTreshhold)
 		{
-			currentlyStretchingObject = null;
+			stretchingObject = null;
 			XScalar = 0;
 			YScalar = 0;
 			ZScalar = 0;
@@ -166,22 +155,29 @@ public class ObjectManipulator : MonoBehaviour
 
 	private void StretchObject()
 	{
-		if (currentlyStretchingObject != null)
+		if (stretchingObject != null)
 		{
-			Vector3 objectToCursor = currentlyStretchingObject.transform.position - cursorPosition;
-			objectToCursor = currentlyStretchingObject.transform.rotation * objectToCursor;
+			Vector3 objectToCursor = objectPositionAtStart - cursorPosition;
+			objectToCursor = stretchingObject.transform.rotation * objectToCursor;
+
+			Debug.DrawRay(stretchingObject.transform.position, -objectToCursor, Color.green, 30f, false);
 
 			Vector3 setScaleTo = new Vector3(
 				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * XScalar),
 				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * YScalar),
 				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * ZScalar));
-			currentlyStretchingObject.transform.localScale = setScaleTo;
+			stretchingObject.transform.localScale = setScaleTo;
 
 			Vector3 moveObjectTo = new Vector3(
 				objectPositionAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * 0.5f * -Mathf.Abs(XScalar),
 				objectPositionAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * 0.5f * -Mathf.Abs(YScalar),
 				objectPositionAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * 0.5f * -Mathf.Abs(ZScalar));
-			currentlyStretchingObject.transform.position = moveObjectTo;
+
+			/*moveObjectTo = objectPositionAtStart +
+			((stretchingObject.transform.right * XScalar) +
+			(stretchingObject.transform.up * YScalar) +
+			(stretchingObject.transform.forward * ZScalar)) * objectToCursor.magnitude;*/
+			stretchingObject.transform.position = moveObjectTo;
 
 			// NOTE: COULD add RoundForPlacementAssistance to moveObjectTo code - Peter
 		}
@@ -191,7 +187,7 @@ public class ObjectManipulator : MonoBehaviour
 
 	public void TryGrab(float grabValue)
 	{
-		if (currentlyHeldObject == null && grabValue >= grabTreshhold && !triedToGrabAlready)
+		if (heldObject == null && grabValue >= grabTreshhold && !triedToGrabAlready)
 		{
 			triedToGrabAlready = true;
 
@@ -199,26 +195,26 @@ public class ObjectManipulator : MonoBehaviour
 
 			if (grabbedCollider != null)
 			{
-				currentlyHeldObject = grabbedCollider.gameObject;
-				currentlyHeldObject.transform.parent = transform;
+				heldObject = grabbedCollider.gameObject;
+				heldObject.transform.parent = transform;
 			}
 
 		}
-		else if (currentlyHeldObject != null && grabValue < grabTreshhold)
+		else if (heldObject != null && grabValue < grabTreshhold)
 		{
 			// Object scaling code, uses the RoundForPlacementAssistance and RoundForRotation functions from the rightHandController's palette script
-            float xPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(currentlyHeldObject.transform.position.x);
-            float yPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(currentlyHeldObject.transform.position.y);
-			float zPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(currentlyHeldObject.transform.position.z);
-			currentlyHeldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
-            Vector3 rotation = new Vector3(
-				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(currentlyHeldObject.transform.rotation.x * 90),
-            rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(currentlyHeldObject.transform.rotation.y * 90),
-            rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(currentlyHeldObject.transform.rotation.z * 90));
-			currentlyHeldObject.transform.rotation = Quaternion.Euler(rotation);
+			float xPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(heldObject.transform.position.x);
+			float yPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(heldObject.transform.position.y);
+			float zPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(heldObject.transform.position.z);
+			heldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
+			Vector3 rotation = new Vector3(
+				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(heldObject.transform.rotation.x * 90),
+			rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(heldObject.transform.rotation.y * 90),
+			rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(heldObject.transform.rotation.z * 90));
+			heldObject.transform.rotation = Quaternion.Euler(rotation);
 
-			currentlyHeldObject.transform.parent = null;
-			currentlyHeldObject = null;
+			heldObject.transform.parent = null;
+			heldObject = null;
 		}
 
 		//if we've ungrabbed, get ready to try again
