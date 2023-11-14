@@ -69,10 +69,11 @@ public class LeftHandController : MonoBehaviour
 	}
 	public void yToggle(InputAction.CallbackContext context)
 	{
-		//Debug.Log("Y button pressed.");
-		//GetComponent<PaletteScript>().MoveObject();
-		//p.MoveObject();
-	}
+        if (!RightHandController.Singleton.inTourMode)
+        {
+            GetComponent<PaletteScript>().PaintObject();
+        }
+    }
 
 	public void menuToggle(InputAction.CallbackContext context)
 	{

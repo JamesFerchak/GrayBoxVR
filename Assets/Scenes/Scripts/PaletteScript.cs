@@ -22,6 +22,18 @@ public class PaletteScript : MonoBehaviour
 
     public Material defaultMaterial; // Material for Cube GameObject
     public Material selectedMaterial; // Material for the selected GameObject
+    public Material current_wrap;
+    public Material red;
+    public Material blue;
+    public Material white;
+    public Material black;
+    public Material brown;
+    public Material purple;
+    public Material green;
+    public Material yellow;
+    public Material orange;
+
+
     public Vector3 savedHandPos; // Vector3 recording the hand position
 
     public GameObject mainMenuPanel; // Panel for the main menu
@@ -82,6 +94,21 @@ public class PaletteScript : MonoBehaviour
             // Destroy the hit object
             if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
             Destroy(hit.transform.gameObject);
+        }
+    }
+
+    public void PaintObject()
+    {
+        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            // Destroy the hit object
+            if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
+            {
+                hit.transform.gameObject.GetComponent<MeshRenderer>().material = red;
+            }
+                
         }
     }
 
