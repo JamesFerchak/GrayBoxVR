@@ -40,7 +40,8 @@ public class BlockRangler : MonoBehaviour
 		{
 			myGameObject = affectedObject;
 			gameObjectPosition = affectedObject.transform.position;
-
+			gameObjectRotation = affectedObject.transform.rotation;
+			gameObjectScale = affectedObject.transform.localScale;
 		}
 	}
 
