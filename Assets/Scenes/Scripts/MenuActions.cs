@@ -181,7 +181,7 @@ public class MenuActions : MonoBehaviour
     }
     public void SelectYellow()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "black";
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "yellow";
     }
     public void SelectWhite()
     {

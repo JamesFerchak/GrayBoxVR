@@ -99,7 +99,7 @@ public class PaletteScript : MonoBehaviour
 
     public void PaintObject()
     {
-        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
+        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward); //casts ray
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
@@ -118,25 +118,22 @@ public class PaletteScript : MonoBehaviour
                         hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
                         break;
                     case "white":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = white;
                         break;
                     case "black":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = black;
                         break;
                     case "green":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = green;
                         break;
                     case "brown":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = brown;
                         break;
                     case "orange":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = orange;
                         break;
                     case "purple":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
-                        break;
-                    case "pink":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = purple;
                         break;
                 }
             }
