@@ -11,7 +11,7 @@ using UnityEditor.Build;
 
 public class BlockRangler : MonoBehaviour
 {
-
+	readonly static int changeHistorySize = 25;
 	public static string levelPath;
 
 	private static BlockRangler _singleton;
@@ -26,6 +26,32 @@ public class BlockRangler : MonoBehaviour
 				Debug.LogWarning($"There is more than one Block Rangler! Killing self!!!");
 				Destroy(value.gameObject);
 			}
+		}
+	}
+
+	public struct action
+	{
+		GameObject myGameObject;
+		Vector3 gameObjectPosition;
+		Quaternion gameObjectRotation;
+		Vector3 gameObjectScale;
+
+		public action(GameObject affectedObject)
+		{
+			myGameObject = affectedObject;
+			gameObjectPosition = affectedObject.transform.position;
+			gameObjectRotation = affectedObject.transform.rotation;
+			gameObjectScale = affectedObject.transform.localScale;
+		}
+	}
+
+	public static class ChangeHistory
+	{
+		private static action[] stack = new action[changeHistorySize];
+		
+		public static void PushAction(action actionToPush)
+		{
+
 		}
 	}
 

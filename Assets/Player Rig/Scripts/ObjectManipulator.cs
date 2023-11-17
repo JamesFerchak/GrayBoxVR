@@ -220,7 +220,7 @@ public class ObjectManipulator : MonoBehaviour
 			heldObject.transform.parent = null;
 			heldObject = null;
 		}
-
+		
 		//if we've ungrabbed, get ready to try again
 		if (grabValue < grabTreshhold) triedToGrabAlready = false;
 	}
