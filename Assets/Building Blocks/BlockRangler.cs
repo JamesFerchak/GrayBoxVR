@@ -31,14 +31,16 @@ public class BlockRangler : MonoBehaviour
 
 	public struct action
 	{
-		
 		GameObject myGameObject;
-		Vector3 gameObjectPosition => myGameObject.transform.position;
-		Quaternion gameObjectRotation => myGameObject.transform.rotation;
-		Vector3 gameObjectScale => myGameObject.transform.localScale;
+		Vector3 gameObjectPosition;
+		Quaternion gameObjectRotation;
+		Vector3 gameObjectScale;
+
 		public action(GameObject affectedObject)
 		{
 			myGameObject = affectedObject;
+			gameObjectPosition = affectedObject.transform.position;
+
 		}
 	}
 
