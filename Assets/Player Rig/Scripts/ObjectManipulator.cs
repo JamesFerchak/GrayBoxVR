@@ -9,6 +9,7 @@ using System;
 
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
+using System.Runtime.InteropServices;
 
 public class ObjectManipulator : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class ObjectManipulator : MonoBehaviour
 	float XScalar = 0;
 	float YScalar = 0;
 	float ZScalar = 0;
+	float startingScalarDot = 0;
 
 	private void Awake()
 	{
@@ -106,30 +108,37 @@ public class ObjectManipulator : MonoBehaviour
 
 				stretchingObject = stretchingCollider.gameObject;
 				Vector3 objectToCursor = stretchingObject.transform.position - cursorPosition;
-				objectToCursor = stretchingObject.transform.rotation * objectToCursor;
 
-				float maxAxisValue = 0;
+				float closestDot = 0;
 
-				if (Mathf.Abs(objectToCursor.x / stretchingObject.transform.localScale.x) > maxAxisValue)
+				float XDotProduct = Vector3.Dot(stretchingObject.transform.right, objectToCursor.normalized);
+				float XScale = stretchingObject.transform.localScale.x;
+				if (Mathf.Abs(XDotProduct) / XScale > closestDot)
 				{
-					maxAxisValue = Mathf.Abs(objectToCursor.x / stretchingObject.transform.localScale.x);
-					XScalar = objectToCursor.x < 0 ? -1 : 1;
+					closestDot = Mathf.Abs(XDotProduct) / XScale;
+					startingScalarDot = Vector3.Dot(objectToCursor, stretchingObject.transform.right);
+					XScalar = XDotProduct < 0 ? -1 : 1;
 					YScalar = 0;
 					ZScalar = 0;
 				}
-				if (Mathf.Abs(objectToCursor.y / stretchingObject.transform.localScale.y) > maxAxisValue)
+				float YDotProduct = Vector3.Dot(stretchingObject.transform.up, objectToCursor.normalized);
+				float YScale = stretchingObject.transform.localScale.y;
+				if (Mathf.Abs(YDotProduct) / YScale > closestDot)
 				{
-					maxAxisValue = Mathf.Abs(objectToCursor.y / stretchingObject.transform.localScale.y);
+					closestDot = Mathf.Abs(YDotProduct) / YScale;
+					startingScalarDot = Vector3.Dot(objectToCursor, stretchingObject.transform.up);
 					XScalar = 0;
-					YScalar = objectToCursor.y < 0 ? -1 : 1;
+					YScalar = YDotProduct < 0 ? -1 : 1;
 					ZScalar = 0;
 				}
-				if (Mathf.Abs(objectToCursor.z / stretchingObject.transform.localScale.z) > maxAxisValue)
+				float ZDotProduct = Vector3.Dot(stretchingObject.transform.forward, objectToCursor.normalized);
+				float ZScale = stretchingObject.transform.localScale.z;
+				if (Mathf.Abs(ZDotProduct) / ZScale > closestDot)
 				{
-					maxAxisValue = Mathf.Abs(objectToCursor.z / stretchingObject.transform.localScale.z);
+					startingScalarDot = Vector3.Dot(objectToCursor, stretchingObject.transform.forward);
 					XScalar = 0;
 					YScalar = 0;
-					ZScalar = objectToCursor.z < 0 ? -1 : 1;
+					ZScalar = ZDotProduct < 0 ? -1 : 1;
 				}
 
 				objectToCursorAtStart = objectToCursor;
@@ -156,7 +165,7 @@ public class ObjectManipulator : MonoBehaviour
 		if (stretchingObject != null)
 		{
 			Vector3 objectToCursor = objectPositionAtStart - cursorPosition;
-			objectToCursor = stretchingObject.transform.rotation * objectToCursor;
+			//objectToCursor = stretchingObject.transform.rotation * objectToCursor;
 
 			Debug.DrawRay(stretchingObject.transform.position, -objectToCursor, Color.green, 30f, false);
 
@@ -164,6 +173,12 @@ public class ObjectManipulator : MonoBehaviour
 				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * XScalar),
 				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * YScalar),
 				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * ZScalar));
+
+			//overwriting setScaleTo for testing
+			setScaleTo = new Vector3(
+				objectScaleAtStart.x + (Vector3.Dot(objectToCursor, stretchingObject.transform.right) - startingScalarDot) * XScalar,
+				objectScaleAtStart.y + (Vector3.Dot(objectToCursor, stretchingObject.transform.up) - startingScalarDot) * YScalar,
+				objectScaleAtStart.z + (Vector3.Dot(objectToCursor, stretchingObject.transform.forward) - startingScalarDot) * ZScalar);
 			stretchingObject.transform.localScale = setScaleTo;
 
 			Vector3 moveObjectTo = new Vector3(
