@@ -75,13 +75,13 @@ public class PaletteScript : MonoBehaviour
                 RoundForRotationAssistance(gameObject.transform.rotation.y * 90),
                 RoundForRotationAssistance(gameObject.transform.rotation.z * 90));
 
-            hologramDisplay.ShowHologram(position, transform.rotation);
+            hologramDisplay.ShowHologram(position, Quaternion.Euler(rotation));
         }
     }
 
     public void PlaceObject()
     {
-        GameObject block = Instantiate(currentObjectType.gameObject, position, transform.rotation); // Places cube in level
+        GameObject block = Instantiate(currentObjectType.gameObject, position, Quaternion.Euler(rotation)); // Places cube in level
         block.tag = "Block";
     }
 

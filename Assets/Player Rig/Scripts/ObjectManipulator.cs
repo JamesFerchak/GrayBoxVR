@@ -211,11 +211,11 @@ public class ObjectManipulator : MonoBehaviour
             float yPosition = myPS.RoundForPlacementAssistance(heldObject.transform.position.y);
 			float zPosition = myPS.RoundForPlacementAssistance(heldObject.transform.position.z);
 			heldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
-            /*Vector3 rotation = new Vector3(
+            Vector3 rotation = new Vector3(
 			myPS.RoundForRotationAssistance(heldObject.transform.rotation.x * 90),
             myPS.RoundForRotationAssistance(heldObject.transform.rotation.y * 90),
             myPS.RoundForRotationAssistance(heldObject.transform.rotation.z * 90));
-			heldObject.transform.rotation = Quaternion.Euler(rotation);*/
+			heldObject.transform.rotation = Quaternion.Euler(rotation);
 
 			heldObject.transform.parent = null;
 			heldObject = null;
