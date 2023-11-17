@@ -22,7 +22,7 @@ public class PaletteScript : MonoBehaviour
 
     public Material defaultMaterial; // Material for Cube GameObject
     public Material selectedMaterial; // Material for the selected GameObject
-    string current_wrap;
+    public string current_wrap;
     public Material red;
     public Material blue;
     public Material white;
