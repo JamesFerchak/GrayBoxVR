@@ -30,6 +30,7 @@ public class MenuActions : MonoBehaviour
     [SerializeField] GameObject loadUI;
     [SerializeField] GameObject cam;
     [SerializeField] GameObject rightHandController;
+    [SerializeField] GameObject leftHandController;
 
     [SerializeField] Slider placementAssistanceSlider;
     [SerializeField] Text placementAssistanceText;
@@ -170,6 +171,46 @@ public class MenuActions : MonoBehaviour
         mainMenuCanvas.transform.position = newMainMenuPosition;
     }
 
+    public void SelectRed()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "red";
+    }
+    public void SelectBlue()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "blue";
+    }
+    public void SelectYellow()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "black";
+    }
+    public void SelectWhite()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "white";
+    }
+    public void SelectBlack()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "black";
+    }
+    public void SelectOrange()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "orange";
+    }
+    public void SelectBrown()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "brown";
+    }
+    public void SelectGreen()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "green";
+    }
+    public void SelectPurple()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "purple";
+    }
+    public void SelectPink()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "pink";
+    }
     public void OpenOptionsMenu()
     {
         optionsUI.SetActive(true);
