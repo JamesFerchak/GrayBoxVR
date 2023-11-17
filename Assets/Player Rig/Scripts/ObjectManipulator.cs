@@ -24,11 +24,7 @@ public class ObjectManipulator : MonoBehaviour
 
 	private GameObject heldObject = null;
 	bool triedToGrabAlready = false;
-	//Vector3 cursorStartPosition = Vector3.zero;
-	//Quaternion controllerStartRotation = Quaternion.identity;
-	//Vector3 objectStartPosition = Vector3.zero;
-	//Quaternion objectStartRotation = Quaternion.identity;
-	//Quaternion controllerLastRotation = Quaternion.identity;
+	PaletteScript myPS;
 	
 	//stretching
 	bool triedToStretchAlready = false;
@@ -44,6 +40,7 @@ public class ObjectManipulator : MonoBehaviour
 	private void Awake()
 	{
 		grabRadius = cursor.transform.localScale.x;
+		myPS = rightHandController.GetComponent<PaletteScript>();
 	}
 
 	// Start is called before the first frame update
@@ -165,32 +162,26 @@ public class ObjectManipulator : MonoBehaviour
 		if (stretchingObject != null)
 		{
 			Vector3 objectToCursor = objectPositionAtStart - cursorPosition;
-			//objectToCursor = stretchingObject.transform.rotation * objectToCursor;
 
-			Debug.DrawRay(stretchingObject.transform.position, -objectToCursor, Color.green, 30f, false);
-
-			Vector3 setScaleTo = new Vector3(
-				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * XScalar),
-				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * YScalar),
-				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForScalingAssistance(objectScaleAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * ZScalar));
-
-			//overwriting setScaleTo for testing
-			setScaleTo = new Vector3(
-				objectScaleAtStart.x + (Vector3.Dot(objectToCursor, stretchingObject.transform.right) - startingScalarDot) * XScalar,
-				objectScaleAtStart.y + (Vector3.Dot(objectToCursor, stretchingObject.transform.up) - startingScalarDot) * YScalar,
-				objectScaleAtStart.z + (Vector3.Dot(objectToCursor, stretchingObject.transform.forward) - startingScalarDot) * ZScalar);
+			Vector3	setScaleTo = new Vector3(
+				myPS.RoundForScalingAssistance(objectScaleAtStart.x + (Vector3.Dot(objectToCursor, stretchingObject.transform.right) - startingScalarDot) * XScalar),
+				myPS.RoundForScalingAssistance(objectScaleAtStart.y + (Vector3.Dot(objectToCursor, stretchingObject.transform.up) - startingScalarDot) * YScalar),
+				myPS.RoundForScalingAssistance(objectScaleAtStart.z + (Vector3.Dot(objectToCursor, stretchingObject.transform.forward) - startingScalarDot) * ZScalar));
 			stretchingObject.transform.localScale = setScaleTo;
 
-			Vector3 moveObjectTo = new Vector3(
-				objectPositionAtStart.x + (objectToCursor.x - objectToCursorAtStart.x) * 0.5f * -Mathf.Abs(XScalar),
-				objectPositionAtStart.y + (objectToCursor.y - objectToCursorAtStart.y) * 0.5f * -Mathf.Abs(YScalar),
-				objectPositionAtStart.z + (objectToCursor.z - objectToCursorAtStart.z) * 0.5f * -Mathf.Abs(ZScalar));
+			Vector3 moveObjectTo = (objectPositionAtStart +
+				(Vector3.Dot(objectToCursor, stretchingObject.transform.right) * stretchingObject.transform.right * -Mathf.Abs(XScalar) * 0.5f
+				+ Mathf.Abs(XScalar) * stretchingObject.transform.right * startingScalarDot * 0.5f) +
+				(Vector3.Dot(objectToCursor, stretchingObject.transform.up) * stretchingObject.transform.up * -Mathf.Abs(YScalar) * 0.5f
+				+ Mathf.Abs(YScalar) * stretchingObject.transform.up * startingScalarDot * 0.5f) +
+				(Vector3.Dot(objectToCursor, stretchingObject.transform.forward) * stretchingObject.transform.forward * -Mathf.Abs(ZScalar) * 0.5f
+				+ Mathf.Abs(ZScalar) * stretchingObject.transform.forward * startingScalarDot * 0.5f));
 
 			/*moveObjectTo = objectPositionAtStart +
 			((stretchingObject.transform.right * XScalar) +
 			(stretchingObject.transform.up * YScalar) +
 			(stretchingObject.transform.forward * ZScalar)) * objectToCursor.magnitude;*/
-			//stretchingObject.transform.position = moveObjectTo;
+			stretchingObject.transform.position = moveObjectTo;
 
 			// NOTE: COULD add RoundForPlacementAssistance to moveObjectTo code - Peter
 		}
@@ -216,15 +207,15 @@ public class ObjectManipulator : MonoBehaviour
 		else if (heldObject != null && grabValue < grabTreshhold)
 		{
 			// Object scaling code, uses the RoundForPlacementAssistance and RoundForRotation functions from the rightHandController's palette script
-            float xPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(heldObject.transform.position.x);
-            float yPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(heldObject.transform.position.y);
-			float zPosition = rightHandController.gameObject.GetComponent<PaletteScript>().RoundForPlacementAssistance(heldObject.transform.position.z);
+            float xPosition = myPS.RoundForPlacementAssistance(heldObject.transform.position.x);
+            float yPosition = myPS.RoundForPlacementAssistance(heldObject.transform.position.y);
+			float zPosition = myPS.RoundForPlacementAssistance(heldObject.transform.position.z);
 			heldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
-            Vector3 rotation = new Vector3(
-				rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(heldObject.transform.rotation.x * 90),
-            rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(heldObject.transform.rotation.y * 90),
-            rightHandController.gameObject.GetComponent<PaletteScript>().RoundForRotationAssistance(heldObject.transform.rotation.z * 90));
-			heldObject.transform.rotation = Quaternion.Euler(rotation);
+            /*Vector3 rotation = new Vector3(
+			myPS.RoundForRotationAssistance(heldObject.transform.rotation.x * 90),
+            myPS.RoundForRotationAssistance(heldObject.transform.rotation.y * 90),
+            myPS.RoundForRotationAssistance(heldObject.transform.rotation.z * 90));
+			heldObject.transform.rotation = Quaternion.Euler(rotation);*/
 
 			heldObject.transform.parent = null;
 			heldObject = null;
