@@ -1089,7 +1089,6 @@ MonoBehaviour:
   cursor: {fileID: 0}
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 0}
-  current_wrap: {fileID: 0}
   red: {fileID: 0}
   blue: {fileID: 0}
   white: {fileID: 0}
@@ -1569,6 +1568,42 @@ PrefabInstance:
       propertyPath: m_EnableInputActions
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 2100000, guid: c866d2086a7ebc749a7fa5e7f8f65816, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: blue
+      value: 
+      objectReference: {fileID: 2100000, guid: 373c34d13d8ef7c4e9caa80a1569a97c, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: black
+      value: 
+      objectReference: {fileID: 2100000, guid: 2bcf92e92f948e0438370748df69c863, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: brown
+      value: 
+      objectReference: {fileID: 2100000, guid: 6563c4b52eec7b742a6f8a3da51ae41c, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: green
+      value: 
+      objectReference: {fileID: 2100000, guid: fb2b8e995aee17047974698ee5b05509, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: white
+      value: 
+      objectReference: {fileID: 2100000, guid: ad706e97ef352b943b1fc4b3c40c4b68, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: orange
+      value: 
+      objectReference: {fileID: 2100000, guid: dc992a6ba1307a94da3d66e8383b3534, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: purple
+      value: 
+      objectReference: {fileID: 2100000, guid: c645635816b6eb647bd479d457d80244, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: yellow
+      value: 
+      objectReference: {fileID: 2100000, guid: cfab0ff8f8d03684b8058b2e1f59bfff, type: 2}
     - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: inMenuMode
       value: 0

@@ -22,7 +22,7 @@ public class PaletteScript : MonoBehaviour
 
     public Material defaultMaterial; // Material for Cube GameObject
     public Material selectedMaterial; // Material for the selected GameObject
-    public Material current_wrap;
+    string current_wrap;
     public Material red;
     public Material blue;
     public Material white;
@@ -106,7 +106,39 @@ public class PaletteScript : MonoBehaviour
             // Destroy the hit object
             if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
             {
-                hit.transform.gameObject.GetComponent<MeshRenderer>().material = red;
+                switch (current_wrap)
+                {
+                    case "red":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = red;
+                        break;
+                    case "blue":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = blue;
+                        break;
+                    case "yellow":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        break;
+                    case "white":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        break;
+                    case "black":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        break;
+                    case "green":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        break;
+                    case "brown":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        break;
+                    case "orange":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        break;
+                    case "purple":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        break;
+                    case "pink":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        break;
+                }
             }
                 
         }
