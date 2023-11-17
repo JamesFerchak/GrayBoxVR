@@ -175,7 +175,7 @@ public class ObjectManipulator : MonoBehaviour
 			((stretchingObject.transform.right * XScalar) +
 			(stretchingObject.transform.up * YScalar) +
 			(stretchingObject.transform.forward * ZScalar)) * objectToCursor.magnitude;*/
-			stretchingObject.transform.position = moveObjectTo;
+			//stretchingObject.transform.position = moveObjectTo;
 
 			// NOTE: COULD add RoundForPlacementAssistance to moveObjectTo code - Peter
 		}

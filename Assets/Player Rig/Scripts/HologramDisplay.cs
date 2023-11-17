@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -51,10 +52,10 @@ public class HologramDisplay : MonoBehaviour
         currentHologram = holoCubePrefab;
     }
 
-    public void ShowHologram(Vector3 position, Vector3 rotation)
+    public void ShowHologram(Vector3 position, Quaternion rotation)
     {
         currentHologram.transform.position = position;
-        currentHologram.transform.rotation = Quaternion.Euler(rotation);
+        currentHologram.transform.rotation = rotation;
     }
 
     public void SetHologramToCube()
