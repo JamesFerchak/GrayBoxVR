@@ -5,9 +5,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEditor.Build;
+using UnityEditor;
 
 public class BlockRangler : MonoBehaviour
 {
@@ -29,31 +28,125 @@ public class BlockRangler : MonoBehaviour
 		}
 	}
 
-	public struct action
+	private class action
 	{
-		GameObject myGameObject;
-		Vector3 gameObjectPosition;
-		Quaternion gameObjectRotation;
-		Vector3 gameObjectScale;
+		public GameObject myGameObject;
+		public Vector3 position;
+		public Quaternion rotation;
+		public Vector3 scale;
+		public bool wasDeleted;
+		public bool wasCreated;
 
 		public action(GameObject affectedObject)
 		{
 			myGameObject = affectedObject;
-			gameObjectPosition = affectedObject.transform.position;
-			gameObjectRotation = affectedObject.transform.rotation;
-			gameObjectScale = affectedObject.transform.localScale;
+			position = affectedObject.transform.position;
+			rotation = affectedObject.transform.rotation;
+			scale = affectedObject.transform.localScale;
+			wasDeleted = false;
+			wasCreated = false;
 		}
+
+		public action(GameObject affectedObject, bool deleted)
+		{
+			myGameObject = affectedObject;
+			position = affectedObject.transform.position;
+			rotation = affectedObject.transform.rotation;
+			scale = affectedObject.transform.localScale;
+			wasDeleted = deleted;
+			wasCreated = false;
+		}
+
+		public action(GameObject affectedObject, bool deleted, bool created)
+		{
+			myGameObject = affectedObject;
+			position = affectedObject.transform.position;
+			rotation = affectedObject.transform.rotation;
+			scale = affectedObject.transform.localScale;
+			wasDeleted = deleted;
+			wasCreated = created;
+		}
+
 	}
 
 	public static class ChangeHistory
 	{
-		private static action[] stack = new action[changeHistorySize];
-		
-		public static void PushAction(action actionToPush)
-		{
+		private static action[] actions = new action[changeHistorySize];
+		private static Stack<action> undoneActions = new Stack<action>();
+		private static int TopIndex = 0;
 
+		static ChangeHistory()
+		{
+			for (int thisAction = 0; thisAction < actions.Length; thisAction++)
+			{
+				actions[thisAction] = null;
+			}
+		}
+		
+		//private
+		private static void IncrementTopIndex()
+		{
+			TopIndex = TopIndex == changeHistorySize - 1 ? 0 : TopIndex + 1;
+		}
+
+		private static void DecrementTopIndex()
+		{
+			TopIndex = TopIndex == 0 ? changeHistorySize - 1 : TopIndex - 1;
+		}
+		
+		private static void PushRedoneAction(GameObject objectToRecord)
+		{
+			IncrementTopIndex();
+			action actionToPush = new action(objectToRecord);
+			actions[TopIndex] = actionToPush;
+		}
+
+		//public
+		public static void PushAction(GameObject objectToRecord)
+		{
+			IncrementTopIndex();
+			action actionToPush = new action(objectToRecord);
+			actions[TopIndex] = actionToPush;
+			undoneActions.Clear();
+		}
+
+		public static void Undo()
+		{
+			GameObject objectToUndo = actions[TopIndex].myGameObject;
+			action actionToUndo = actions[TopIndex];
+			//this if statement will have to be changed/removed when we are undoing block creation/deletion
+			if (objectToUndo != null && actionToUndo != null)
+			{
+				action undoneAction = new action(objectToUndo);
+				undoneActions.Push(undoneAction);
+
+				objectToUndo.transform.position = actionToUndo.position;
+				objectToUndo.transform.rotation = actionToUndo.rotation;
+				objectToUndo.transform.localScale = actionToUndo.scale;
+			}
+			actions[TopIndex] = null;
+			DecrementTopIndex();
+		}
+
+		public static void Redo()
+		{
+			GameObject objectToRedo = actions[TopIndex].myGameObject;
+			action actionToRedo = actions[TopIndex];
+			//this if statement will have to be changed/removed when we are undoing block creation/deletion
+			if (objectToRedo != null && actionToRedo != null)
+			{
+				PushRedoneAction(objectToRedo);
+
+				objectToRedo.transform.position = actionToRedo.position;
+				objectToRedo.transform.rotation = actionToRedo.rotation;
+				objectToRedo.transform.localScale = actionToRedo.scale;
+			}
+			actions[TopIndex] = null;
+			DecrementTopIndex();
 		}
 	}
+
+
 
 	private static List<GameObject> blocks = new List<GameObject>();
 
@@ -70,7 +163,6 @@ public class BlockRangler : MonoBehaviour
 	public void RemoveFromBlockList(GameObject blockToRemove)
 	{
 		blocks.Remove(blockToRemove);
-		//Debug.Log($"{blockToRemove.name} removed from list. he was at {blockToRemove.transform.position}");
 	}
 
 	private void Awake()
