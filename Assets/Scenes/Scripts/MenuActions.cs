@@ -49,8 +49,6 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Sprite shortPillarAsset;
     [SerializeField] Sprite wallAsset;
 
-    public HologramDisplay hologramDisplay;
-
     private void Awake()
     {
         Singleton = this;
@@ -112,56 +110,56 @@ public class MenuActions : MonoBehaviour
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToSquare();
         catalogCurrentSelection.sprite = squareAsset;
-        hologramDisplay.SetHologramToCube();
+        HologramDisplay.Singleton.SetHologramToCube();
     }
 
     public void SelectSphere()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToSphere();
         catalogCurrentSelection.sprite = sphereAsset;
-        hologramDisplay.SetHologramToSphere();
+        HologramDisplay.Singleton.SetHologramToSphere();
     }
 
     public void SelectCylinder()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToCylinder();
         catalogCurrentSelection.sprite = cylinderAsset;
-        hologramDisplay.SetHologramToCylinder();
+        HologramDisplay.Singleton.SetHologramToCylinder();
     }
 
     public void SelectPyramid()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToPyramid();
         catalogCurrentSelection.sprite = pyramidAsset;
-        hologramDisplay.SetHologramToPyramid();
+        HologramDisplay.Singleton.SetHologramToPyramid();
     }
 
     public void SelectFloor()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToFloor();
         catalogCurrentSelection.sprite = floorAsset;
-        hologramDisplay.SetHologramToFloor();
+        HologramDisplay.Singleton.SetHologramToFloor();
     }
 
     public void SelectPillar()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToPillar();
         catalogCurrentSelection.sprite = pillarAsset;
-        hologramDisplay.SetHologramToPillar();
+        HologramDisplay.Singleton.SetHologramToPillar();
     }
 
     public void SelectShortPillar()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToShortPillar();
         catalogCurrentSelection.sprite = shortPillarAsset;
-        hologramDisplay.SetHologramToShortPillar();
+        HologramDisplay.Singleton.SetHologramToShortPillar();
     }
 
     public void SelectWall()
     {
         rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToWall();
         catalogCurrentSelection.sprite = wallAsset;
-        hologramDisplay.SetHologramToWall();
+        HologramDisplay.Singleton.SetHologramToWall();
     }
 
     public void RelocateMainMenu()
@@ -217,7 +215,7 @@ public class MenuActions : MonoBehaviour
         shapesUI.SetActive(false);
         saveUI.SetActive(false);
         loadUI.SetActive(false);
-
+        wrapsUI.SetActive(false);
     }
 
     public void OpenShapesMenu()
