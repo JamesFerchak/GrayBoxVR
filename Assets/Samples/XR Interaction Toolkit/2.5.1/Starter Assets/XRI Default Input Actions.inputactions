@@ -2648,6 +2648,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "LeftStickClick",
+                    "type": "Button",
+                    "id": "487437e1-b139-41cc-80ba-006892300c09",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightStickClick",
+                    "type": "Button",
+                    "id": "ec217652-b012-4ea1-a995-7711d8d1ecf3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -2824,6 +2842,28 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Teleport",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "495390bf-2751-4241-a874-4634f106dbd1",
+                    "path": "<XRController>{LeftHand}/{Primary2DAxisClick}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "LeftStickClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "58379fd5-ac4f-47c7-8bd9-7e669c4b898d",
+                    "path": "<XRController>{RightHand}/{Secondary2DAxisClick}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "RightStickClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
