@@ -84,6 +84,7 @@ public class PaletteScript : MonoBehaviour
     {
         GameObject block = Instantiate(currentObjectType.gameObject, position, Quaternion.Euler(rotation)); // Places cube in level
         block.tag = "Block";
+        BlockRangler.ActionHistory.PushCreateAction(block);
     }
 
     public void EraseObject()
@@ -94,7 +95,10 @@ public class PaletteScript : MonoBehaviour
         {
             // Destroy the hit object
             if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
-            Destroy(hit.transform.gameObject);
+            {
+                BlockRangler.ActionHistory.PushDeleteAction(hit.transform.gameObject);
+                Destroy(hit.transform.gameObject);
+            }
         }
     }
 

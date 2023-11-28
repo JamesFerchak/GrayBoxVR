@@ -31,6 +31,7 @@ public class RightHandController : MonoBehaviour
     public InputActionReference bButton = null;
     public InputActionReference rGrip = null;
     public InputActionReference stick = null;
+    public InputActionReference rStickClick = null;
     public GameObject cam; //reference to camera offset
     public GameObject rig; //reference to XR rig
 
@@ -49,6 +50,7 @@ public class RightHandController : MonoBehaviour
         Singleton = this;
         aButton.action.started += aToggle; // How the a button is gets its pressed detected.
         bButton.action.started += bToggle;
+        rStickClick.action.started += rStickClickToggle;
         myOM = GetComponent<ObjectManipulator>();
         if (myOM == null) Debug.LogError("NO OBJECT MANIPULATOR ON THIS SCRIPT!!!");
     }
@@ -167,4 +169,9 @@ public class RightHandController : MonoBehaviour
         inTourMode = false;
         tourModeTeleportToggle = false;
     }
+
+	public void rStickClickToggle(InputAction.CallbackContext context)
+	{
+        BlockRangler.ActionHistory.Redo();
+	}
 }

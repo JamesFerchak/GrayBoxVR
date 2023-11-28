@@ -20,6 +20,7 @@ public class ObjectManipulator : MonoBehaviour
 	Vector3 cursorPosition => cursor.transform.position;
 	readonly float grabTreshhold = 0.8f;
 
+
 	float grabRadius;
 
 	private GameObject heldObject = null;
@@ -37,6 +38,7 @@ public class ObjectManipulator : MonoBehaviour
 	float YScalar = 0;
 	float ZScalar = 0;
 	float startingScalarDot = 0;
+	
 
 	private void Awake()
 	{
@@ -96,7 +98,7 @@ public class ObjectManipulator : MonoBehaviour
 	public void TryStretch(float triggerValue)
 	{
 
-		if (stretchingObject == null && triggerValue >= grabTreshhold && !triedToStretchAlready) {
+		if (stretchingObject == null && triggerValue >= grabTreshhold && !triedToStretchAlready && heldObject == null) {
 		
 			triedToStretchAlready = true;
 
@@ -106,6 +108,7 @@ public class ObjectManipulator : MonoBehaviour
 
 				stretchingObject = stretchingCollider.gameObject;
 				Vector3 objectToCursor = stretchingObject.transform.position - cursorPosition;
+				BlockRangler.ActionHistory.PushAction(stretchingObject);
 
 				float closestDot = 0;
 
@@ -198,7 +201,7 @@ public class ObjectManipulator : MonoBehaviour
 
 	public void TryGrab(float grabValue)
 	{
-		if (heldObject == null && grabValue >= grabTreshhold && !triedToGrabAlready)
+		if (heldObject == null && grabValue >= grabTreshhold && !triedToGrabAlready && stretchingObject == null)
 		{
 			triedToGrabAlready = true;
 
@@ -207,9 +210,10 @@ public class ObjectManipulator : MonoBehaviour
 			if (grabbedCollider != null)
 			{
 				heldObject = grabbedCollider.gameObject;
+				BlockRangler.ActionHistory.PushAction(heldObject);
 				heldObject.transform.parent = transform;
 
-                if (HologramDisplay.Singleton.GetHologramState())
+				if (HologramDisplay.Singleton.GetHologramState())
                 {
                     HologramDisplay.Singleton.ToggleHologram();
                     hologramIsTempDisabled = true;

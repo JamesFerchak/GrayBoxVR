@@ -32,6 +32,7 @@ public class LeftHandController : MonoBehaviour
 	public InputActionReference yButton = null;
 	public InputActionReference lGrip = null;
 	public InputActionReference menu = null;
+	public InputActionReference lStickClick = null;
 
 	//  -------------------------------------------------------------------------------------------------------------------  
 	// Start is called before the first frame update
@@ -40,6 +41,7 @@ public class LeftHandController : MonoBehaviour
 		Singleton = this;
 		xButton.action.started += xToggle; // How the a button is gets its pressed detected.
 		yButton.action.started += yToggle;
+		lStickClick.action.started += lStickClickToggle;
 		menu.action.started += menuToggle;
 		myOM = GetComponent<ObjectManipulator>();
 		if (myOM == null) Debug.LogError("NO OBJECT MANIPULATOR ON THIS SCRIPT!!!");
@@ -79,5 +81,10 @@ public class LeftHandController : MonoBehaviour
 	{
 		//Debug.Log("Menu button pressed.");
 		GetComponent<PaletteScript>().InteractWithMainMenu();
+	}
+
+	public void lStickClickToggle(InputAction.CallbackContext context)
+	{
+		BlockRangler.ActionHistory.Undo();
 	}
 }
