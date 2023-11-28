@@ -36,6 +36,8 @@ public class LevelSavedData
 			blockScales.Add(block.transform.localScale.x);
 			blockScales.Add(block.transform.localScale.y);
 			blockScales.Add(block.transform.localScale.z);
+
+			
 		}
 
 	}

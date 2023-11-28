@@ -176,11 +176,6 @@ public class ObjectManipulator : MonoBehaviour
 				+ Mathf.Abs(YScalar) * stretchingObject.transform.up * startingScalarDot * 0.5f) +
 				(Vector3.Dot(objectToCursor, stretchingObject.transform.forward) * stretchingObject.transform.forward * -Mathf.Abs(ZScalar) * 0.5f
 				+ Mathf.Abs(ZScalar) * stretchingObject.transform.forward * startingScalarDot * 0.5f));
-
-			/*moveObjectTo = objectPositionAtStart +
-			((stretchingObject.transform.right * XScalar) +
-			(stretchingObject.transform.up * YScalar) +
-			(stretchingObject.transform.forward * ZScalar)) * objectToCursor.magnitude;*/
 			stretchingObject.transform.position = moveObjectTo;
 
 			// NOTE: COULD add RoundForPlacementAssistance to moveObjectTo code - Peter
