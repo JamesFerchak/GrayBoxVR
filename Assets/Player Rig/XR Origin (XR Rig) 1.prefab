@@ -686,6 +686,7 @@ MonoBehaviour:
   yButton: {fileID: -4782931982366383568, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   lGrip: {fileID: -3613858655746362428, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   menu: {fileID: -4710085500694152614, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  lStickClick: {fileID: -771463947295927999, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!114 &888311422869325435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,6 +726,16 @@ MonoBehaviour:
   cursor: {fileID: 7614306960812354058}
   defaultMaterial: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
   selectedMaterial: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
+  current_wrap: 
+  red: {fileID: 0}
+  blue: {fileID: 0}
+  white: {fileID: 0}
+  black: {fileID: 0}
+  brown: {fileID: 0}
+  purple: {fileID: 0}
+  green: {fileID: 0}
+  yellow: {fileID: 0}
+  orange: {fileID: 0}
   savedHandPos: {x: 0, y: 0, z: 0}
   mainMenuPanel: {fileID: 0}
   inMenuMode: 0
@@ -1896,6 +1907,7 @@ MonoBehaviour:
   bButton: {fileID: 4822750037461183173, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rGrip: {fileID: 4569334403090337415, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   stick: {fileID: 0}
+  rStickClick: {fileID: -7552579491714625646, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   cam: {fileID: 0}
   rig: {fileID: 0}
   tourModeTeleportToggle: 0
@@ -1926,6 +1938,16 @@ MonoBehaviour:
   cursor: {fileID: 1301752916869206891}
   defaultMaterial: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
   selectedMaterial: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
+  current_wrap: 
+  red: {fileID: 0}
+  blue: {fileID: 0}
+  white: {fileID: 0}
+  black: {fileID: 0}
+  brown: {fileID: 0}
+  purple: {fileID: 0}
+  green: {fileID: 0}
+  yellow: {fileID: 0}
+  orange: {fileID: 0}
   savedHandPos: {x: 0, y: 0, z: 0}
   mainMenuPanel: {fileID: 0}
   inMenuMode: 0
