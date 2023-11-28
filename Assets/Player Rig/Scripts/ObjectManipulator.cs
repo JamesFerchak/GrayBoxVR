@@ -25,6 +25,7 @@ public class ObjectManipulator : MonoBehaviour
 	private GameObject heldObject = null;
 	bool triedToGrabAlready = false;
 	PaletteScript myPS;
+	bool hologramIsTempDisabled = false;
 	
 	//stretching
 	bool triedToStretchAlready = false;
@@ -144,7 +145,12 @@ public class ObjectManipulator : MonoBehaviour
 
 				Debug.DrawRay(stretchingObject.transform.position, -objectToCursor, Color.red, 30f, false);
 
-			}
+                if (HologramDisplay.Singleton.GetHologramState())
+                {
+                    HologramDisplay.Singleton.ToggleHologram();
+                    hologramIsTempDisabled = true;
+                }
+            }
 		}
 		else if (stretchingObject != null && triggerValue < grabTreshhold)
 		{
@@ -152,7 +158,13 @@ public class ObjectManipulator : MonoBehaviour
 			XScalar = 0;
 			YScalar = 0;
 			ZScalar = 0;
-		}
+
+            if (hologramIsTempDisabled)
+            {
+                HologramDisplay.Singleton.ToggleHologram();
+                hologramIsTempDisabled = false;
+            }
+        }
 
 		if (triggerValue < grabTreshhold) triedToStretchAlready = false;
 	}
@@ -196,7 +208,13 @@ public class ObjectManipulator : MonoBehaviour
 			{
 				heldObject = grabbedCollider.gameObject;
 				heldObject.transform.parent = transform;
-			}
+
+                if (HologramDisplay.Singleton.GetHologramState())
+                {
+                    HologramDisplay.Singleton.ToggleHologram();
+                    hologramIsTempDisabled = true;
+                }
+            }
 
 		}
 		else if (heldObject != null && grabValue < grabTreshhold)
@@ -207,14 +225,20 @@ public class ObjectManipulator : MonoBehaviour
 			float zPosition = myPS.RoundForPlacementAssistance(heldObject.transform.position.z);
 			heldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
             Vector3 rotation = new Vector3(
-			myPS.RoundForRotationAssistance(heldObject.transform.rotation.x * 90),
-            myPS.RoundForRotationAssistance(heldObject.transform.rotation.y * 90),
-            myPS.RoundForRotationAssistance(heldObject.transform.rotation.z * 90));
+			myPS.RoundForRotationAssistance(heldObject.transform.eulerAngles.x),
+            myPS.RoundForRotationAssistance(heldObject.transform.eulerAngles.y),
+            myPS.RoundForRotationAssistance(heldObject.transform.eulerAngles.z));
 			heldObject.transform.rotation = Quaternion.Euler(rotation);
 
 			heldObject.transform.parent = null;
 			heldObject = null;
-		}
+
+            if (hologramIsTempDisabled)
+			{
+                HologramDisplay.Singleton.ToggleHologram();
+                hologramIsTempDisabled = false;
+            }
+        }
 		
 		//if we've ungrabbed, get ready to try again
 		if (grabValue < grabTreshhold) triedToGrabAlready = false;

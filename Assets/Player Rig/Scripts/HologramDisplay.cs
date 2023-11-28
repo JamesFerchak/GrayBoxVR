@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -36,6 +37,8 @@ public class HologramDisplay : MonoBehaviour
     public GameObject holoWallPrefab; // Wall GameObject
     public GameObject currentHologram;
 
+    public bool hologramEnabled = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,8 +57,11 @@ public class HologramDisplay : MonoBehaviour
 
     public void ShowHologram(Vector3 position, Quaternion rotation)
     {
-        currentHologram.transform.position = position;
-        currentHologram.transform.rotation = rotation;
+        if (hologramEnabled)
+        {
+            currentHologram.transform.position = position;
+            currentHologram.transform.rotation = rotation;
+        }
     }
 
     public void SetHologramToCube()
@@ -104,5 +110,16 @@ public class HologramDisplay : MonoBehaviour
     {
         currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
         currentHologram = holoWallPrefab;
+    }
+
+    public void ToggleHologram()
+    {
+        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
+        hologramEnabled = !hologramEnabled;
+    }
+
+    public bool GetHologramState()
+    {
+        return hologramEnabled;
     }
 }
