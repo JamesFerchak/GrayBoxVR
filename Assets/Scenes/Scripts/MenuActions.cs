@@ -49,6 +49,9 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Sprite shortPillarAsset;
     [SerializeField] Sprite wallAsset;
 
+    [SerializeField] GameObject playerCamera;
+    [SerializeField] GameObject screenshotCamera;
+
     private void Awake()
     {
         Singleton = this;
@@ -254,17 +257,23 @@ public class MenuActions : MonoBehaviour
         wrapsUI.SetActive(false);
     }
 
-    public void SaveLevelWithButton()
+    public void SaveLevelWithButton(string saveID)
     {
         BlockRangler.SaveLevel();
         OpenShapesMenu(); // Switches to catalog
-        rightHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu(); // Closes menu
+        leftHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu(); // Closes menu
+
+        screenshotCamera.SetActive(true); // Switch to screenshot view camera
+        playerCamera.SetActive(false);
+        ScreenCapture.CaptureScreenshot("save" + saveID + "thumbnail.png"); // Saves to project directory
+        playerCamera.SetActive(true); // Switch back
+        screenshotCamera.SetActive(false);
     }
 
-    public void LoadLevelWithButton()
+    public void LoadLevelWithButton(string saveID)
     {
         BlockRangler.LoadLevel();
         OpenShapesMenu();
-        rightHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu();
+        leftHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu();
     }
 }
