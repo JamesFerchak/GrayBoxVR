@@ -170,69 +170,6 @@ public class PaletteScript : MonoBehaviour
         }
     }
 
-    public void MoveObject()
-    {
-        if (inEditMode) // If user hasn't finished using edit mode yet
-        {
-            inEditMode = false;
-            selectedObject.GetComponent<MeshRenderer>().material = defaultMaterial; // Reset the selected object's material
-        }
-
-        if (!inMoveMode) // If entering move mode
-        {
-            Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
-            inMoveMode = true;
-            if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
-            {
-                selectedObject = hit.transform.gameObject; // Select the hit object
-                selectedObject.GetComponent<MeshRenderer>().material = selectedMaterial; // Change the hit object's material
-            }
-            else // If nothing in line of sight
-            {
-                inMoveMode = false;
-            }
-        }
-        else // If exiting move mode
-        {
-            selectedObject.transform.position = gameObject.transform.position; // Move selected object to hand location
-            selectedObject.GetComponent<MeshRenderer>().material = defaultMaterial; // Reset the selected object's material
-            selectedObject = null; // Remove any selected object that may be there
-            inMoveMode = false; // Reset bool variables so you can re-use moving function
-        }
-    }
-
-    public void EditObject()
-    {
-        if (inMoveMode) // If user hasn't finished using move mode yet
-        {
-            inMoveMode = false;
-            selectedObject.GetComponent<MeshRenderer>().material = defaultMaterial; // Reset the selected object's material
-        }
-
-        if (!inEditMode) // If entering edit mode
-        {
-            Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
-            inEditMode = true;
-            if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
-            {
-                selectedObject = hit.transform.gameObject; // Select the hit object
-                selectedObject.GetComponent<MeshRenderer>().material = selectedMaterial; // Change the hit object's material
-                savedHandPos = gameObject.transform.position; // Record current position of hand
-            }
-            else // If nothing in line of sight
-            {
-                inEditMode = false;
-            }
-        }
-        else // If exiting edit mode
-        {
-            selectedObject.transform.localScale = (savedHandPos - gameObject.transform.position); // Change scale of object based on hand movement
-            selectedObject.GetComponent<MeshRenderer>().material = defaultMaterial; // Reset the selected object's material
-            selectedObject = null; // Remove any selected object that may be there
-            inEditMode = false; // Reset bool variables so you can re-use edit function
-        }
-    }
-
     public void InteractWithMainMenu()
     {
         if (mainMenuPanel != null) // If panel exists

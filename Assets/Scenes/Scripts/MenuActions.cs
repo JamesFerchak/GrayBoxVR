@@ -211,6 +211,26 @@ public class MenuActions : MonoBehaviour
     {
         leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "pink";
     }
+    public void SelectGray()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "gray";
+    }
+    public void SelectStone()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "stone";
+    }
+    public void SelectGlass()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "glass";
+    }
+    public void SelectSpace()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "space";
+    }
+    public void SelectSmile()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "smile";
+    }
     public void OpenOptionsMenu()
     {
         optionsUI.SetActive(true);
