@@ -160,8 +160,14 @@ public class BlockRangler : MonoBehaviour
 
 		public static void Redo()
 		{
+			if (undoneActions.Peek() == null)
+				return;
+
 			GameObject objectToRedo = actions[TopIndex].myGameObject;
 			Action actionToRedo = actions[TopIndex];
+
+			Debug.Log(actionToRedo.myGameObject.name);
+
 			//this if statement will have to be changed/removed when we are undoing block creation/deletion
 			if (objectToRedo != null && actionToRedo != null)
 			{

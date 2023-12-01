@@ -65,7 +65,7 @@ public class LeftHandController : MonoBehaviour
 		//Debug.Log("X button pressed.");
 		if (!RightHandController.Singleton.inTourMode)
 		{
-            GetComponent<PaletteScript>().EditObject();
+            //GetComponent<PaletteScript>().EditObject();
         }
 		//p.EditObject();
 	}

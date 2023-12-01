@@ -2859,7 +2859,7 @@
                 {
                     "name": "",
                     "id": "58379fd5-ac4f-47c7-8bd9-7e669c4b898d",
-                    "path": "<XRController>{RightHand}/{Secondary2DAxisClick}",
+                    "path": "<XRController>{RightHand}/{Primary2DAxisClick}",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",

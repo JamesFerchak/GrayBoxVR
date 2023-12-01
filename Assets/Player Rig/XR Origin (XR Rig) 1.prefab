@@ -736,6 +736,10 @@ MonoBehaviour:
   green: {fileID: 0}
   yellow: {fileID: 0}
   orange: {fileID: 0}
+  pink: {fileID: 0}
+  gray: {fileID: 0}
+  stone: {fileID: 0}
+  glass: {fileID: 0}
   savedHandPos: {x: 0, y: 0, z: 0}
   mainMenuPanel: {fileID: 0}
   inMenuMode: 0
@@ -1906,7 +1910,7 @@ MonoBehaviour:
   rTrigger: {fileID: 1592152498474701456, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   bButton: {fileID: 4822750037461183173, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rGrip: {fileID: 4569334403090337415, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  stick: {fileID: 0}
+  stick: {fileID: -7552579491714625646, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rStickClick: {fileID: -7552579491714625646, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   cam: {fileID: 0}
   rig: {fileID: 0}
@@ -1948,6 +1952,10 @@ MonoBehaviour:
   green: {fileID: 0}
   yellow: {fileID: 0}
   orange: {fileID: 0}
+  pink: {fileID: 0}
+  gray: {fileID: 0}
+  stone: {fileID: 0}
+  glass: {fileID: 0}
   savedHandPos: {x: 0, y: 0, z: 0}
   mainMenuPanel: {fileID: 0}
   inMenuMode: 0
