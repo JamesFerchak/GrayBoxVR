@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 
 public class BlockRangler : MonoBehaviour
 {
-	readonly static int actionHistorySize = 25;
+	readonly static int actionHistorySize = 50;
 	public static string levelPath;
 
 	private static BlockRangler _singleton;
@@ -124,12 +124,17 @@ public class BlockRangler : MonoBehaviour
 
 		public static void Undo()
 		{
+			if (actions[TopIndex] == null)
+			{
+				return;
+			}
+
 			GameObject objectToUndo = actions[TopIndex].myGameObject;
 			Action actionToUndo = actions[TopIndex];
-
+			
 			if (actionToUndo.myActionType == actionType.delete)
 			{
-				GameObject block = Instantiate(actionToUndo.myGameObject /*may have to instantiate from /Resources*/, actionToUndo.position, actionToUndo.rotation);
+				GameObject block = Instantiate(actionToUndo.myGameObject /*DO have to instantiate from /Resources*/, actionToUndo.position, actionToUndo.rotation);
 				block.tag = "Block";
 				Action undoneAction = new Action(block, actionType.create);
 				undoneActions.Push(undoneAction);
@@ -148,10 +153,6 @@ public class BlockRangler : MonoBehaviour
 				objectToUndo.transform.position = actionToUndo.position;
 				objectToUndo.transform.rotation = actionToUndo.rotation;
 				objectToUndo.transform.localScale = actionToUndo.scale;
-			}
-			else if (actionToUndo == null)
-			{
-				//no action to undo
 			}
 			actions[TopIndex] = null;
 			DecrementTopIndex();
@@ -197,7 +198,7 @@ public class BlockRangler : MonoBehaviour
 	private void Awake()
 	{
 		Singleton = this;
-		levelPath = Application.persistentDataPath + "/SavedLevel.kek";
+		levelPath = Application.persistentDataPath;
 	}
 
 	// Start is called before the first frame update
@@ -210,17 +211,17 @@ public class BlockRangler : MonoBehaviour
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.S))
-			SaveLevel();
+			SaveLevel("coolLevel");
 
 		if (Input.GetKeyDown(KeyCode.L))
-			LoadLevel();
+			LoadLevel("coolLevel");
 	}
 
 	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
-	public static void SaveLevel()
+	public static void SaveLevel(string levelName)
 	{
 		BinaryFormatter myFormatter = new();
-		FileStream myStream = new(levelPath, FileMode.Create);
+		FileStream myStream = new(levelPath + levelName + ".kek", FileMode.Create);
 
 		LevelSavedData myData = new();
 
@@ -229,12 +230,12 @@ public class BlockRangler : MonoBehaviour
 	}
 
 	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
-	private static LevelSavedData GetLevelFromFile()
+	private static LevelSavedData GetLevelFromFile(string levelName)
 	{
 		if (File.Exists(levelPath))
 		{
 			BinaryFormatter myFormatter = new();
-			FileStream myStream = new(levelPath, FileMode.Open);
+			FileStream myStream = new(levelPath + levelName + ".kek", FileMode.Open);
 
 			LevelSavedData myData = myFormatter.Deserialize(myStream) as LevelSavedData;
 			myStream.Close();
@@ -249,9 +250,9 @@ public class BlockRangler : MonoBehaviour
 	}
 
 	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
-	public static void LoadLevel()
+	public static void LoadLevel(string levelName)
 	{
-		LevelSavedData levelToLoad = GetLevelFromFile();
+		LevelSavedData levelToLoad = GetLevelFromFile(levelName);
 		if (levelToLoad != null)
 		{
 			foreach (GameObject block in blocks)
