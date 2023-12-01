@@ -32,6 +32,10 @@ public class PaletteScript : MonoBehaviour
     public Material green;
     public Material yellow;
     public Material orange;
+    public Material pink;
+    public Material gray;
+    public Material stone;
+    public Material glass;
 
 
     public Vector3 savedHandPos; // Vector3 recording the hand position
@@ -139,6 +143,9 @@ public class PaletteScript : MonoBehaviour
                         break;
                     case "purple":
                         hit.transform.gameObject.GetComponent<MeshRenderer>().material = purple;
+                        break;
+                    case "pink":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = pink;
                         break;
                 }
             }
