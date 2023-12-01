@@ -198,7 +198,7 @@ public class BlockRangler : MonoBehaviour
 	private void Awake()
 	{
 		Singleton = this;
-		levelPath = Application.persistentDataPath;
+		levelPath = Application.persistentDataPath + "/";
 	}
 
 	// Start is called before the first frame update
