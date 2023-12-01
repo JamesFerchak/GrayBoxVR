@@ -49,9 +49,6 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Sprite shortPillarAsset;
     [SerializeField] Sprite wallAsset;
 
-    [SerializeField] GameObject playerCamera;
-    [SerializeField] GameObject screenshotCamera;
-
     private void Awake()
     {
         Singleton = this;
@@ -87,6 +84,8 @@ public class MenuActions : MonoBehaviour
                 scalingAssistanceText.text = "0";
             }
         });
+
+        // Code to load images into load menu and save menu
     }
 
     private void Update()
@@ -259,20 +258,15 @@ public class MenuActions : MonoBehaviour
 
     public void SaveLevelWithButton(string saveID)
     {
-        BlockRangler.SaveLevel();
+        BlockRangler.SaveLevel("save" + saveID);
         OpenShapesMenu(); // Switches to catalog
         leftHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu(); // Closes menu
-
-        screenshotCamera.SetActive(true); // Switch to screenshot view camera
-        playerCamera.SetActive(false);
-        ScreenCapture.CaptureScreenshot("save" + saveID + "thumbnail.png"); // Saves to project directory
-        playerCamera.SetActive(true); // Switch back
-        screenshotCamera.SetActive(false);
+        ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "/GrayboxVR/save" + saveID + "thumbnail.png"); // Saves to project directory
     }
 
     public void LoadLevelWithButton(string saveID)
     {
-        BlockRangler.LoadLevel();
+        BlockRangler.LoadLevel("save" + saveID);
         OpenShapesMenu();
         leftHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu();
     }
