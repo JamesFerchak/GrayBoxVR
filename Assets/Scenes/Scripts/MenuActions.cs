@@ -261,7 +261,7 @@ public class MenuActions : MonoBehaviour
         BlockRangler.SaveLevel("save" + saveID);
         OpenShapesMenu(); // Switches to catalog
         leftHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu(); // Closes menu
-        ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "/GrayboxVR/save" + saveID + "thumbnail.png"); // Saves to project directory
+        ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "save" + saveID + "thumbnail.png"); // Saves to project directory
     }
 
     public void LoadLevelWithButton(string saveID)
