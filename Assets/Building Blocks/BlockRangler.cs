@@ -232,7 +232,7 @@ public class BlockRangler : MonoBehaviour
 	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
 	private static LevelSavedData GetLevelFromFile(string levelName)
 	{
-		if (File.Exists(levelPath))
+		if (File.Exists(levelPath + levelName + ".kek"))
 		{
 			BinaryFormatter myFormatter = new();
 			FileStream myStream = new(levelPath + levelName + ".kek", FileMode.Open);
