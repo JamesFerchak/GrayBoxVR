@@ -38,6 +38,7 @@ public class PaletteScript : MonoBehaviour
     public Material glass;
     public Material space;
     public Material smile;
+    public Material cyan;
 
 
     public Vector3 savedHandPos; // Vector3 recording the hand position
@@ -151,6 +152,9 @@ public class PaletteScript : MonoBehaviour
                         break;
                     case "gray":
                         hit.transform.gameObject.GetComponent<MeshRenderer>().material = gray;
+                        break;
+                    case "cyan":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = cyan;
                         break;
                     case "stone":
                         hit.transform.gameObject.GetComponent<MeshRenderer>().material = stone;

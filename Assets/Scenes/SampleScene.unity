@@ -316,6 +316,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.18039216
       objectReference: {fileID: 0}
+    - target: {fileID: 467565470364785452, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1215870092}
+    - target: {fileID: 467565470364785452, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectCyan
+      objectReference: {fileID: 0}
     - target: {fileID: 533557090633748887, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -344,6 +352,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1215870092}
+    - target: {fileID: 1131942025726945328, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1215870092}
+    - target: {fileID: 1131942025726945328, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectGlass
+      objectReference: {fileID: 0}
     - target: {fileID: 1151503233412433511, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -376,6 +392,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1215870092}
+    - target: {fileID: 1440280064274245674, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1215870092}
+    - target: {fileID: 1440280064274245674, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectGray
+      objectReference: {fileID: 0}
     - target: {fileID: 1501289879155693918, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -552,6 +576,22 @@ PrefabInstance:
       propertyPath: m_WholeNumbers
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3348639170998291401, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1215870092}
+    - target: {fileID: 3348639170998291401, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectSmile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415823481387884873, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1215870092}
+    - target: {fileID: 3415823481387884873, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectSpace
+      objectReference: {fileID: 0}
     - target: {fileID: 3488129744190349248, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -563,6 +603,14 @@ PrefabInstance:
     - target: {fileID: 3531924347456592933, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OpenShapesMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3567485615570076008, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1215870092}
+    - target: {fileID: 3567485615570076008, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectPink
       objectReference: {fileID: 0}
     - target: {fileID: 3575591021540024746, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -607,6 +655,14 @@ PrefabInstance:
     - target: {fileID: 3821271700390845075, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894401674732672784, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1215870092}
+    - target: {fileID: 3894401674732672784, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectStone
       objectReference: {fileID: 0}
     - target: {fileID: 3966445340113163037, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1092,6 +1148,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8066186788540250175, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1215870092}
+    - target: {fileID: 8066186788540250175, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectOrange
+      objectReference: {fileID: 0}
     - target: {fileID: 8117604675027856652, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1409,8 +1473,6 @@ MonoBehaviour:
   pillarAsset: {fileID: 21300000, guid: 31d034b81ed173c48b1b581689acbbe8, type: 3}
   shortPillarAsset: {fileID: 21300000, guid: 7014f304d804987478f138985e467ef9, type: 3}
   wallAsset: {fileID: 21300000, guid: 26ff526d69796f3428a12ccec8b18892, type: 3}
-  playerCamera: {fileID: 259601210}
-  screenshotCamera: {fileID: 0}
 --- !u!4 &1215870093
 Transform:
   m_ObjectHideFlags: 0
@@ -1625,6 +1687,7 @@ MonoBehaviour:
   glass: {fileID: 0}
   space: {fileID: 0}
   smile: {fileID: 0}
+  cyan: {fileID: 0}
   savedHandPos: {x: 0, y: 0, z: 0}
   mainMenuPanel: {fileID: 0}
   inMenuMode: 0
@@ -2071,6 +2134,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 373c34d13d8ef7c4e9caa80a1569a97c, type: 2}
     - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: cyan
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e79d9e9f21e3d24786251944f1128a5, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: gray
+      value: 
+      objectReference: {fileID: 2100000, guid: 89ab541be83bfbe4ba00ee926cda3265, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: pink
+      value: 
+      objectReference: {fileID: 2100000, guid: bcf497b222a5beb4cad5bf5f08946142, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: black
       value: 
       objectReference: {fileID: 2100000, guid: 2bcf92e92f948e0438370748df69c863, type: 2}
@@ -2079,9 +2154,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 6563c4b52eec7b742a6f8a3da51ae41c, type: 2}
     - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: glass
+      value: 
+      objectReference: {fileID: 2100000, guid: 8fa653cb01ccc7d488a5bb793b47e1fc, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: green
       value: 
       objectReference: {fileID: 2100000, guid: fb2b8e995aee17047974698ee5b05509, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: smile
+      value: 
+      objectReference: {fileID: 2100000, guid: f707f50a2f963be4d9bb98e83e51b26b, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: space
+      value: 
+      objectReference: {fileID: 2100000, guid: 80e13d7d2c203a240ad0bb18569d1ba0, type: 2}
+    - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: stone
+      value: 
+      objectReference: {fileID: 2100000, guid: f614d201e6b072b47b8d4d8330f4a0a7, type: 2}
     - target: {fileID: 5995470507266144916, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: white
       value: 

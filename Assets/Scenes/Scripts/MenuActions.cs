@@ -215,6 +215,10 @@ public class MenuActions : MonoBehaviour
     {
         leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "gray";
     }
+    public void SelectCyan()
+    {
+        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "cyan";
+    }
     public void SelectStone()
     {
         leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "stone";
