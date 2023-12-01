@@ -244,7 +244,7 @@ public class BlockRangler : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogError($"Tried to load level that doesn't exist!!! {levelPath}");
+			Debug.LogError($"Tried to load level that doesn't exist!!! {levelPath + levelName + ".kek"}");
 			return null;
 		}
 	}
