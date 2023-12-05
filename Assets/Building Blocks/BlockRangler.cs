@@ -40,6 +40,7 @@ public class BlockRangler : MonoBehaviour
 	private class Action
 	{
 		public GameObject myGameObject;
+		public string gameObjectName;
 		public Vector3 position;
 		public Quaternion rotation;
 		public Vector3 scale;
@@ -48,6 +49,7 @@ public class BlockRangler : MonoBehaviour
 		public Action(GameObject affectedObject)
 		{
 			myGameObject = affectedObject;
+			gameObjectName = SimplifyObjectName(affectedObject.name);
 			position = affectedObject.transform.position;
 			rotation = affectedObject.transform.rotation;
 			scale = affectedObject.transform.localScale;
@@ -57,10 +59,16 @@ public class BlockRangler : MonoBehaviour
 		public Action(GameObject affectedObject, actionType thisActionType)
 		{
 			myGameObject = affectedObject;
+			gameObjectName = SimplifyObjectName(affectedObject.name);
 			position = affectedObject.transform.position;
 			rotation = affectedObject.transform.rotation;
 			scale = affectedObject.transform.localScale;
 			myActionType = thisActionType;
+		}
+
+		private static string SimplifyObjectName(string input)
+		{
+			return input.Contains('(') ? input.Substring(0, (input.IndexOf('('))) : input;
 		}
 
 	}
@@ -90,15 +98,19 @@ public class BlockRangler : MonoBehaviour
 			TopIndex = TopIndex == 0 ? actionHistorySize - 1 : TopIndex - 1;
 		}
 		
-		private static void PushRedoneAction(GameObject objectToRecord)
+		private static void PushRedoneAction(Action actionToRecord)
 		{
 			IncrementTopIndex();
-			Action actionToPush = new Action(objectToRecord);
-			actions[TopIndex] = actionToPush;
+			actions[TopIndex] = actionToRecord;
+		}
+		
+		private static void PushUndoneAction(Action actionToRecord)
+		{
+			undoneActions.Push(actionToRecord);
 		}
 
 		//public
-		public static void PushAction(GameObject objectToRecord)
+		public static void PushMoveAction(GameObject objectToRecord)
 		{
 			IncrementTopIndex();
 			Action actionToPush = new Action(objectToRecord);
@@ -129,56 +141,65 @@ public class BlockRangler : MonoBehaviour
 				return;
 			}
 
-			GameObject objectToUndo = actions[TopIndex].myGameObject;
 			Action actionToUndo = actions[TopIndex];
-			
-			if (actionToUndo.myActionType == actionType.delete)
-			{
-				GameObject block = Instantiate(actionToUndo.myGameObject /*DO have to instantiate from /Resources*/, actionToUndo.position, actionToUndo.rotation);
-				block.tag = "Block";
-				Action undoneAction = new Action(block, actionType.create);
-				undoneActions.Push(undoneAction);
-			} 
-			else if (actionToUndo.myActionType == actionType.create)
-			{
-				Action undoneAction = new Action(objectToUndo, actionType.delete);
-				undoneActions.Push(undoneAction);
-				Destroy(objectToUndo);
-			}
-			else if (objectToUndo != null && actionToUndo != null)
-			{
-				Action undoneAction = new Action(objectToUndo);
-				undoneActions.Push(undoneAction);
 
-				objectToUndo.transform.position = actionToUndo.position;
-				objectToUndo.transform.rotation = actionToUndo.rotation;
-				objectToUndo.transform.localScale = actionToUndo.scale;
-			}
+			Do(actionToUndo, false);
+
 			actions[TopIndex] = null;
 			DecrementTopIndex();
 		}
 
 		public static void Redo()
 		{
-			if (undoneActions.Peek() == null)
+			if (undoneActions.Count == 0)
 				return;
 
-			GameObject objectToRedo = actions[TopIndex].myGameObject;
 			Action actionToRedo = actions[TopIndex];
 
-			Debug.Log(actionToRedo.myGameObject.name);
+			Do(actionToRedo, true);
 
-			//this if statement will have to be changed/removed when we are undoing block creation/deletion
-			if (objectToRedo != null && actionToRedo != null)
-			{
-				PushRedoneAction(objectToRedo);
-
-				objectToRedo.transform.position = actionToRedo.position;
-				objectToRedo.transform.rotation = actionToRedo.rotation;
-				objectToRedo.transform.localScale = actionToRedo.scale;
-			}
 			actions[TopIndex] = null;
 			DecrementTopIndex();
+		}
+
+		private static void Do(Action actionToUndo, bool isRedo)
+		{
+			GameObject objectToUndo = actionToUndo.myGameObject;
+
+			if (actionToUndo.myActionType == actionType.delete)
+			{
+				GameObject block = Instantiate(Resources.Load($"Blocks/{actionToUndo.gameObjectName}", typeof(GameObject))) as GameObject;
+				block.transform.position = actionToUndo.position;
+				block.transform.rotation = actionToUndo.rotation;
+				block.transform.localScale = actionToUndo.scale;
+				block.tag = "Block";
+				Action undoneAction = new Action(block, actionType.create);
+				if (isRedo)
+					PushRedoneAction(undoneAction);
+				else
+					PushUndoneAction(undoneAction);
+			}
+			else if (actionToUndo.myActionType == actionType.create)
+			{
+				Action undoneAction = new Action(objectToUndo, actionType.delete);
+				if (isRedo)
+					PushRedoneAction(undoneAction);
+				else
+					PushUndoneAction(undoneAction); 
+				Destroy(objectToUndo);
+			}
+			else if (objectToUndo != null && actionToUndo != null)
+			{
+				Action undoneAction = new Action(objectToUndo);
+				if (isRedo)
+					PushRedoneAction(undoneAction);
+				else
+					PushUndoneAction(undoneAction);
+
+				objectToUndo.transform.position = actionToUndo.position;
+				objectToUndo.transform.rotation = actionToUndo.rotation;
+				objectToUndo.transform.localScale = actionToUndo.scale;
+			}
 		}
 	}
 
@@ -207,12 +228,6 @@ public class BlockRangler : MonoBehaviour
 		levelPath = Application.persistentDataPath + "/";
 	}
 
-	// Start is called before the first frame update
-	void Start()
-	{
-		
-	}
-
 	// Update is called once per frame
 	void Update()
 	{
@@ -223,7 +238,6 @@ public class BlockRangler : MonoBehaviour
 			LoadLevel("coolLevel");
 	}
 
-	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
 	public static void SaveLevel(string levelName)
 	{
 		BinaryFormatter myFormatter = new();
@@ -235,7 +249,6 @@ public class BlockRangler : MonoBehaviour
 		myStream.Close();
 	}
 
-	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
 	private static LevelSavedData GetLevelFromFile(string levelName)
 	{
 		if (File.Exists(levelPath + levelName + ".kek"))
@@ -255,7 +268,6 @@ public class BlockRangler : MonoBehaviour
 		}
 	}
 
-	//COULD MAKE THIS TAKE A PARAM AS A LEVEL NAME
 	public static void LoadLevel(string levelName)
 	{
 		LevelSavedData levelToLoad = GetLevelFromFile(levelName);
@@ -267,7 +279,6 @@ public class BlockRangler : MonoBehaviour
 			}
 			foreach (string blockName in levelToLoad.blockNames)
 			{
-				//Debug.LogWarning($"loading block by name: {blockName}");
 				//spawn object
 				GameObject instance = Instantiate(Resources.Load($"Blocks/{blockName}", typeof(GameObject))) as GameObject;
 

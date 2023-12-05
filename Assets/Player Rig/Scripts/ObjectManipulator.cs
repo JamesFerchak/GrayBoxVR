@@ -108,7 +108,7 @@ public class ObjectManipulator : MonoBehaviour
 
 				stretchingObject = stretchingCollider.gameObject;
 				Vector3 objectToCursor = stretchingObject.transform.position - cursorPosition;
-				BlockRangler.ActionHistory.PushAction(stretchingObject);
+				BlockRangler.ActionHistory.PushMoveAction(stretchingObject);
 
 				float closestDot = 0;
 
@@ -210,7 +210,7 @@ public class ObjectManipulator : MonoBehaviour
 			if (grabbedCollider != null)
 			{
 				heldObject = grabbedCollider.gameObject;
-				BlockRangler.ActionHistory.PushAction(heldObject);
+				BlockRangler.ActionHistory.PushMoveAction(heldObject);
 				heldObject.transform.parent = transform;
 
 				if (HologramDisplay.Singleton.GetHologramState())

@@ -740,6 +740,8 @@ MonoBehaviour:
   gray: {fileID: 0}
   stone: {fileID: 0}
   glass: {fileID: 0}
+  space: {fileID: 0}
+  smile: {fileID: 0}
   savedHandPos: {x: 0, y: 0, z: 0}
   mainMenuPanel: {fileID: 0}
   inMenuMode: 0
@@ -1956,6 +1958,8 @@ MonoBehaviour:
   gray: {fileID: 0}
   stone: {fileID: 0}
   glass: {fileID: 0}
+  space: {fileID: 0}
+  smile: {fileID: 0}
   savedHandPos: {x: 0, y: 0, z: 0}
   mainMenuPanel: {fileID: 0}
   inMenuMode: 0
