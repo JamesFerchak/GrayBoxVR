@@ -281,6 +281,10 @@ public class BlockRangler : MonoBehaviour
 				//spawn object
 				GameObject instance = Instantiate(Resources.Load($"Blocks/{blockName}", typeof(GameObject))) as GameObject;
 
+				//paint object
+				instance.GetComponent<Renderer>().material = Resources.Load("Material/" + levelToLoad.blockMaterials[0], typeof(Material)) as Material;
+				levelToLoad.blockMaterials.Remove(levelToLoad.blockMaterials[0]);
+
 				//set location
 				instance.transform.position = new Vector3(levelToLoad.blockLocations[0], levelToLoad.blockLocations[1], levelToLoad.blockLocations[2]);
 				levelToLoad.blockLocations.RemoveRange(0, 3);
