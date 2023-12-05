@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
+using System.IO;
+using Image = UnityEngine.UI.Image;
 
 public class MenuActions : MonoBehaviour
 {
@@ -49,6 +52,11 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Sprite shortPillarAsset;
     [SerializeField] Sprite wallAsset;
 
+    [SerializeField] GameObject[] levelThumbnails = new GameObject[10];
+    [SerializeField] GameObject[] loadButtons = new GameObject[10];
+    bool[] projectExists = new bool[10];
+    string filePath;
+
     private void Awake()
     {
         Singleton = this;
@@ -86,6 +94,27 @@ public class MenuActions : MonoBehaviour
         });
 
         // Code to load images into load menu and save menu
+        Texture2D textureConverter = new Texture2D(2, 2);
+        byte[] bytes;
+
+        filePath = Application.persistentDataPath + "/";
+        for (int i = 65; i < 75; i++)
+        {
+            if (File.Exists(filePath + "save" + (char)i + "thumbnail.png"))
+            {
+                bytes = File.ReadAllBytes(filePath + "save" + (char)i + "thumbnail.png");
+                textureConverter.LoadImage(bytes);
+                textureConverter.Apply();
+                levelThumbnails[i - 65].GetComponent<Image>().sprite = Sprite.Create(textureConverter, new Rect(0, 0, 128, 128), new Vector2());
+                projectExists[i - 65] = true;
+            }
+            else
+            {
+                Debug.Log(i - 65);
+                projectExists[i - 65] = false;
+            }
+        }
+
     }
 
     private void Update()
@@ -285,7 +314,7 @@ public class MenuActions : MonoBehaviour
         BlockRangler.SaveLevel("save" + saveID);
         OpenShapesMenu(); // Switches to catalog
         leftHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu(); // Closes menu
-        ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "save" + saveID + "thumbnail.png"); // Saves to project directory
+        ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
     }
 
     public void LoadLevelWithButton(string saveID)
