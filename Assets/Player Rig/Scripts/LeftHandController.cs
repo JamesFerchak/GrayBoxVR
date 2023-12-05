@@ -84,6 +84,6 @@ public class LeftHandController : MonoBehaviour
 
 	public void lStickClickToggle(InputAction.CallbackContext context)
 	{
-		BlockRangler.ActionHistory.Undo();
+		BlockRangler.ActionHistory.UndoAction();
 	}
 }
