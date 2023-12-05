@@ -282,8 +282,7 @@ public class BlockRangler : MonoBehaviour
 				GameObject instance = Instantiate(Resources.Load($"Blocks/{blockName}", typeof(GameObject))) as GameObject;
 
 				//paint object
-				Debug.Log($"Loading material:{"Material/" + levelToLoad.blockMaterials[0] + ".mat"}!!!");
-				instance.GetComponent<Renderer>().material = Resources.Load("Material/" + levelToLoad.blockMaterials[0] + ".mat", typeof(Material)) as Material;
+				instance.GetComponent<Renderer>().material = Resources.Load("Material/" + levelToLoad.blockMaterials[0], typeof(Material)) as Material;
 				levelToLoad.blockMaterials.Remove(levelToLoad.blockMaterials[0]);
 
 				//set location
