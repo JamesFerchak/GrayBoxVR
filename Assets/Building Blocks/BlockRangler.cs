@@ -31,10 +31,10 @@ public class BlockRangler : MonoBehaviour
 
 	private enum actionType
 	{
-		move,
-		create,
-		delete,
-		materialChange
+		Move,
+		Create,
+		Delete,
+		MaterialChange
 	}
 
 	private class Action
@@ -44,6 +44,7 @@ public class BlockRangler : MonoBehaviour
 		public Vector3 position;
 		public Quaternion rotation;
 		public Vector3 scale;
+		public Material myMaterial;
 		public actionType myActionType;
 
 		public Action(GameObject affectedObject)
@@ -53,7 +54,8 @@ public class BlockRangler : MonoBehaviour
 			position = affectedObject.transform.position;
 			rotation = affectedObject.transform.rotation;
 			scale = affectedObject.transform.localScale;
-			myActionType = actionType.move;
+			myMaterial = affectedObject.GetComponent<Renderer>().material;
+			myActionType = actionType.Move;
 		}
 
 		public Action(GameObject affectedObject, actionType thisActionType)
@@ -63,6 +65,7 @@ public class BlockRangler : MonoBehaviour
 			position = affectedObject.transform.position;
 			rotation = affectedObject.transform.rotation;
 			scale = affectedObject.transform.localScale;
+			myMaterial = affectedObject.GetComponent<Renderer>().material;
 			myActionType = thisActionType;
 		}
 
@@ -121,7 +124,7 @@ public class BlockRangler : MonoBehaviour
 		public static void PushCreateAction(GameObject objectToRecord)
 		{
 			IncrementTopIndex();
-			Action actionToPush = new Action(objectToRecord, actionType.create);
+			Action actionToPush = new Action(objectToRecord, actionType.Create);
 			actions[TopIndex] = actionToPush;
 			undoneActions.Clear();
 		}
@@ -129,12 +132,20 @@ public class BlockRangler : MonoBehaviour
 		public static void PushDeleteAction(GameObject objectToRecord)
 		{
 			IncrementTopIndex();
-			Action actionToPush = new Action(objectToRecord, actionType.delete);
+			Action actionToPush = new Action(objectToRecord, actionType.Delete);
 			actions[TopIndex] = actionToPush;
 			undoneActions.Clear();
 		}
 
-		public static void Undo()
+		public static void PushMaterialAction(GameObject objectToRecord)
+		{
+			IncrementTopIndex();
+			Action actionToPush = new Action(objectToRecord, actionType.MaterialChange);
+			actions[TopIndex] = actionToPush;
+			undoneActions.Clear();
+		}
+
+		public static void UndoAction()
 		{
 			if (actions[TopIndex] == null)
 			{
@@ -143,49 +154,62 @@ public class BlockRangler : MonoBehaviour
 
 			Action actionToUndo = actions[TopIndex];
 
-			Do(actionToUndo, false);
+			DoAction(actionToUndo, false);
 
 			actions[TopIndex] = null;
 			DecrementTopIndex();
 		}
 
-		public static void Redo()
+		public static void RedoAction()
 		{
 			if (undoneActions.Count == 0)
 				return;
 
 			Action actionToRedo = undoneActions.Peek();
 
-			Do(actionToRedo, true);
+			DoAction(actionToRedo, true);
 
 			undoneActions.Pop();
 		}
 
-		private static void Do(Action actionToUndo, bool isRedo)
+		private static void DoAction(Action actionToUndo, bool isRedo)
 		{
 			GameObject objectToUndo = actionToUndo.myGameObject;
 
-			if (actionToUndo.myActionType == actionType.delete)
+			if (actionToUndo.myActionType == actionType.Delete)
 			{
+				foreach (Action action in undoneActions)
+				{
+
+				}
 				GameObject block = Instantiate(Resources.Load($"Blocks/{actionToUndo.gameObjectName}", typeof(GameObject))) as GameObject;
 				block.transform.position = actionToUndo.position;
 				block.transform.rotation = actionToUndo.rotation;
 				block.transform.localScale = actionToUndo.scale;
 				block.tag = "Block";
-				Action undoneAction = new Action(block, actionType.create);
+				Action undoneAction = new Action(block, actionType.Create);
 				if (isRedo)
 					PushRedoneAction(undoneAction);
 				else
 					PushUndoneAction(undoneAction);
 			}
-			else if (actionToUndo.myActionType == actionType.create)
+			else if (actionToUndo.myActionType == actionType.Create)
 			{
-				Action undoneAction = new Action(objectToUndo, actionType.delete);
+				Action undoneAction = new Action(objectToUndo, actionType.Delete);
 				if (isRedo)
 					PushRedoneAction(undoneAction);
 				else
 					PushUndoneAction(undoneAction); 
 				Destroy(objectToUndo);
+			} 
+			else if (actionToUndo.myActionType == actionType.MaterialChange)
+			{
+				Action undoneAction = new Action(objectToUndo, actionType.MaterialChange);
+				if (isRedo)
+					PushRedoneAction(undoneAction);
+				else
+					PushUndoneAction(undoneAction);
+				objectToUndo.GetComponent<Renderer>().material = actionToUndo.myMaterial;
 			}
 			else if (objectToUndo != null && actionToUndo != null)
 			{

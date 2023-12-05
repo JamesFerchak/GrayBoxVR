@@ -115,7 +115,7 @@ public class PaletteScript : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            // Destroy the hit object
+            BlockRangler.ActionHistory.PushMaterialAction(hit.transform.gameObject);
             if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
             {
                 switch (current_wrap)

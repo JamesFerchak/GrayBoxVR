@@ -172,6 +172,6 @@ public class RightHandController : MonoBehaviour
 
 	public void rStickClickToggle(InputAction.CallbackContext context)
 	{
-        BlockRangler.ActionHistory.Redo();
+        BlockRangler.ActionHistory.RedoAction();
 	}
 }
