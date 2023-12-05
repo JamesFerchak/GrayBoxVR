@@ -154,12 +154,11 @@ public class BlockRangler : MonoBehaviour
 			if (undoneActions.Count == 0)
 				return;
 
-			Action actionToRedo = actions[TopIndex];
+			Action actionToRedo = undoneActions.Peek();
 
 			Do(actionToRedo, true);
 
-			actions[TopIndex] = null;
-			DecrementTopIndex();
+			undoneActions.Pop();
 		}
 
 		private static void Do(Action actionToUndo, bool isRedo)
