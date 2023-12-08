@@ -336,6 +336,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11323294936772509, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 57228170059577204, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Type
       value: 1
@@ -1760,6 +1764,9 @@ PrefabInstance:
     - {fileID: 1779691438769781927, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
     - {fileID: 3040287321061529492, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
     - {fileID: 8359478192677402889, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+    - {fileID: 8888550469192637095, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+    - {fileID: 6471609960048212124, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+    - {fileID: 1452015885926044140, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9006940693927713418, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
