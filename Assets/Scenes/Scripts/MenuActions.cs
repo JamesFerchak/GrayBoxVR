@@ -52,9 +52,11 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Sprite shortPillarAsset;
     [SerializeField] Sprite wallAsset;
 
-    [SerializeField] GameObject[] levelThumbnails = new GameObject[10];
+    [SerializeField] GameObject[] levelThumbnailsLoadMenu = new GameObject[10];
+    [SerializeField] GameObject[] levelThumbnailsSaveMenu = new GameObject[10];
     [SerializeField] GameObject[] loadButtons = new GameObject[10];
     bool[] projectExists = new bool[10];
+    Sprite[] spriteArray = new Sprite[10];
     string filePath;
 
     private void Awake()
@@ -104,13 +106,17 @@ public class MenuActions : MonoBehaviour
             {
                 bytes = File.ReadAllBytes(filePath + "save" + (char)i + "thumbnail.png");
                 textureConverter.LoadImage(bytes);
-                textureConverter.Apply();
-                levelThumbnails[i - 65].GetComponent<Image>().sprite = Sprite.Create(textureConverter, new Rect(0, 0, 128, 128), new Vector2());
+                // textureConverter.Apply();
+                spriteArray[i - 65] = Sprite.Create(textureConverter, new Rect(0, 0, textureConverter.width, textureConverter.height), new Vector2(), 100.0f);
+                spriteArray[i - 65].name = "sprite" + (char)i;
+                levelThumbnailsLoadMenu[i - 65].GetComponent<Image>().sprite = spriteArray[i - 65];
+                levelThumbnailsSaveMenu[i - 65].GetComponent<Image>().sprite = spriteArray[i - 65];
                 projectExists[i - 65] = true;
+                textureConverter = new Texture2D(2, 2);
             }
             else
             {
-                Debug.Log(i - 65);
+                loadButtons[i - 65].SetActive(false);
                 projectExists[i - 65] = false;
             }
         }
@@ -315,6 +321,12 @@ public class MenuActions : MonoBehaviour
         OpenShapesMenu(); // Switches to catalog
         leftHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu(); // Closes menu
         ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
+        
+        if (!projectExists[(int)saveID[0] - 65])
+        {
+            loadButtons[(int)saveID[0] - 65].SetActive(true);
+            projectExists[(int)saveID[0] - 65] = true;
+        }
     }
 
     public void LoadLevelWithButton(string saveID)
