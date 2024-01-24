@@ -93,8 +93,6 @@ public class ObjectManipulator : MonoBehaviour
 			return null;
 	}
 
-
-
 	public void TryStretch(float triggerValue)
 	{
 

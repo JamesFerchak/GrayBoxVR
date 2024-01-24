@@ -51,13 +51,12 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Sprite pillarAsset;
     [SerializeField] Sprite shortPillarAsset;
     [SerializeField] Sprite wallAsset;
+    Sprite[] spriteArray = new Sprite[10];
 
     [SerializeField] GameObject[] levelThumbnailsLoadMenu = new GameObject[10];
     [SerializeField] GameObject[] levelThumbnailsSaveMenu = new GameObject[10];
     [SerializeField] GameObject[] loadButtons = new GameObject[10];
     bool[] projectExists = new bool[10];
-    Sprite[] spriteArray = new Sprite[10];
-    string filePath;
 
     private void Awake()
     {
@@ -99,14 +98,13 @@ public class MenuActions : MonoBehaviour
         Texture2D textureConverter = new Texture2D(2, 2);
         byte[] bytes;
 
-        filePath = Application.persistentDataPath + "/";
+        string filePath = Application.persistentDataPath + "/";
         for (int i = 65; i < 75; i++)
         {
             if (File.Exists(filePath + "save" + (char)i + "thumbnail.png"))
             {
                 bytes = File.ReadAllBytes(filePath + "save" + (char)i + "thumbnail.png");
                 textureConverter.LoadImage(bytes);
-                // textureConverter.Apply();
                 spriteArray[i - 65] = Sprite.Create(textureConverter, new Rect(0, 0, textureConverter.width, textureConverter.height), new Vector2(), 100.0f);
                 spriteArray[i - 65].name = "sprite" + (char)i;
                 levelThumbnailsLoadMenu[i - 65].GetComponent<Image>().sprite = spriteArray[i - 65];
