@@ -84,13 +84,13 @@ public class BlockRangler : MonoBehaviour
 		private static Stack<Action> undoneActions = new Stack<Action>();
 		private static int TopIndex = 0;
 
-		class deletedObject
+		class ObjectActedUpon
 		{
 			public GameObject gameObject;
-			public bool deletetionWasAnUndo;
+			public UnsignedIntegerField ObjectID;
 		}
 
-		static List<deletedObject> deletedObjects = new List<deletedObject>();
+		static List<ObjectActedUpon> objectsActedUpon = new List<ObjectActedUpon>();
 
 		static ActionHistory()
 		{
@@ -116,10 +116,10 @@ public class BlockRangler : MonoBehaviour
 			IncrementTopIndex();
 			if (actionToRecord.actionType == actionType.Delete)
 			{
-				deletedObject thisDO = new deletedObject();
-				thisDO.gameObject = actionToRecord.gameObject;
-				thisDO.deletetionWasAnUndo = false;
-				deletedObjects.Add(thisDO);
+				ObjectActedUpon thisOAU = new ObjectActedUpon();
+				thisOAU.gameObject = actionToRecord.gameObject;
+				thisOAU.deletetionWasAnUndo = false;
+				objectsActedUpon.Add(thisOAU);
 			}
 			ExileDeletedItems();
 			actions[TopIndex] = actionToRecord;
@@ -129,10 +129,10 @@ public class BlockRangler : MonoBehaviour
 		{
 			if (actionToRecord.actionType == actionType.Delete)
 			{
-				deletedObject thisDO = new deletedObject();
-				thisDO.gameObject = actionToRecord.gameObject;
-				thisDO.deletetionWasAnUndo = true;
-				deletedObjects.Add(thisDO);
+				ObjectActedUpon thisOAU = new ObjectActedUpon();
+				thisOAU.gameObject = actionToRecord.gameObject;
+				thisOAU.deletetionWasAnUndo = true;
+				objectsActedUpon.Add(thisOAU);
 			}
 			undoneActions.Push(actionToRecord);
 		}
@@ -142,11 +142,11 @@ public class BlockRangler : MonoBehaviour
 			if (actions[TopIndex] == null) return;
 			if (actions[TopIndex].actionType == actionType.Delete)
 			{
-				foreach (deletedObject thisDO in deletedObjects)
+				foreach (ObjectActedUpon thisOAU in objectsActedUpon)
 				{
-					if (thisDO.gameObject == actions[TopIndex].gameObject ||
-					thisDO.deletetionWasAnUndo)
-						deletedObjects.Remove(thisDO);
+					if (thisOAU.gameObject == actions[TopIndex].gameObject ||
+					thisOAU.deletetionWasAnUndo)
+						objectsActedUpon.Remove(thisOAU);
 				}
 			}
 		}
@@ -231,10 +231,10 @@ public class BlockRangler : MonoBehaviour
 				block.transform.localScale = actionToUndo.scale;
 				block.tag = "Block";
 
-				deletedObject objectToExile = null;
+				ObjectActedUpon objectToExile = null;
 				foreach(Action thisAction in actions)
 				{
-					foreach(deletedObject thisDO in deletedObjects)
+					foreach(ObjectActedUpon thisDO in objectsActedUpon)
 					{
 						if (thisAction != null && thisDO != null)
 						{
@@ -249,7 +249,7 @@ public class BlockRangler : MonoBehaviour
 
 				foreach (Action thisAction in undoneActions)
 				{
-					foreach (deletedObject thisDO in deletedObjects)
+					foreach (ObjectActedUpon thisDO in objectsActedUpon)
 					{
 						if (thisAction != null && thisDO != null)
 						{
@@ -263,7 +263,7 @@ public class BlockRangler : MonoBehaviour
 				}
 
 				if (objectToExile != null)
-					deletedObjects.Remove(objectToExile);
+					objectsActedUpon.Remove(objectToExile);
 
 				Action undoneAction = new Action(block, actionType.Create);
 				if (isRedo)
