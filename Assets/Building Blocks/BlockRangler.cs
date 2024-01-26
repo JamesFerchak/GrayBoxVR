@@ -5,7 +5,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
-//using UnityEditor.Build;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -69,6 +68,7 @@ public class BlockRangler : MonoBehaviour
 			actionType = thisActionType;
 		}
 
+		//this takes the name of an individual object and returns the name of the prefab it came from
 		private static string SimplifyObjectName(string input)
 		{
 			return input.Contains('(') ? input.Substring(0, (input.IndexOf('('))) : input;
@@ -83,14 +83,6 @@ public class BlockRangler : MonoBehaviour
 		private static Action[] actions = new Action[actionHistorySize];
 		private static Stack<Action> undoneActions = new Stack<Action>();
 		private static int TopIndex = 0;
-
-		class ObjectActedUpon
-		{
-			public GameObject gameObject;
-			public UnsignedIntegerField ObjectID;
-		}
-
-		static List<ObjectActedUpon> objectsActedUpon = new List<ObjectActedUpon>();
 
 		static ActionHistory()
 		{
@@ -113,49 +105,18 @@ public class BlockRangler : MonoBehaviour
 		
 		private static void PushRedoneAction(Action actionToRecord)
 		{
-			IncrementTopIndex();
-			if (actionToRecord.actionType == actionType.Delete)
-			{
-				ObjectActedUpon thisOAU = new ObjectActedUpon();
-				thisOAU.gameObject = actionToRecord.gameObject;
-				thisOAU.deletetionWasAnUndo = false;
-				objectsActedUpon.Add(thisOAU);
-			}
-			ExileDeletedItems();
 			actions[TopIndex] = actionToRecord;
 		}
 		
 		private static void PushUndoneAction(Action actionToRecord)
 		{
-			if (actionToRecord.actionType == actionType.Delete)
-			{
-				ObjectActedUpon thisOAU = new ObjectActedUpon();
-				thisOAU.gameObject = actionToRecord.gameObject;
-				thisOAU.deletetionWasAnUndo = true;
-				objectsActedUpon.Add(thisOAU);
-			}
 			undoneActions.Push(actionToRecord);
-		}
-
-		private static void ExileDeletedItems()
-		{
-			if (actions[TopIndex] == null) return;
-			if (actions[TopIndex].actionType == actionType.Delete)
-			{
-				foreach (ObjectActedUpon thisOAU in objectsActedUpon)
-				{
-					if (thisOAU.gameObject == actions[TopIndex].gameObject ||
-					thisOAU.deletetionWasAnUndo)
-						objectsActedUpon.Remove(thisOAU);
-				}
-			}
 		}
 
 		//public
 		public static void PushMoveAction(GameObject objectToRecord)
 		{
 			IncrementTopIndex();
-			ExileDeletedItems();
 			Action actionToPush = new Action(objectToRecord);
 			actions[TopIndex] = actionToPush;
 			undoneActions.Clear();
@@ -164,7 +125,6 @@ public class BlockRangler : MonoBehaviour
 		public static void PushCreateAction(GameObject objectToRecord)
 		{
 			IncrementTopIndex();
-			ExileDeletedItems();
 			Action actionToPush = new Action(objectToRecord, actionType.Create);
 			actions[TopIndex] = actionToPush;
 			undoneActions.Clear();
@@ -173,7 +133,6 @@ public class BlockRangler : MonoBehaviour
 		public static void PushDeleteAction(GameObject objectToRecord)
 		{
 			IncrementTopIndex();
-			ExileDeletedItems();
 			Action actionToPush = new Action(objectToRecord, actionType.Delete);
 			actions[TopIndex] = actionToPush;
 			undoneActions.Clear();
@@ -182,7 +141,6 @@ public class BlockRangler : MonoBehaviour
 		public static void PushMaterialAction(GameObject objectToRecord)
 		{
 			IncrementTopIndex();
-			ExileDeletedItems();
 			Action actionToPush = new Action(objectToRecord, actionType.MaterialChange);
 			actions[TopIndex] = actionToPush;
 			undoneActions.Clear();
@@ -230,40 +188,6 @@ public class BlockRangler : MonoBehaviour
 				block.transform.rotation = actionToUndo.rotation;
 				block.transform.localScale = actionToUndo.scale;
 				block.tag = "Block";
-
-				ObjectActedUpon objectToExile = null;
-				foreach(Action thisAction in actions)
-				{
-					foreach(ObjectActedUpon thisDO in objectsActedUpon)
-					{
-						if (thisAction != null && thisDO != null)
-						{
-							if (thisAction.gameObject == thisDO.gameObject)
-							{
-								objectToExile = thisDO;
-								thisAction.gameObject = block;
-							}
-						}
-					}
-				}
-
-				foreach (Action thisAction in undoneActions)
-				{
-					foreach (ObjectActedUpon thisDO in objectsActedUpon)
-					{
-						if (thisAction != null && thisDO != null)
-						{
-							if (thisAction.gameObject == thisDO.gameObject)
-							{
-								objectToExile = thisDO;
-								thisAction.gameObject = block;
-							}
-						}
-					}
-				}
-
-				if (objectToExile != null)
-					objectsActedUpon.Remove(objectToExile);
 
 				Action undoneAction = new Action(block, actionType.Create);
 				if (isRedo)
