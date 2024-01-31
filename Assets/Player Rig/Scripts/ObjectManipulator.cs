@@ -13,9 +13,7 @@ using System.Runtime.InteropServices;
 
 public class ObjectManipulator : MonoBehaviour
 {
-
 	[SerializeField] GameObject cursor;
-	[SerializeField] GameObject rightHandController;
 
 	Vector3 cursorPosition => cursor.transform.position;
 	readonly float grabTreshhold = 0.8f;
@@ -25,7 +23,6 @@ public class ObjectManipulator : MonoBehaviour
 
 	private GameObject heldObject = null;
 	bool triedToGrabAlready = false;
-	PaletteScript myPS;
 	bool hologramIsTempDisabled = false;
 	
 	//stretching
@@ -43,7 +40,6 @@ public class ObjectManipulator : MonoBehaviour
 	private void Awake()
 	{
 		grabRadius = cursor.transform.localScale.x;
-		myPS = rightHandController.GetComponent<PaletteScript>();
 	}
 
 	// Start is called before the first frame update
@@ -177,9 +173,9 @@ public class ObjectManipulator : MonoBehaviour
 			Vector3 objectToCursor = objectPositionAtStart - cursorPosition;
 
 			Vector3	setScaleTo = new Vector3(
-				myPS.RoundForScalingAssistance(objectScaleAtStart.x + (Vector3.Dot(objectToCursor, stretchingObject.transform.right) - startingScalarDot) * XScalar),
-				myPS.RoundForScalingAssistance(objectScaleAtStart.y + (Vector3.Dot(objectToCursor, stretchingObject.transform.up) - startingScalarDot) * YScalar),
-				myPS.RoundForScalingAssistance(objectScaleAtStart.z + (Vector3.Dot(objectToCursor, stretchingObject.transform.forward) - startingScalarDot) * ZScalar));
+				ObjectCreator.Singleton.RoundForScalingAssistance(objectScaleAtStart.x + (Vector3.Dot(objectToCursor, stretchingObject.transform.right) - startingScalarDot) * XScalar),
+                ObjectCreator.Singleton.RoundForScalingAssistance(objectScaleAtStart.y + (Vector3.Dot(objectToCursor, stretchingObject.transform.up) - startingScalarDot) * YScalar),
+                ObjectCreator.Singleton.RoundForScalingAssistance(objectScaleAtStart.z + (Vector3.Dot(objectToCursor, stretchingObject.transform.forward) - startingScalarDot) * ZScalar));
 			stretchingObject.transform.localScale = setScaleTo;
 
 			Vector3 moveObjectTo = (objectPositionAtStart +
@@ -222,14 +218,14 @@ public class ObjectManipulator : MonoBehaviour
 		else if (heldObject != null && grabValue < grabTreshhold)
 		{
 			// Object scaling code, uses the RoundForPlacementAssistance and RoundForRotation functions from the rightHandController's palette script
-            float xPosition = myPS.RoundForPlacementAssistance(heldObject.transform.position.x);
-            float yPosition = myPS.RoundForPlacementAssistance(heldObject.transform.position.y);
-			float zPosition = myPS.RoundForPlacementAssistance(heldObject.transform.position.z);
+            float xPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.x);
+            float yPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.y);
+			float zPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.z);
 			heldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
             Vector3 rotation = new Vector3(
-			myPS.RoundForRotationAssistance(heldObject.transform.eulerAngles.x),
-            myPS.RoundForRotationAssistance(heldObject.transform.eulerAngles.y),
-            myPS.RoundForRotationAssistance(heldObject.transform.eulerAngles.z));
+            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.x),
+            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.y),
+            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.z));
 			heldObject.transform.rotation = Quaternion.Euler(rotation);
 
 			heldObject.transform.parent = null;

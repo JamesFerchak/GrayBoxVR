@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 102932082710903612}
   - component: {fileID: 6191898617350927339}
   - component: {fileID: 888311422869325435}
-  - component: {fileID: 5995470507266144916}
   m_Layer: 0
   m_Name: Left Controller
   m_TagString: Untagged
@@ -701,63 +700,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursor: {fileID: 7614306960812354058}
   rightHandController: {fileID: 0}
---- !u!114 &5995470507266144916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 891176156447803416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53c1eab76e0d07b428f319dd8c280e68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentObjectType: {fileID: 0}
-  cubePrefab: {fileID: 6528006687007448033, guid: e6bcdebe56df31441880894bd59cb71c, type: 3}
-  spherePrefab: {fileID: 0}
-  cylinderPrefab: {fileID: 0}
-  pyramidPrefab: {fileID: 0}
-  floorPrefab: {fileID: 0}
-  pillarPrefab: {fileID: 0}
-  shortPillarPrefab: {fileID: 0}
-  wallPrefab: {fileID: 0}
-  selectedObject: {fileID: 0}
-  cursor: {fileID: 7614306960812354058}
-  defaultMaterial: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
-  selectedMaterial: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
-  current_wrap: 
-  red: {fileID: 0}
-  blue: {fileID: 0}
-  white: {fileID: 0}
-  black: {fileID: 0}
-  brown: {fileID: 0}
-  purple: {fileID: 0}
-  green: {fileID: 0}
-  yellow: {fileID: 0}
-  orange: {fileID: 0}
-  pink: {fileID: 0}
-  gray: {fileID: 0}
-  stone: {fileID: 0}
-  glass: {fileID: 0}
-  space: {fileID: 0}
-  smile: {fileID: 0}
-  cyan: {fileID: 0}
-  savedHandPos: {x: 0, y: 0, z: 0}
-  mainMenuPanel: {fileID: 0}
-  inMenuMode: 0
-  placementAssistDegree: {fileID: 0}
-  rotationAssistDegree: {fileID: 0}
-  scalingAssistDegree: {fileID: 0}
-  placementAssistValue: 0
-  rotationAssistValue: 0
-  scalingAssistValue: 0
-  inMoveMode: 0
-  inEditMode: 0
-  isRightHandController: 0
-  position: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0}
-  hologramDisplay: {fileID: 0}
 --- !u!1 &1122529289056507484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,7 +1185,6 @@ GameObject:
   - component: {fileID: 124600318838744671}
   - component: {fileID: 8607915983904702373}
   - component: {fileID: 6466911072458586733}
-  - component: {fileID: 3416335762374617049}
   - component: {fileID: 7215640607078643631}
   m_Layer: 0
   m_Name: Right Controller
@@ -1920,63 +1861,6 @@ MonoBehaviour:
   tourModeTeleportToggle: 0
   inTourMode: 0
   tourModeShrinkMultiplier: 5
---- !u!114 &3416335762374617049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4031031569664999400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53c1eab76e0d07b428f319dd8c280e68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentObjectType: {fileID: 0}
-  cubePrefab: {fileID: 6528006687007448033, guid: e6bcdebe56df31441880894bd59cb71c, type: 3}
-  spherePrefab: {fileID: 2460721882056925077, guid: 75d469cec00a1ae47a0e763c4b4a3914, type: 3}
-  cylinderPrefab: {fileID: 9134883110955198979, guid: cb9fb99b299a83145bfc37220b48e5cd, type: 3}
-  pyramidPrefab: {fileID: 7323685956055578646, guid: c1b803c3b2e5de04d82757468be5e2c3, type: 3}
-  floorPrefab: {fileID: 1848779836921310788, guid: 6ce797042be60ee4498d3e9109f079fc, type: 3}
-  pillarPrefab: {fileID: 1483614282619236612, guid: 4953a68d11ebd574eaa435cb351c6286, type: 3}
-  shortPillarPrefab: {fileID: 6192684873239664979, guid: 3eea3cb3538779f42a9e3a13bca5f124, type: 3}
-  wallPrefab: {fileID: 2007752775300737385, guid: cf49af8f0084a214bb159047a1c66034, type: 3}
-  selectedObject: {fileID: 0}
-  cursor: {fileID: 1301752916869206891}
-  defaultMaterial: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
-  selectedMaterial: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
-  current_wrap: 
-  red: {fileID: 0}
-  blue: {fileID: 0}
-  white: {fileID: 0}
-  black: {fileID: 0}
-  brown: {fileID: 0}
-  purple: {fileID: 0}
-  green: {fileID: 0}
-  yellow: {fileID: 0}
-  orange: {fileID: 0}
-  pink: {fileID: 0}
-  gray: {fileID: 0}
-  stone: {fileID: 0}
-  glass: {fileID: 0}
-  space: {fileID: 0}
-  smile: {fileID: 0}
-  cyan: {fileID: 0}
-  savedHandPos: {x: 0, y: 0, z: 0}
-  mainMenuPanel: {fileID: 0}
-  inMenuMode: 0
-  placementAssistDegree: {fileID: 0}
-  rotationAssistDegree: {fileID: 0}
-  scalingAssistDegree: {fileID: 0}
-  placementAssistValue: 0
-  rotationAssistValue: 0
-  scalingAssistValue: 0
-  inMoveMode: 0
-  inEditMode: 0
-  isRightHandController: 0
-  position: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0}
-  hologramDisplay: {fileID: 0}
 --- !u!114 &7215640607078643631
 MonoBehaviour:
   m_ObjectHideFlags: 0

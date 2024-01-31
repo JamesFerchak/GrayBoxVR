@@ -33,10 +33,11 @@ public class LeftHandController : MonoBehaviour
 	public InputActionReference lGrip = null;
 	public InputActionReference menu = null;
 	public InputActionReference lStickClick = null;
+    public GameObject cursor; // Cursor for placement
 
-	//  -------------------------------------------------------------------------------------------------------------------  
-	// Start is called before the first frame update
-	public void Awake() // tutorial used awake so I did as well. Not sure yet if start changes how it works at all.
+    //  -------------------------------------------------------------------------------------------------------------------  
+    // Start is called before the first frame update
+    public void Awake() // tutorial used awake so I did as well. Not sure yet if start changes how it works at all.
 	{
 		Singleton = this;
 		xButton.action.started += xToggle; // How the a button is gets its pressed detected.
@@ -72,18 +73,22 @@ public class LeftHandController : MonoBehaviour
 	{
         if (!RightHandController.Singleton.inTourMode)
         {
-            GetComponent<PaletteScript>().PaintObject();
+            ObjectPainter.Singleton.PaintObject();
         }
     }
 
 	public void menuToggle(InputAction.CallbackContext context)
 	{
-		//Debug.Log("Menu button pressed.");
-		GetComponent<PaletteScript>().InteractWithMainMenu();
+        MenuActions.Singleton.InteractWithMainMenu();
 	}
 
 	public void lStickClickToggle(InputAction.CallbackContext context)
 	{
 		BlockRangler.ActionHistory.UndoAction();
+	}
+
+	public GameObject GetLeftHandObject()
+	{
+		return cursor;
 	}
 }

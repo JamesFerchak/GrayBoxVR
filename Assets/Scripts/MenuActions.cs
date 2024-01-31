@@ -25,7 +25,8 @@ public class MenuActions : MonoBehaviour
         }
     }
 
-    [SerializeField] GameObject mainMenuCanvas;
+    [SerializeField] GameObject mainMenuCanvas; // Cannot be deleted
+    [SerializeField] GameObject mainMenuPanel;
     [SerializeField] GameObject optionsUI;
     [SerializeField] GameObject shapesUI;
     [SerializeField] GameObject wrapsUI;
@@ -57,6 +58,8 @@ public class MenuActions : MonoBehaviour
     [SerializeField] GameObject[] levelThumbnailsSaveMenu = new GameObject[10];
     [SerializeField] GameObject[] loadButtons = new GameObject[10];
     bool[] projectExists = new bool[10];
+
+    public bool inMenuMode; // True if the menu is open
 
     private void Awake()
     {
@@ -143,56 +146,56 @@ public class MenuActions : MonoBehaviour
 
     public void SelectSquare()
     {
-        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToSquare();
+        ObjectCreator.Singleton.ChangeToSquare();
         catalogCurrentSelection.sprite = squareAsset;
         HologramDisplay.Singleton.SetHologramToCube();
     }
 
     public void SelectSphere()
     {
-        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToSphere();
+        ObjectCreator.Singleton.ChangeToSphere();
         catalogCurrentSelection.sprite = sphereAsset;
         HologramDisplay.Singleton.SetHologramToSphere();
     }
 
     public void SelectCylinder()
     {
-        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToCylinder();
+        ObjectCreator.Singleton.ChangeToCylinder();
         catalogCurrentSelection.sprite = cylinderAsset;
         HologramDisplay.Singleton.SetHologramToCylinder();
     }
 
     public void SelectPyramid()
     {
-        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToPyramid();
+        ObjectCreator.Singleton.ChangeToPyramid();
         catalogCurrentSelection.sprite = pyramidAsset;
         HologramDisplay.Singleton.SetHologramToPyramid();
     }
 
     public void SelectFloor()
     {
-        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToFloor();
+        ObjectCreator.Singleton.ChangeToFloor();
         catalogCurrentSelection.sprite = floorAsset;
         HologramDisplay.Singleton.SetHologramToFloor();
     }
 
     public void SelectPillar()
     {
-        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToPillar();
+        ObjectCreator.Singleton.ChangeToPillar();
         catalogCurrentSelection.sprite = pillarAsset;
         HologramDisplay.Singleton.SetHologramToPillar();
     }
 
     public void SelectShortPillar()
     {
-        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToShortPillar();
+        ObjectCreator.Singleton.ChangeToShortPillar();
         catalogCurrentSelection.sprite = shortPillarAsset;
         HologramDisplay.Singleton.SetHologramToShortPillar();
     }
 
     public void SelectWall()
     {
-        rightHandController.gameObject.GetComponent<PaletteScript>().ChangeToWall();
+        ObjectCreator.Singleton.ChangeToWall();
         catalogCurrentSelection.sprite = wallAsset;
         HologramDisplay.Singleton.SetHologramToWall();
     }
@@ -206,67 +209,67 @@ public class MenuActions : MonoBehaviour
 
     public void SelectRed()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "red";
+        ObjectPainter.Singleton.current_wrap = "red";
     }
     public void SelectBlue()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "blue";
+        ObjectPainter.Singleton.current_wrap = "blue";
     }
     public void SelectYellow()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "yellow";
+        ObjectPainter.Singleton.current_wrap = "yellow";
     }
     public void SelectWhite()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "white";
+        ObjectPainter.Singleton.current_wrap = "white";
     }
     public void SelectBlack()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "black";
+        ObjectPainter.Singleton.current_wrap = "black";
     }
     public void SelectOrange()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "orange";
+        ObjectPainter.Singleton.current_wrap = "orange";
     }
     public void SelectBrown()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "brown";
+        ObjectPainter.Singleton.current_wrap = "brown";
     }
     public void SelectGreen()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "green";
+        ObjectPainter.Singleton.current_wrap = "green";
     }
     public void SelectPurple()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "purple";
+        ObjectPainter.Singleton.current_wrap = "purple";
     }
     public void SelectPink()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "pink";
+        ObjectPainter.Singleton.current_wrap = "pink";
     }
     public void SelectGray()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "gray";
+        ObjectPainter.Singleton.current_wrap = "gray";
     }
     public void SelectCyan()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "cyan";
+        ObjectPainter.Singleton.current_wrap = "cyan";
     }
     public void SelectStone()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "stone";
+        ObjectPainter.Singleton.current_wrap = "stone";
     }
     public void SelectGlass()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "glass";
+        ObjectPainter.Singleton.current_wrap = "glass";
     }
     public void SelectSpace()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "space";
+        ObjectPainter.Singleton.current_wrap = "space";
     }
     public void SelectSmile()
     {
-        leftHandController.gameObject.GetComponent<PaletteScript>().current_wrap = "smile";
+        ObjectPainter.Singleton.current_wrap = "smile";
     }
     public void OpenOptionsMenu()
     {
@@ -317,7 +320,7 @@ public class MenuActions : MonoBehaviour
     {
         BlockRangler.SaveLevel("save" + saveID);
         OpenShapesMenu(); // Switches to catalog
-        leftHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu(); // Closes menu
+        InteractWithMainMenu(); // Closes menu
         ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
         
         if (!projectExists[(int)saveID[0] - 65])
@@ -331,6 +334,24 @@ public class MenuActions : MonoBehaviour
     {
         BlockRangler.LoadLevel("save" + saveID);
         OpenShapesMenu();
-        leftHandController.gameObject.GetComponent<PaletteScript>().InteractWithMainMenu();
+        InteractWithMainMenu();
+    }
+
+    public void InteractWithMainMenu()
+    {
+        if (mainMenuPanel != null) // If panel exists
+        {
+            if (inMenuMode) // If panel is already open
+            {
+                mainMenuPanel.SetActive(false); // Close panel
+                inMenuMode = false;
+            }
+            else // If panel is closed
+            {
+                MenuActions.Singleton.RelocateMainMenu();
+                mainMenuPanel.SetActive(true); // Open panel
+                inMenuMode = true;
+            }
+        }
     }
 }

@@ -34,6 +34,7 @@ public class RightHandController : MonoBehaviour
     public InputActionReference rStickClick = null;
     public GameObject cam; //reference to camera offset
     public GameObject rig; //reference to XR rig
+    public GameObject cursor; // Cursor for placement
 
     bool teleportToggle = false; // Prevents user from constantly teleporting when holding up on the right stick
     public bool tourModeTeleportToggle = false; // Puts user in a state of selecting where to shrink down
@@ -105,7 +106,7 @@ public class RightHandController : MonoBehaviour
         //Debug.Log("A button pressed.");
         if (!inTourMode)
         {
-            GetComponent<PaletteScript>().PlaceObject();
+            ObjectCreator.Singleton.PlaceObject();
         }
         //p.PlaceObject();
     }
@@ -114,7 +115,7 @@ public class RightHandController : MonoBehaviour
         //Debug.Log("B button pressed.");
         if (!inTourMode)
         {
-            GetComponent<PaletteScript>().EraseObject();
+            ObjectCreator.Singleton.EraseObject();
         }
         //p.EraseObject();
     }
@@ -174,4 +175,9 @@ public class RightHandController : MonoBehaviour
 	{
         BlockRangler.ActionHistory.RedoAction();
 	}
+
+    public GameObject GetRightHandObject()
+    {
+        return cursor;
+    }
 }

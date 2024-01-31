@@ -5,8 +5,28 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PaletteScript : MonoBehaviour
+public class ObjectCreator : MonoBehaviour
 {
+    private static ObjectCreator _singleton;
+    public static ObjectCreator Singleton
+    {
+        get => _singleton;
+        private set
+        {
+            if (_singleton == null) _singleton = value;
+            else
+            {
+                Debug.LogWarning($"There is more than one ObjectCreator! Killing self!!!");
+                Destroy(value.gameObject);
+            }
+        }
+    }
+
+    private void Awake()
+    {
+        Singleton = this;
+    }
+
     public GameObject currentObjectType; // The type of "block" being placed (square, circle, etc.)
     public GameObject cubePrefab; // Cube GameObject
     public GameObject spherePrefab; // Sphere GameObject
@@ -17,34 +37,12 @@ public class PaletteScript : MonoBehaviour
     public GameObject shortPillarPrefab; // Short pillar GameObject
     public GameObject wallPrefab; // Wall GameObject
     public GameObject selectedObject; // The selected object in edit mode
-    [SerializeField] GameObject cursor;
-    Vector3 cursorPosition => cursor.transform.position;
 
     public Material defaultMaterial; // Material for Cube GameObject
     public Material selectedMaterial; // Material for the selected GameObject
-    public string current_wrap;
-    public Material red;
-    public Material blue;
-    public Material white;
-    public Material black;
-    public Material brown;
-    public Material purple;
-    public Material green;
-    public Material yellow;
-    public Material orange;
-    public Material pink;
-    public Material gray;
-    public Material stone;
-    public Material glass;
-    public Material space;
-    public Material smile;
-    public Material cyan;
-
 
     public Vector3 savedHandPos; // Vector3 recording the hand position
 
-    public GameObject mainMenuPanel; // Panel for the main menu
-    public bool inMenuMode; // True if the menu is open
     public Text placementAssistDegree;
     public Text rotationAssistDegree;
     public Text scalingAssistDegree;
@@ -55,10 +53,6 @@ public class PaletteScript : MonoBehaviour
 
     public bool inMoveMode; // True if there is currently a selected object in move mode
     public bool inEditMode; // True if there is currently a selected object in edit mode
-    public bool isRightHandController;
-
-    public Vector3 position;
-    public Vector3 rotation;
 
     public HologramDisplay hologramDisplay;
 
@@ -71,32 +65,44 @@ public class PaletteScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isRightHandController)
-        {
-            position = cursorPosition;
-            position.x = RoundForPlacementAssistance(position.x);
-            position.y = RoundForPlacementAssistance(position.y);
-            position.z = RoundForPlacementAssistance(position.z);
+        Transform RightHand = RightHandController.Singleton.GetRightHandObject().transform;
 
-            rotation = new Vector3(
-                RoundForRotationAssistance(gameObject.transform.eulerAngles.x),
-                RoundForRotationAssistance(gameObject.transform.eulerAngles.y),
-                RoundForRotationAssistance(gameObject.transform.eulerAngles.z));
+        Vector3 position = RightHand.position;
+        position.x = RoundForPlacementAssistance(position.x);
+        position.y = RoundForPlacementAssistance(position.y);
+        position.z = RoundForPlacementAssistance(position.z);
 
-            hologramDisplay.ShowHologram(position, Quaternion.Euler(rotation));
-        }
+        Vector3 rotation = new Vector3(
+            RoundForRotationAssistance(RightHand.eulerAngles.x),
+            RoundForRotationAssistance(RightHand.transform.eulerAngles.y),
+            RoundForRotationAssistance(RightHand.transform.eulerAngles.z));
+
+        hologramDisplay.ShowHologram(position, Quaternion.Euler(rotation));
     }
 
     public void PlaceObject()
     {
-        GameObject block = Instantiate(currentObjectType.gameObject, position, Quaternion.Euler(rotation)); // Places cube in level
+        Transform RightHand = RightHandController.Singleton.GetRightHandObject().transform;
+
+        Vector3 position = RightHand.position;
+        position.x = RoundForPlacementAssistance(position.x);
+        position.y = RoundForPlacementAssistance(position.y);
+        position.z = RoundForPlacementAssistance(position.z);
+
+        Vector3 rotation = new Vector3(
+            RoundForRotationAssistance(RightHand.eulerAngles.x),
+            RoundForRotationAssistance(RightHand.transform.eulerAngles.y),
+            RoundForRotationAssistance(RightHand.transform.eulerAngles.z));
+
+        GameObject block = Instantiate(currentObjectType, position, Quaternion.Euler(rotation)); // Places cube in level
         block.tag = "Block";
         BlockRangler.ActionHistory.PushCreateAction(block);
     }
 
     public void EraseObject()
     {
-        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
+        Transform RightHandObject = RightHandController.Singleton.GetRightHandObject().transform;
+        Ray ray = new Ray(RightHandObject.position, RightHandObject.forward);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
@@ -105,89 +111,6 @@ public class PaletteScript : MonoBehaviour
             {
                 BlockRangler.ActionHistory.PushDeleteAction(hit.transform.gameObject);
                 Destroy(hit.transform.gameObject);
-            }
-        }
-    }
-
-    public void PaintObject()
-    {
-        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward); //casts ray
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            BlockRangler.ActionHistory.PushMaterialAction(hit.transform.gameObject);
-            if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
-            {
-                switch (current_wrap)
-                {
-                    case "red":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = red;
-                        break;
-                    case "blue":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = blue;
-                        break;
-                    case "yellow":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
-                        break;
-                    case "white":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = white;
-                        break;
-                    case "black":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = black;
-                        break;
-                    case "green":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = green;
-                        break;
-                    case "brown":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = brown;
-                        break;
-                    case "orange":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = orange;
-                        break;
-                    case "purple":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = purple;
-                        break;
-                    case "pink":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = pink;
-                        break;
-                    case "gray":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = gray;
-                        break;
-                    case "cyan":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = cyan;
-                        break;
-                    case "stone":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = stone;
-                        break;
-                    case "glass":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = glass;
-                        break;
-                    case "space":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = space;
-                        break;
-                    case "smile":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = smile;
-                        break;
-                }
-            }
-                
-        }
-    }
-
-    public void InteractWithMainMenu()
-    {
-        if (mainMenuPanel != null) // If panel exists
-        {
-            if (inMenuMode) // If panel is already open
-            {
-                mainMenuPanel.SetActive(false); // Close panel
-                inMenuMode = false;
-            }
-            else // If panel is closed
-            {
-                MenuActions.Singleton.RelocateMainMenu();
-                mainMenuPanel.SetActive(true); // Open panel
-                inMenuMode = true;
             }
         }
     }
