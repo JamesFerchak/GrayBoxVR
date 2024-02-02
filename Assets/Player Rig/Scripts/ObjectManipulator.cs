@@ -36,16 +36,9 @@ public class ObjectManipulator : MonoBehaviour
 	float ZScalar = 0;
 	float startingScalarDot = 0;
 	
-
 	private void Awake()
 	{
 		grabRadius = cursor.transform.localScale.x;
-	}
-
-	// Start is called before the first frame update
-	void Start()
-	{
-
 	}
 
 	// Update is called once per frame
@@ -53,8 +46,6 @@ public class ObjectManipulator : MonoBehaviour
 	{
 		StretchObject();
 	}
-
-
 
 	private Collider GetGrabbedCollider()
 	{
@@ -171,27 +162,17 @@ public class ObjectManipulator : MonoBehaviour
 		if (stretchingObject != null)
 		{
 			Vector3 objectToCursor = objectPositionAtStart - cursorPosition;
+			stretchingObject.transform.localScale = CalculateStretchedScale(objectToCursor);
 
-			Vector3	setScaleTo = new Vector3(
-				ObjectCreator.Singleton.RoundForScalingAssistance(objectScaleAtStart.x + (Vector3.Dot(objectToCursor, stretchingObject.transform.right) - startingScalarDot) * XScalar),
-                ObjectCreator.Singleton.RoundForScalingAssistance(objectScaleAtStart.y + (Vector3.Dot(objectToCursor, stretchingObject.transform.up) - startingScalarDot) * YScalar),
-                ObjectCreator.Singleton.RoundForScalingAssistance(objectScaleAtStart.z + (Vector3.Dot(objectToCursor, stretchingObject.transform.forward) - startingScalarDot) * ZScalar));
-			stretchingObject.transform.localScale = setScaleTo;
-
-			Vector3 moveObjectTo = (objectPositionAtStart +
-				(Vector3.Dot(objectToCursor, stretchingObject.transform.right) * stretchingObject.transform.right * -Mathf.Abs(XScalar) * 0.5f
+            Vector3 moveObjectTo = (objectPositionAtStart + (Vector3.Dot(objectToCursor, stretchingObject.transform.right) * stretchingObject.transform.right * -Mathf.Abs(XScalar) * 0.5f
 				+ Mathf.Abs(XScalar) * stretchingObject.transform.right * startingScalarDot * 0.5f) +
 				(Vector3.Dot(objectToCursor, stretchingObject.transform.up) * stretchingObject.transform.up * -Mathf.Abs(YScalar) * 0.5f
 				+ Mathf.Abs(YScalar) * stretchingObject.transform.up * startingScalarDot * 0.5f) +
 				(Vector3.Dot(objectToCursor, stretchingObject.transform.forward) * stretchingObject.transform.forward * -Mathf.Abs(ZScalar) * 0.5f
 				+ Mathf.Abs(ZScalar) * stretchingObject.transform.forward * startingScalarDot * 0.5f));
 			stretchingObject.transform.position = moveObjectTo;
-
-			// NOTE: COULD add RoundForPlacementAssistance to moveObjectTo code - Peter
 		}
 	}
-
-
 
 	public void TryGrab(float grabValue)
 	{
@@ -242,4 +223,15 @@ public class ObjectManipulator : MonoBehaviour
 		if (grabValue < grabTreshhold) triedToGrabAlready = false;
 	}
 
+	// Used in StretchObject
+	private Vector3 CalculateStretchedScale(Vector3 rawValue)
+	{
+		float unroundedXvalue = objectScaleAtStart.x + (Vector3.Dot(rawValue, stretchingObject.transform.right) - startingScalarDot) * XScalar;
+        float unroundedYvalue = objectScaleAtStart.y + (Vector3.Dot(rawValue, stretchingObject.transform.up) - startingScalarDot) * YScalar;
+        float unroundedZvalue = objectScaleAtStart.z + (Vector3.Dot(rawValue, stretchingObject.transform.forward) - startingScalarDot) * ZScalar;
+		float roundedXvalue = ObjectCreator.Singleton.RoundForScalingAssistance(unroundedXvalue);
+        float roundedYvalue = ObjectCreator.Singleton.RoundForScalingAssistance(unroundedYvalue);
+        float roundedZvalue = ObjectCreator.Singleton.RoundForScalingAssistance(unroundedZvalue);
+		return new Vector3(roundedXvalue, roundedYvalue, roundedZvalue);
+    }
 }
