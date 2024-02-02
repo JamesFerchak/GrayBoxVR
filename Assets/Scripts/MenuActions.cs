@@ -97,38 +97,13 @@ public class MenuActions : MonoBehaviour
             }
         });
 
-        // Code to load images into load menu and save menu
-        Texture2D textureConverter = new Texture2D(2, 2);
-        byte[] bytes;
-
-        string filePath = Application.persistentDataPath + "/";
-        for (int i = 65; i < 75; i++)
-        {
-            if (File.Exists(filePath + "save" + (char)i + "thumbnail.png"))
-            {
-                bytes = File.ReadAllBytes(filePath + "save" + (char)i + "thumbnail.png");
-                textureConverter.LoadImage(bytes);
-                spriteArray[i - 65] = Sprite.Create(textureConverter, new Rect(0, 0, textureConverter.width, textureConverter.height), new Vector2(), 100.0f);
-                spriteArray[i - 65].name = "sprite" + (char)i;
-                levelThumbnailsLoadMenu[i - 65].GetComponent<Image>().sprite = spriteArray[i - 65];
-                levelThumbnailsSaveMenu[i - 65].GetComponent<Image>().sprite = spriteArray[i - 65];
-                projectExists[i - 65] = true;
-                textureConverter = new Texture2D(2, 2);
-            }
-            else
-            {
-                loadButtons[i - 65].SetActive(false);
-                projectExists[i - 65] = false;
-            }
-        }
-
+        AddSavesToMenuUI();
     }
 
     private void Update()
     {
         // Rotate the canvas so it faces towards the camera
         mainMenuCanvas.transform.rotation = Quaternion.LookRotation(mainMenuCanvas.transform.position - cam.transform.position);
-
 
         // If player gets too close, teleport the UI away
         if (Mathf.Abs(mainMenuCanvas.transform.position.x - cam.transform.position.x) < 5.0f &&
@@ -207,70 +182,11 @@ public class MenuActions : MonoBehaviour
         mainMenuCanvas.transform.position = newMainMenuPosition;
     }
 
-    public void SelectRed()
+    public void SelectColor(string color)
     {
-        ObjectPainter.Singleton.current_wrap = "red";
+        ObjectPainter.Singleton.current_wrap = color;
     }
-    public void SelectBlue()
-    {
-        ObjectPainter.Singleton.current_wrap = "blue";
-    }
-    public void SelectYellow()
-    {
-        ObjectPainter.Singleton.current_wrap = "yellow";
-    }
-    public void SelectWhite()
-    {
-        ObjectPainter.Singleton.current_wrap = "white";
-    }
-    public void SelectBlack()
-    {
-        ObjectPainter.Singleton.current_wrap = "black";
-    }
-    public void SelectOrange()
-    {
-        ObjectPainter.Singleton.current_wrap = "orange";
-    }
-    public void SelectBrown()
-    {
-        ObjectPainter.Singleton.current_wrap = "brown";
-    }
-    public void SelectGreen()
-    {
-        ObjectPainter.Singleton.current_wrap = "green";
-    }
-    public void SelectPurple()
-    {
-        ObjectPainter.Singleton.current_wrap = "purple";
-    }
-    public void SelectPink()
-    {
-        ObjectPainter.Singleton.current_wrap = "pink";
-    }
-    public void SelectGray()
-    {
-        ObjectPainter.Singleton.current_wrap = "gray";
-    }
-    public void SelectCyan()
-    {
-        ObjectPainter.Singleton.current_wrap = "cyan";
-    }
-    public void SelectStone()
-    {
-        ObjectPainter.Singleton.current_wrap = "stone";
-    }
-    public void SelectGlass()
-    {
-        ObjectPainter.Singleton.current_wrap = "glass";
-    }
-    public void SelectSpace()
-    {
-        ObjectPainter.Singleton.current_wrap = "space";
-    }
-    public void SelectSmile()
-    {
-        ObjectPainter.Singleton.current_wrap = "smile";
-    }
+
     public void OpenOptionsMenu()
     {
         optionsUI.SetActive(true);
@@ -351,6 +267,34 @@ public class MenuActions : MonoBehaviour
                 MenuActions.Singleton.RelocateMainMenu();
                 mainMenuPanel.SetActive(true); // Open panel
                 inMenuMode = true;
+            }
+        }
+    }
+
+    public void AddSavesToMenuUI()
+    {
+        // Code to load images into load menu and save menu
+        Texture2D textureConverter = new Texture2D(2, 2);
+        byte[] bytes;
+
+        string filePath = Application.persistentDataPath + "/";
+        for (int i = 65; i < 75; i++)
+        {
+            if (File.Exists(filePath + "save" + (char)i + "thumbnail.png"))
+            {
+                bytes = File.ReadAllBytes(filePath + "save" + (char)i + "thumbnail.png");
+                textureConverter.LoadImage(bytes);
+                spriteArray[i - 65] = Sprite.Create(textureConverter, new Rect(0, 0, textureConverter.width, textureConverter.height), new Vector2(), 100.0f);
+                spriteArray[i - 65].name = "sprite" + (char)i;
+                levelThumbnailsLoadMenu[i - 65].GetComponent<Image>().sprite = spriteArray[i - 65];
+                levelThumbnailsSaveMenu[i - 65].GetComponent<Image>().sprite = spriteArray[i - 65];
+                projectExists[i - 65] = true;
+                textureConverter = new Texture2D(2, 2);
+            }
+            else
+            {
+                loadButtons[i - 65].SetActive(false);
+                projectExists[i - 65] = false;
             }
         }
     }
