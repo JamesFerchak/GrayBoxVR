@@ -167,7 +167,7 @@ public class BlockRangler : MonoBehaviour
 			if (actions[TopIndex] == null)
 				return;
 
-			DoAction(TopIndex, false);
+			DoAction(TopIndex);
 
 			DecrementTopIndex();
 		}
@@ -179,11 +179,11 @@ public class BlockRangler : MonoBehaviour
 
 			int redoActionIndex = TopIndexPlusOne;
 
-			DoAction(redoActionIndex, true);
+			DoAction(redoActionIndex);
 			IncrementTopIndex();
 		}
 
-		private static void DoAction(int actionToUndoIndex, bool isRedo)
+		private static void DoAction(int actionToUndoIndex)
 		{
 			Action actionToUndo = actions[actionToUndoIndex];
 			GameObject objectToUndo = actionObjects[actionToUndoIndex];
