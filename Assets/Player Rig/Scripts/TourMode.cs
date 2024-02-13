@@ -4,16 +4,36 @@ using UnityEngine;
 
 public class TourMode : MonoBehaviour
 {
+
+    private static TourMode _singleton;
+    public static TourMode Singleton
+    {
+        get => _singleton;
+        private set
+        {
+            if (_singleton == null) _singleton = value;
+            else
+            {
+                Debug.LogWarning($"There is more than one TourMode! Killing self!!!");
+                Destroy(value.gameObject);
+            }
+        }
+    }
+    private void Awake()
+    {
+        Singleton = this;
+    }
+
     public GameObject cam; //reference to camera offset
     public GameObject rig; //reference to XR rig
     public int tourModeShrinkMultiplier = 5;
     Vector3 LastEditModePosition;
-
-    bool inTourMode = false;
+    public bool inTourMode = false;
 
     public void TouristMode()
     {
-        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
+        Transform rightHandObject = RightHandController.Singleton.GetRightHandObject().transform;
+        Ray ray = new Ray(rightHandObject.position, rightHandObject.forward); //casts ray
 
         if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
         {
@@ -37,5 +57,8 @@ public class TourMode : MonoBehaviour
         inTourMode = false;
     }
 
-
+    public bool getTourModeToggle()
+    {
+        return inTourMode;
+    }
 }

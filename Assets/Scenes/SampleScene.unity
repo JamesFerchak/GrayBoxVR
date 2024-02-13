@@ -177,9 +177,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11cc46a2c83f52b499b6887f08161a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 259601210}
+  cam: {fileID: 494598540}
   rig: {fileID: 1379564777}
   tourModeShrinkMultiplier: 5
+  inTourMode: 0
 --- !u!1001 &99292512
 PrefabInstance:
   m_ObjectHideFlags: 0

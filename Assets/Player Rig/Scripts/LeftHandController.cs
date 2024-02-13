@@ -34,6 +34,7 @@ public class LeftHandController : MonoBehaviour
 	public InputActionReference menu = null;
 	public InputActionReference lStickClick = null;
     public GameObject cursor; // Cursor for placement
+	public bool altControls;
 
     //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update
@@ -53,28 +54,64 @@ public class LeftHandController : MonoBehaviour
 	{
 		float tValue = lTrigger.action.ReadValue<float>();
 		float gValue = lGrip.action.ReadValue<float>();
-		if (tValue > 0 || gValue > 0)
+
+		if (!TourMode.Singleton.getTourModeToggle())
 		{
-			//Debug.Log("Left \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
-		}
-		myOM.TryGrab(gValue);
-		myOM.TryStretch(tValue);
+            if (tValue > 0 || gValue > 0)
+            {
+                //Debug.Log("Left \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
+            }
+
+            myOM.TryGrab(gValue);
+            myOM.TryStretch(tValue);
+        }
+		else
+		{
+            if (tValue > 0 || gValue > 0)
+            {
+				//Debug.Log("Left \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
+				TourMode.Singleton.BackToEditMode();
+            }
+        }
+		
 	}
 
 	public void xToggle(InputAction.CallbackContext context)
 	{
 		//Debug.Log("X button pressed.");
-		if (!RightHandController.Singleton.inTourMode)
+		if (!TourMode.Singleton.getTourModeToggle())
+		{
+			if (altControls == true)
+			{
+				altControls = false;
+			}
+			else
+			{
+				altControls = true;
+			} 
+		}
+		else
 		{
 
-        }
+		}
 	}
 	public void yToggle(InputAction.CallbackContext context)
 	{
-        if (!RightHandController.Singleton.inTourMode)
-        {
-            ObjectPainter.Singleton.PaintObject();
+		if (!TourMode.Singleton.getTourModeToggle())
+		{
+            if (!altControls)
+            {
+                ObjectPainter.Singleton.PaintObject();
+            }
+            else
+            {
+
+            }
         }
+		else
+		{
+			TourMode.Singleton.BackToEditMode();
+		}
     }
 
 	public void menuToggle(InputAction.CallbackContext context)
@@ -91,4 +128,10 @@ public class LeftHandController : MonoBehaviour
 	{
 		return cursor;
 	}
+
+	public bool getAltControl()
+	{
+		return altControls;
+	}
+
 }

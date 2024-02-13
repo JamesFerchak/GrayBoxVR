@@ -35,13 +35,7 @@ public class RightHandController : MonoBehaviour
     public GameObject cam; //reference to camera offset
     public GameObject rig; //reference to XR rig
     public GameObject cursor; // Cursor for placement
-
     bool teleportToggle = false; // Prevents user from constantly teleporting when holding up on the right stick
-    public bool tourModeTeleportToggle = false; // Puts user in a state of selecting where to shrink down
-    public bool inTourMode = false;
-    public int tourModeShrinkMultiplier = 5;
-
-    Vector3 LastEditModePosition; //Records the last position of player before going into
 
 
     //  -------------------------------------------------------------------------------------------------------------------  
@@ -62,7 +56,7 @@ public class RightHandController : MonoBehaviour
         Vector2 svalue = stick.action.ReadValue<Vector2>();
         float tValue = rTrigger.action.ReadValue<float>();
         float gValue = rGrip.action.ReadValue<float>();
-        if (!tourModeTeleportToggle && !inTourMode) //
+        if (!TourMode.Singleton.getTourModeToggle())
         {
             // Edit Mode
             if (!teleportToggle)
@@ -86,38 +80,59 @@ public class RightHandController : MonoBehaviour
             myOM.TryGrab(gValue);
             myOM.TryStretch(tValue);
         }
-        if (tourModeTeleportToggle)
-        { //Next Teleport will put player into tour mode
-            if (tValue > .8)
-            {
-                TouristMode();
-            }
-        }
-        if (inTourMode)
+        else
         {
-            if (gValue > .8 && gValue <= 1)
+            if (svalue.y > .8 && svalue.y <= 1)
             {
-                BackToEditMode();
+                TourMode.Singleton.BackToEditMode();
+            }
+            if (tValue > 0 || gValue > 0)
+            {
+                //Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
+                TourMode.Singleton.BackToEditMode();
             }
         }
     }
     public void aToggle(InputAction.CallbackContext context)
     {
-        //Debug.Log("A button pressed.");
-        if (!inTourMode)
+        if (!TourMode.Singleton.getTourModeToggle())
         {
-            ObjectCreator.Singleton.PlaceObject();
+            //Debug.Log("A button pressed.");
+            if (!LeftHandController.Singleton.getAltControl())
+            {
+                ObjectCreator.Singleton.PlaceObject();
+            }
+            else
+            {
+                TourMode.Singleton.TouristMode();
+            }
+            //p.PlaceObject();
         }
-        //p.PlaceObject();
+        else
+        {
+            TourMode.Singleton.BackToEditMode();
+        }
+
     }
     public void bToggle(InputAction.CallbackContext context)
     {
-        //Debug.Log("B button pressed.");
-        if (!inTourMode)
+        if (!TourMode.Singleton.getTourModeToggle())
         {
-            ObjectCreator.Singleton.EraseObject();
+            //Debug.Log("B button pressed.");
+            if (!LeftHandController.Singleton.getAltControl())
+            {
+                ObjectCreator.Singleton.EraseObject();
+            }
+            else
+            {
+
+            }
+            //p.EraseObject();
         }
-        //p.EraseObject();
+        else
+        {
+            TourMode.Singleton.BackToEditMode();
+        }
     }
 
     public void Teleport()
@@ -134,41 +149,6 @@ public class RightHandController : MonoBehaviour
 
         }
 
-    }
-
-    public void ActivateTourToggle()
-    {
-        if (!inTourMode)
-        {
-            tourModeTeleportToggle = true;
-        }
-    }
-    public void TouristMode()
-    {
-        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
-        {
-            LastEditModePosition = cam.transform.position;
-            rig.transform.localScale = new Vector3(rig.transform.localScale.x / tourModeShrinkMultiplier, rig.transform.localScale.y / tourModeShrinkMultiplier, rig.transform.localScale.z / tourModeShrinkMultiplier);
-            cam.transform.position = hit.point; // Select the hit object
-            tourModeTeleportToggle = false;
-            inTourMode = true;
-        }
-        else // If nothing in line of sight
-        {
-
-        }
-    }
-    
-    public void BackToEditMode()
-    {
-        Debug.Log("Back to Edit Mode Called");
-        rig.transform.localScale = new Vector3(rig.transform.localScale.x * tourModeShrinkMultiplier, rig.transform.localScale.y * tourModeShrinkMultiplier, rig.transform.localScale.z * tourModeShrinkMultiplier);
-        cam.transform.position = LastEditModePosition;
-        
-        inTourMode = false;
-        tourModeTeleportToggle = false;
     }
 
 	public void rStickClickToggle(InputAction.CallbackContext context)
