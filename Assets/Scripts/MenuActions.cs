@@ -115,8 +115,8 @@ public class MenuActions : MonoBehaviour
 
     public void QuitGame()
     {
+        Debug.Log("Quitting game...");
         Application.Quit();
-        Debug.Log("DEBUG: Quitting game...");
     }
 
     public void SelectSquare()
