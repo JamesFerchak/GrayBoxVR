@@ -29,7 +29,7 @@ public class TourMode : MonoBehaviour
     public int tourModeShrinkMultiplier = 5;
     Vector3 LastEditModePosition;
     public bool inTourMode = false;
-
+    bool reenableHologram;
     public void TouristMode()
     {
         Transform rightHandObject = RightHandController.Singleton.GetRightHandObject().transform;
@@ -40,6 +40,16 @@ public class TourMode : MonoBehaviour
             LastEditModePosition = cam.transform.position;
             rig.transform.localScale = new Vector3(rig.transform.localScale.x / tourModeShrinkMultiplier, rig.transform.localScale.y / tourModeShrinkMultiplier, rig.transform.localScale.z / tourModeShrinkMultiplier);
             cam.transform.position = hit.point; // Select the hit object
+            if (HologramDisplay.Singleton.hologramEnabled == true)
+            {
+                HologramDisplay.Singleton.hologramEnabled = false;
+                reenableHologram = true;
+            }
+            else
+            {
+                reenableHologram = false;
+            }
+            
             inTourMode = true;
         }
         else // If nothing in line of sight
@@ -53,7 +63,10 @@ public class TourMode : MonoBehaviour
         Debug.Log("Back to Edit Mode Called");
         rig.transform.localScale = new Vector3(rig.transform.localScale.x * tourModeShrinkMultiplier, rig.transform.localScale.y * tourModeShrinkMultiplier, rig.transform.localScale.z * tourModeShrinkMultiplier);
         cam.transform.position = LastEditModePosition;
-
+        if (reenableHologram == true)
+        {
+            HologramDisplay.Singleton.hologramEnabled = true;
+        }
         inTourMode = false;
     }
 
