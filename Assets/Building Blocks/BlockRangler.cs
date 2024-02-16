@@ -5,7 +5,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
-//using UnityEditor.Build;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -29,6 +28,8 @@ public class BlockRangler : MonoBehaviour
 		}
 	}
 
+	#region Undo/Redo
+
 	private enum actionType
 	{
 		Move,
@@ -39,7 +40,7 @@ public class BlockRangler : MonoBehaviour
 
 	private class Action
 	{
-		public GameObject gameObject;
+		public GameObject myGameObject;
 		public string gameObjectName;
 		public Vector3 position;
 		public Quaternion rotation;
@@ -49,7 +50,7 @@ public class BlockRangler : MonoBehaviour
 
 		public Action(GameObject affectedObject)
 		{
-			gameObject = affectedObject;
+			myGameObject = affectedObject;
 			gameObjectName = SimplifyObjectName(affectedObject.name);
 			position = affectedObject.transform.position;
 			rotation = affectedObject.transform.rotation;
@@ -60,7 +61,7 @@ public class BlockRangler : MonoBehaviour
 
 		public Action(GameObject affectedObject, actionType thisActionType)
 		{
-			gameObject = affectedObject;
+			myGameObject = affectedObject;
 			gameObjectName = SimplifyObjectName(affectedObject.name);
 			position = affectedObject.transform.position;
 			rotation = affectedObject.transform.rotation;
@@ -69,6 +70,7 @@ public class BlockRangler : MonoBehaviour
 			actionType = thisActionType;
 		}
 
+		//this takes the name of an individual object and returns the name of the prefab it came from
 		private static string SimplifyObjectName(string input)
 		{
 			return input.Contains('(') ? input.Substring(0, (input.IndexOf('('))) : input;
@@ -81,16 +83,11 @@ public class BlockRangler : MonoBehaviour
 	public static class ActionHistory
 	{
 		private static Action[] actions = new Action[actionHistorySize];
-		private static Stack<Action> undoneActions = new Stack<Action>();
+		private static int[] actionObjectIDs = new int[actionHistorySize];
 		private static int TopIndex = 0;
-
-		class deletedObject
-		{
-			public GameObject gameObject;
-			public bool deletetionWasAnUndo;
-		}
-
-		static List<deletedObject> deletedObjects = new List<deletedObject>();
+		private static int TopIndexPlusOne => TopIndex == actionHistorySize - 1 ? 0 : TopIndex + 1;
+		private static int TopIndexMinusOne => TopIndex == 0 ? actionHistorySize - 1 : TopIndex - 1;
+		private static int BottomIndex = 1;
 
 		static ActionHistory()
 		{
@@ -103,50 +100,48 @@ public class BlockRangler : MonoBehaviour
 		//private
 		private static void IncrementTopIndex()
 		{
-			TopIndex = TopIndex == actionHistorySize - 1 ? 0 : TopIndex + 1;
+			TopIndex = TopIndexPlusOne;
 		}
 
 		private static void DecrementTopIndex()
 		{
-			TopIndex = TopIndex == 0 ? actionHistorySize - 1 : TopIndex - 1;
-		}
-		
-		private static void PushRedoneAction(Action actionToRecord)
-		{
-			IncrementTopIndex();
-			if (actionToRecord.actionType == actionType.Delete)
-			{
-				deletedObject thisDO = new deletedObject();
-				thisDO.gameObject = actionToRecord.gameObject;
-				thisDO.deletetionWasAnUndo = false;
-				deletedObjects.Add(thisDO);
-			}
-			ExileDeletedItems();
-			actions[TopIndex] = actionToRecord;
-		}
-		
-		private static void PushUndoneAction(Action actionToRecord)
-		{
-			if (actionToRecord.actionType == actionType.Delete)
-			{
-				deletedObject thisDO = new deletedObject();
-				thisDO.gameObject = actionToRecord.gameObject;
-				thisDO.deletetionWasAnUndo = true;
-				deletedObjects.Add(thisDO);
-			}
-			undoneActions.Push(actionToRecord);
+			TopIndex = TopIndexMinusOne;
 		}
 
-		private static void ExileDeletedItems()
+		private static void IncrementBothIndices()
 		{
-			if (actions[TopIndex] == null) return;
-			if (actions[TopIndex].actionType == actionType.Delete)
+			TopIndex = TopIndexPlusOne;
+			BottomIndex = TopIndexPlusOne;
+		}
+		
+		private static void PushAction(Action actionToRecord, GameObject objectToRecord)
+		{
+			SetActionObject(objectToRecord);
+			actions[TopIndex] = actionToRecord;
+		}
+
+		private static void SetActionObject(GameObject objectToRecord)
+		{
+			int objectToReplaceID = actionObjectIDs[TopIndex];
+            actionObjectIDs[TopIndex] = objectToRecord.GetInstanceID();
+
+			if (objectToReplaceID == 0)
 			{
-				foreach (deletedObject thisDO in deletedObjects)
+				return;
+			}
+
+			if (actions[TopIndex] != null)
+			{
+				if (actions[TopIndex].myGameObject == null)
 				{
-					if (thisDO.gameObject == actions[TopIndex].gameObject ||
-					thisDO.deletetionWasAnUndo)
-						deletedObjects.Remove(thisDO);
+					for (int objectIndex = 0; objectIndex < actionHistorySize; objectIndex++)
+					{
+						if (actionObjectIDs[objectIndex] == objectToReplaceID)
+						{
+							actionObjectIDs[objectIndex] = objectToRecord.GetInstanceID();
+							actions[objectIndex].myGameObject = objectToRecord;
+						}
+					}
 				}
 			}
 		}
@@ -154,38 +149,30 @@ public class BlockRangler : MonoBehaviour
 		//public
 		public static void PushMoveAction(GameObject objectToRecord)
 		{
-			IncrementTopIndex();
-			ExileDeletedItems();
+			IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord);
-			actions[TopIndex] = actionToPush;
-			undoneActions.Clear();
+			PushAction(actionToPush, objectToRecord);
 		}
 
 		public static void PushCreateAction(GameObject objectToRecord)
 		{
-			IncrementTopIndex();
-			ExileDeletedItems();
+            IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.Create);
-			actions[TopIndex] = actionToPush;
-			undoneActions.Clear();
+			PushAction(actionToPush, objectToRecord); 
 		}
 
 		public static void PushDeleteAction(GameObject objectToRecord)
 		{
-			IncrementTopIndex();
-			ExileDeletedItems();
+            IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.Delete);
-			actions[TopIndex] = actionToPush;
-			undoneActions.Clear();
+			PushAction(actionToPush, objectToRecord); 
 		}
 
 		public static void PushMaterialAction(GameObject objectToRecord)
 		{
-			IncrementTopIndex();
-			ExileDeletedItems();
+            IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.MaterialChange);
-			actions[TopIndex] = actionToPush;
-			undoneActions.Clear();
+			PushAction(actionToPush, objectToRecord); 
 		}
 
 		public static void UndoAction()
@@ -193,37 +180,27 @@ public class BlockRangler : MonoBehaviour
 			if (actions[TopIndex] == null)
 				return;
 
-			Action actionToUndo = actions[TopIndex];
+			DoInverseAction(TopIndex);
 
-			DoAction(actionToUndo, false);
-
-			actions[TopIndex] = null;
 			DecrementTopIndex();
 		}
 
 		public static void RedoAction()
 		{
-			if (undoneActions.Count == 0)
+			if (TopIndex + 1 == BottomIndex || (TopIndex == actionHistorySize - 1 && BottomIndex == 0))
 				return;
 
-			Action actionToRedo = undoneActions.Peek();
-
-			DoAction(actionToRedo, true);
-
-			undoneActions.Pop();
+			IncrementTopIndex();
+			DoInverseAction(TopIndex);
 		}
 
-		private static void DoAction(Action actionToUndo, bool isRedo)
+		private static void DoInverseAction(int actionToUndoIndex)
 		{
-			GameObject objectToUndo = actionToUndo.gameObject;
+			Action actionToUndo = actions[actionToUndoIndex];
+			GameObject objectToUndo = actions[actionToUndoIndex].myGameObject;
 
 			if (actionToUndo.actionType == actionType.Delete)
 			{
-				/*	We are creating an object based on an object that was deleted, so every
-				 *	reference to the old object in each action stack must now reference this new,
-				 *	replacement object. And now that we have replaced all of those references,
-				 *	we can remove this deleted object from the list of deleted objects.
-				 */
 
 				GameObject block = Instantiate(Resources.Load($"Blocks/{actionToUndo.gameObjectName}", typeof(GameObject))) as GameObject;
 				block.transform.position = actionToUndo.position;
@@ -231,45 +208,8 @@ public class BlockRangler : MonoBehaviour
 				block.transform.localScale = actionToUndo.scale;
 				block.tag = "Block";
 
-				deletedObject objectToExile = null;
-				foreach(Action thisAction in actions)
-				{
-					foreach(deletedObject thisDO in deletedObjects)
-					{
-						if (thisAction != null && thisDO != null)
-						{
-							if (thisAction.gameObject == thisDO.gameObject)
-							{
-								objectToExile = thisDO;
-								thisAction.gameObject = block;
-							}
-						}
-					}
-				}
-
-				foreach (Action thisAction in undoneActions)
-				{
-					foreach (deletedObject thisDO in deletedObjects)
-					{
-						if (thisAction != null && thisDO != null)
-						{
-							if (thisAction.gameObject == thisDO.gameObject)
-							{
-								objectToExile = thisDO;
-								thisAction.gameObject = block;
-							}
-						}
-					}
-				}
-
-				if (objectToExile != null)
-					deletedObjects.Remove(objectToExile);
-
 				Action undoneAction = new Action(block, actionType.Create);
-				if (isRedo)
-					PushRedoneAction(undoneAction);
-				else
-					PushUndoneAction(undoneAction);
+				PushAction(undoneAction, block);
 			}
 			else if (actionToUndo.actionType == actionType.Create)
 			{
@@ -277,28 +217,19 @@ public class BlockRangler : MonoBehaviour
 					every object with when a replacement of that object might be created. we will
 					save this reference to a list of deleted objects.*/
 				Action undoneAction = new Action(objectToUndo, actionType.Delete);
-				if (isRedo)
-					PushRedoneAction(undoneAction);
-				else
-					PushUndoneAction(undoneAction); 
+				PushAction(undoneAction, objectToUndo);
 				Destroy(objectToUndo);
 			} 
 			else if (actionToUndo.actionType == actionType.MaterialChange)
 			{
 				Action undoneAction = new Action(objectToUndo, actionType.MaterialChange);
-				if (isRedo)
-					PushRedoneAction(undoneAction);
-				else
-					PushUndoneAction(undoneAction);
+				PushAction(undoneAction, objectToUndo);
 				objectToUndo.GetComponent<Renderer>().material = actionToUndo.material;
 			}
-			else if (objectToUndo != null && actionToUndo != null)
+			else if (/*objectToUndo != null && actionToUndo != null &&*/ actionToUndo.actionType == actionType.Move)
 			{
 				Action undoneAction = new Action(objectToUndo);
-				if (isRedo)
-					PushRedoneAction(undoneAction);
-				else
-					PushUndoneAction(undoneAction);
+				PushAction(undoneAction, objectToUndo);
 
 				objectToUndo.transform.position = actionToUndo.position;
 				objectToUndo.transform.rotation = actionToUndo.rotation;
@@ -307,7 +238,7 @@ public class BlockRangler : MonoBehaviour
 		}
 	}
 
-
+	#endregion
 
 	private static List<GameObject> blocks = new List<GameObject>();
 
