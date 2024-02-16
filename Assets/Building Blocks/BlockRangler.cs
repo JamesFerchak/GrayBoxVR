@@ -146,25 +146,9 @@ public class BlockRangler : MonoBehaviour
 			}
 		}
 
-		private static void ClearUndoneActions()
-		{
-			return;
-			if (TopIndexPlusOne == BottomIndex) return;
-
-			for (int actionToClearIndex = TopIndexPlusOne;
-				actionHistorySize != BottomIndex;
-                actionToClearIndex = actionToClearIndex == actionHistorySize - 1 ? 0 : actionToClearIndex + 1)
-			{
-				Debug.Log(actionToClearIndex);
-				actions[actionToClearIndex] = null;
-				actionObjectIDs[actionToClearIndex] = 0;
-			}
-		}
-
 		//public
 		public static void PushMoveAction(GameObject objectToRecord)
 		{
-			ClearUndoneActions();
 			IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord);
 			PushAction(actionToPush, objectToRecord);
@@ -172,7 +156,6 @@ public class BlockRangler : MonoBehaviour
 
 		public static void PushCreateAction(GameObject objectToRecord)
 		{
-            ClearUndoneActions();
             IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.Create);
 			PushAction(actionToPush, objectToRecord); 
@@ -180,7 +163,6 @@ public class BlockRangler : MonoBehaviour
 
 		public static void PushDeleteAction(GameObject objectToRecord)
 		{
-            ClearUndoneActions();
             IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.Delete);
 			PushAction(actionToPush, objectToRecord); 
@@ -188,7 +170,6 @@ public class BlockRangler : MonoBehaviour
 
 		public static void PushMaterialAction(GameObject objectToRecord)
 		{
-            ClearUndoneActions();
             IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.MaterialChange);
 			PushAction(actionToPush, objectToRecord); 
