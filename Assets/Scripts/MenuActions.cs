@@ -27,11 +27,8 @@ public class MenuActions : MonoBehaviour
 
     [SerializeField] GameObject mainMenuCanvas; // Cannot be deleted
     [SerializeField] GameObject mainMenuPanel;
-    [SerializeField] GameObject optionsUI;
-    [SerializeField] GameObject shapesUI;
-    [SerializeField] GameObject wrapsUI;
-    [SerializeField] GameObject saveUI;
-    [SerializeField] GameObject loadUI;
+    [SerializeField] GameObject[] mainMenuTabs;
+    
     [SerializeField] GameObject cam;
     [SerializeField] GameObject rightHandController;
     [SerializeField] GameObject leftHandController;
@@ -119,58 +116,58 @@ public class MenuActions : MonoBehaviour
         Application.Quit();
     }
 
-    public void SelectSquare()
+    public void SelectCube()
     {
-        ObjectCreator.Singleton.ChangeToSquare();
+        ObjectCreator.Singleton.ChangeToShape("cube");
         catalogCurrentSelection.sprite = squareAsset;
         HologramDisplay.Singleton.SetHologramToCube();
     }
 
     public void SelectSphere()
     {
-        ObjectCreator.Singleton.ChangeToSphere();
+        ObjectCreator.Singleton.ChangeToShape("sphere");
         catalogCurrentSelection.sprite = sphereAsset;
         HologramDisplay.Singleton.SetHologramToSphere();
     }
 
     public void SelectCylinder()
     {
-        ObjectCreator.Singleton.ChangeToCylinder();
+        ObjectCreator.Singleton.ChangeToShape("cylinder");
         catalogCurrentSelection.sprite = cylinderAsset;
         HologramDisplay.Singleton.SetHologramToCylinder();
     }
 
     public void SelectPyramid()
     {
-        ObjectCreator.Singleton.ChangeToPyramid();
+        ObjectCreator.Singleton.ChangeToShape("pyramid");
         catalogCurrentSelection.sprite = pyramidAsset;
         HologramDisplay.Singleton.SetHologramToPyramid();
     }
 
     public void SelectFloor()
     {
-        ObjectCreator.Singleton.ChangeToFloor();
+        ObjectCreator.Singleton.ChangeToShape("floor");
         catalogCurrentSelection.sprite = floorAsset;
         HologramDisplay.Singleton.SetHologramToFloor();
     }
 
     public void SelectPillar()
     {
-        ObjectCreator.Singleton.ChangeToPillar();
+        ObjectCreator.Singleton.ChangeToShape("pillar");
         catalogCurrentSelection.sprite = pillarAsset;
         HologramDisplay.Singleton.SetHologramToPillar();
     }
 
     public void SelectShortPillar()
     {
-        ObjectCreator.Singleton.ChangeToShortPillar();
+        ObjectCreator.Singleton.ChangeToShape("shortpillar");
         catalogCurrentSelection.sprite = shortPillarAsset;
         HologramDisplay.Singleton.SetHologramToShortPillar();
     }
 
     public void SelectWall()
     {
-        ObjectCreator.Singleton.ChangeToWall();
+        ObjectCreator.Singleton.ChangeToShape("wall");
         catalogCurrentSelection.sprite = wallAsset;
         HologramDisplay.Singleton.SetHologramToWall();
     }
@@ -187,55 +184,26 @@ public class MenuActions : MonoBehaviour
         ObjectPainter.Singleton.current_wrap = color;
     }
 
-    public void OpenOptionsMenu()
+    public void SwitchMenuTabs(int tabID) // 0: Options, 1: Shapes, 2: Save, 3: Load, 4: Wraps
     {
-        optionsUI.SetActive(true);
-        shapesUI.SetActive(false);
-        saveUI.SetActive(false);
-        loadUI.SetActive(false);
-        wrapsUI.SetActive(false);
-    }
-
-    public void OpenShapesMenu()
-    {
-        optionsUI.SetActive(false);
-        shapesUI.SetActive(true);
-        saveUI.SetActive(false);
-        loadUI.SetActive(false);
-        wrapsUI.SetActive(false);
-    }
-
-    public void OpenWrapsMenu()
-    {
-        optionsUI.SetActive(false);
-        shapesUI.SetActive(false);
-        wrapsUI.SetActive(true);
-        saveUI.SetActive(false);
-        loadUI.SetActive(false);
-    }
-
-    public void OpenSaveMenu()
-    {
-        optionsUI.SetActive(false);
-        shapesUI.SetActive(false);
-        saveUI.SetActive(true);
-        loadUI.SetActive(false);
-        wrapsUI.SetActive(false);
-    }
-
-    public void OpenLoadMenu()
-    {
-        optionsUI.SetActive(false);
-        shapesUI.SetActive(false);
-        saveUI.SetActive(false);
-        loadUI.SetActive(true);
-        wrapsUI.SetActive(false);
+        // Closes menu tabs except for the given tabID
+        for (int i = 0; i <= 5; i++)
+        {
+            if (i != tabID)
+            {
+                mainMenuTabs[i].SetActive(true);
+            }
+            else
+            {
+                mainMenuTabs[i].SetActive(false);
+            }
+        }
     }
 
     public void SaveLevelWithButton(string saveID)
     {
         BlockRangler.SaveLevel("save" + saveID);
-        OpenShapesMenu(); // Switches to catalog
+        SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
         ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
         
@@ -249,7 +217,7 @@ public class MenuActions : MonoBehaviour
     public void LoadLevelWithButton(string saveID)
     {
         BlockRangler.LoadLevel("save" + saveID);
-        OpenShapesMenu();
+        SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu();
     }
 

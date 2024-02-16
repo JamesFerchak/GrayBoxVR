@@ -28,6 +28,7 @@ public class ObjectCreator : MonoBehaviour
     }
 
     public GameObject currentObjectType; // The type of "block" being placed (square, circle, etc.)
+    public GameObject selectedObject; // The selected object in edit mode
     public GameObject cubePrefab; // Cube GameObject
     public GameObject spherePrefab; // Sphere GameObject
     public GameObject cylinderPrefab; // Cylinder GameObject
@@ -36,7 +37,6 @@ public class ObjectCreator : MonoBehaviour
     public GameObject pillarPrefab; // Long pillar GameObject
     public GameObject shortPillarPrefab; // Short pillar GameObject
     public GameObject wallPrefab; // Wall GameObject
-    public GameObject selectedObject; // The selected object in edit mode
 
     public Material defaultMaterial; // Material for Cube GameObject
     public Material selectedMaterial; // Material for the selected GameObject
@@ -115,44 +115,38 @@ public class ObjectCreator : MonoBehaviour
         }
     }
 
-    public void ChangeToSquare()
+    public void ChangeToShape(string shapeID)
     {
-        currentObjectType = cubePrefab;
-    }
-
-    public void ChangeToSphere()
-    {
-        currentObjectType = spherePrefab;
-    }
-
-    public void ChangeToCylinder()
-    {
-        currentObjectType = cylinderPrefab;
-    }
-
-    public void ChangeToPyramid()
-    {
-        currentObjectType = pyramidPrefab;
-    }
-
-    public void ChangeToFloor()
-    {
-        currentObjectType = floorPrefab;
-    }
-
-    public void ChangeToPillar()
-    {
-        currentObjectType = pillarPrefab;
-    }
-
-    public void ChangeToShortPillar()
-    {
-        currentObjectType = shortPillarPrefab;
-    }
-
-    public void ChangeToWall()
-    {
-        currentObjectType = wallPrefab;
+        switch (shapeID)
+        {
+            case ("cube"):
+                currentObjectType = cubePrefab;
+                break;
+            case ("sphere"):
+                currentObjectType = spherePrefab;
+                break;
+            case ("cylinder"):
+                currentObjectType = cylinderPrefab;
+                break;
+            case ("pyramid"):
+                currentObjectType = pyramidPrefab;
+                break;
+            case ("floor"):
+                currentObjectType = floorPrefab;
+                break;
+            case ("pillar"):
+                currentObjectType = pillarPrefab;
+                break;
+            case ("shortpillar"):
+                currentObjectType = shortPillarPrefab;
+                break;
+            case ("wall"):
+                currentObjectType = wallPrefab;
+                break;
+            default:
+                currentObjectType = cubePrefab;
+                break;
+        }
     }
 
     public float RoundForPlacementAssistance(float realPosition)
