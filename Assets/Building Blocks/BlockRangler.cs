@@ -101,42 +101,32 @@ public class BlockRangler : MonoBehaviour
 		private static void IncrementTopIndex()
 		{
 			TopIndex = TopIndexPlusOne;
-			Debug.LogWarning($"TopIndex is: {TopIndex}");
 		}
 
 		private static void DecrementTopIndex()
 		{
 			TopIndex = TopIndexMinusOne;
-			Debug.LogWarning($"TopIndex is: {TopIndex}");
 		}
 
 		private static void IncrementBothIndices()
 		{
 			TopIndex = TopIndexPlusOne;
 			BottomIndex = TopIndexPlusOne;
-			Debug.LogWarning($"TopIndex is: {TopIndex}");
 		}
 		
 		private static void PushAction(Action actionToRecord, GameObject objectToRecord)
 		{
-			Debug.LogWarning($"---Pushing Action {actionToRecord.actionType}---");
 			SetActionObject(objectToRecord);
 			actions[TopIndex] = actionToRecord;
 		}
 
 		private static void SetActionObject(GameObject objectToRecord)
 		{
-			Debug.Log("SETTING ACTION OBJECT");
 			int objectToReplaceID = actionObjectIDs[TopIndex];
-			if (objectToRecord == null)
-				Debug.Log($"Updating object at {TopIndex} to NULL");
-			else
-				Debug.Log($"Updating object at {TopIndex} to {objectToRecord.name}");
             actionObjectIDs[TopIndex] = objectToRecord.GetInstanceID();
 
 			if (objectToReplaceID == 0)
 			{
-				Debug.Log("NO OBJECT TO REPLACE!");
 				return;
 			}
 
@@ -150,7 +140,6 @@ public class BlockRangler : MonoBehaviour
 						{
 							actionObjectIDs[objectIndex] = objectToRecord.GetInstanceID();
 							actions[objectIndex].myGameObject = objectToRecord;
-							Debug.Log($"Updating object at index: {objectIndex}");
 						}
 					}
 				}
