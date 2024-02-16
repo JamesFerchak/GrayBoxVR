@@ -40,6 +40,7 @@ public class BlockRangler : MonoBehaviour
 
 	private class Action
 	{
+		public GameObject myGameObject;
 		public string gameObjectName;
 		public Vector3 position;
 		public Quaternion rotation;
@@ -49,6 +50,7 @@ public class BlockRangler : MonoBehaviour
 
 		public Action(GameObject affectedObject)
 		{
+			myGameObject = affectedObject;
 			gameObjectName = SimplifyObjectName(affectedObject.name);
 			position = affectedObject.transform.position;
 			rotation = affectedObject.transform.rotation;
@@ -59,6 +61,7 @@ public class BlockRangler : MonoBehaviour
 
 		public Action(GameObject affectedObject, actionType thisActionType)
 		{
+			myGameObject = affectedObject;
 			gameObjectName = SimplifyObjectName(affectedObject.name);
 			position = affectedObject.transform.position;
 			rotation = affectedObject.transform.rotation;
@@ -80,8 +83,7 @@ public class BlockRangler : MonoBehaviour
 	public static class ActionHistory
 	{
 		private static Action[] actions = new Action[actionHistorySize];
-		private static GameObject[] actionObjects = new GameObject[actionHistorySize];
-		private static Stack<Action> undoneActions = new Stack<Action>();
+		private static int[] actionObjectIDs = new int[actionHistorySize];
 		private static int TopIndex = 0;
 		private static int TopIndexPlusOne => TopIndex == actionHistorySize - 1 ? 0 : TopIndex + 1;
 		private static int TopIndexMinusOne => TopIndex == 0 ? actionHistorySize - 1 : TopIndex - 1;
@@ -99,33 +101,74 @@ public class BlockRangler : MonoBehaviour
 		private static void IncrementTopIndex()
 		{
 			TopIndex = TopIndexPlusOne;
+			Debug.LogWarning($"TopIndex is: {TopIndex}");
 		}
 
 		private static void DecrementTopIndex()
 		{
 			TopIndex = TopIndexMinusOne;
+			Debug.LogWarning($"TopIndex is: {TopIndex}");
 		}
 
 		private static void IncrementBothIndices()
 		{
 			TopIndex = TopIndexPlusOne;
 			BottomIndex = TopIndexPlusOne;
+			Debug.LogWarning($"TopIndex is: {TopIndex}");
 		}
 		
 		private static void PushAction(Action actionToRecord, GameObject objectToRecord)
 		{
+			Debug.LogWarning($"---Pushing Action {actionToRecord.actionType}---");
+			SetActionObject(objectToRecord);
 			actions[TopIndex] = actionToRecord;
-			actionObjects[TopIndex] = objectToRecord;
+		}
+
+		private static void SetActionObject(GameObject objectToRecord)
+		{
+			Debug.Log("SETTING ACTION OBJECT");
+			int objectToReplaceID = actionObjectIDs[TopIndex];
+			if (objectToRecord == null)
+				Debug.Log($"Updating object at {TopIndex} to NULL");
+			else
+				Debug.Log($"Updating object at {TopIndex} to {objectToRecord.name}");
+            actionObjectIDs[TopIndex] = objectToRecord.GetInstanceID();
+
+			if (objectToReplaceID == 0)
+			{
+				Debug.Log("NO OBJECT TO REPLACE!");
+				return;
+			}
+
+			if (actions[TopIndex] != null)
+			{
+				if (actions[TopIndex].myGameObject == null)
+				{
+					for (int objectIndex = 0; objectIndex < actionHistorySize; objectIndex++)
+					{
+						if (actionObjectIDs[objectIndex] == objectToReplaceID)
+						{
+							actionObjectIDs[objectIndex] = objectToRecord.GetInstanceID();
+							actions[objectIndex].myGameObject = objectToRecord;
+							Debug.Log($"Updating object at index: {objectIndex}");
+						}
+					}
+				}
+			}
 		}
 
 		private static void ClearUndoneActions()
 		{
+			return;
+			if (TopIndexPlusOne == BottomIndex) return;
+
 			for (int actionToClearIndex = TopIndexPlusOne;
 				actionHistorySize != BottomIndex;
                 actionToClearIndex = actionToClearIndex == actionHistorySize - 1 ? 0 : actionToClearIndex + 1)
 			{
+				Debug.Log(actionToClearIndex);
 				actions[actionToClearIndex] = null;
-				actionObjects[actionToClearIndex] = null;
+				actionObjectIDs[actionToClearIndex] = 0;
 			}
 		}
 
@@ -167,7 +210,7 @@ public class BlockRangler : MonoBehaviour
 			if (actions[TopIndex] == null)
 				return;
 
-			DoAction(TopIndex);
+			DoInverseAction(TopIndex);
 
 			DecrementTopIndex();
 		}
@@ -177,24 +220,17 @@ public class BlockRangler : MonoBehaviour
 			if (TopIndex + 1 == BottomIndex || (TopIndex == actionHistorySize - 1 && BottomIndex == 0))
 				return;
 
-			int redoActionIndex = TopIndexPlusOne;
-
-			DoAction(redoActionIndex);
 			IncrementTopIndex();
+			DoInverseAction(TopIndex);
 		}
 
-		private static void DoAction(int actionToUndoIndex)
+		private static void DoInverseAction(int actionToUndoIndex)
 		{
 			Action actionToUndo = actions[actionToUndoIndex];
-			GameObject objectToUndo = actionObjects[actionToUndoIndex];
+			GameObject objectToUndo = actions[actionToUndoIndex].myGameObject;
 
 			if (actionToUndo.actionType == actionType.Delete)
 			{
-				/*	We are creating an object based on an object that was deleted, so every
-				 *	reference to the old object in each action stack must now reference this new,
-				 *	replacement object. And now that we have replaced all of those references,
-				 *	we can remove this deleted object from the list of deleted objects.
-				 */
 
 				GameObject block = Instantiate(Resources.Load($"Blocks/{actionToUndo.gameObjectName}", typeof(GameObject))) as GameObject;
 				block.transform.position = actionToUndo.position;
@@ -211,7 +247,7 @@ public class BlockRangler : MonoBehaviour
 					every object with when a replacement of that object might be created. we will
 					save this reference to a list of deleted objects.*/
 				Action undoneAction = new Action(objectToUndo, actionType.Delete);
-				PushAction(undoneAction, null);
+				PushAction(undoneAction, objectToUndo);
 				Destroy(objectToUndo);
 			} 
 			else if (actionToUndo.actionType == actionType.MaterialChange)
@@ -220,7 +256,7 @@ public class BlockRangler : MonoBehaviour
 				PushAction(undoneAction, objectToUndo);
 				objectToUndo.GetComponent<Renderer>().material = actionToUndo.material;
 			}
-			else if (objectToUndo != null && actionToUndo != null)
+			else if (/*objectToUndo != null && actionToUndo != null &&*/ actionToUndo.actionType == actionType.Move)
 			{
 				Action undoneAction = new Action(objectToUndo);
 				PushAction(undoneAction, objectToUndo);
