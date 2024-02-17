@@ -113,12 +113,48 @@ public class MenuActions : MonoBehaviour
         }
     }
 
-    public void QuitGame()
+    public void RelocateMainMenu()
     {
-        Debug.Log("Quitting game...");
-        Application.Quit();
+        Vector3 newMainMenuPosition = cam.transform.TransformPoint(Vector3.forward * 2);
+        newMainMenuPosition.y = 35;
+        mainMenuCanvas.transform.position = newMainMenuPosition;
     }
 
+    public void InteractWithMainMenu()
+    {
+        if (mainMenuPanel != null) // If panel exists
+        {
+            if (inMenuMode) // If panel is already open
+            {
+                mainMenuPanel.SetActive(false); // Close panel
+                inMenuMode = false;
+            }
+            else // If panel is closed
+            {
+                MenuActions.Singleton.RelocateMainMenu();
+                mainMenuPanel.SetActive(true); // Open panel
+                inMenuMode = true;
+            }
+        }
+    }
+
+    public void SwitchMenuTabs(int tabID) // 0: Options, 1: Shapes, 2: Save, 3: Load, 4: Wraps
+    {
+        // Closes menu tabs except for the given tabID
+        for (int i = 0; i <= 5; i++)
+        {
+            if (i != tabID)
+            {
+                mainMenuTabs[i].SetActive(true);
+            }
+            else
+            {
+                mainMenuTabs[i].SetActive(false);
+            }
+        }
+    }
+
+    // TODO: SelectShape will be used going forward, other Select functions will be removed
     public void SelectShape(string shapeID)
     {
         ObjectCreator.Singleton.ChangeToShape(shapeID);
@@ -207,32 +243,9 @@ public class MenuActions : MonoBehaviour
         HologramDisplay.Singleton.SetHologramToWall();
     }
 
-    public void RelocateMainMenu()
-    {
-        Vector3 newMainMenuPosition = cam.transform.TransformPoint(Vector3.forward * 2);
-        newMainMenuPosition.y = 35;
-        mainMenuCanvas.transform.position = newMainMenuPosition;
-    }
-
     public void SelectColor(string color)
     {
         ObjectPainter.Singleton.current_wrap = color;
-    }
-
-    public void SwitchMenuTabs(int tabID) // 0: Options, 1: Shapes, 2: Save, 3: Load, 4: Wraps
-    {
-        // Closes menu tabs except for the given tabID
-        for (int i = 0; i <= 5; i++)
-        {
-            if (i != tabID)
-            {
-                mainMenuTabs[i].SetActive(true);
-            }
-            else
-            {
-                mainMenuTabs[i].SetActive(false);
-            }
-        }
     }
 
     public void SaveLevelWithButton(string saveID)
@@ -254,24 +267,6 @@ public class MenuActions : MonoBehaviour
         BlockRangler.LoadLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu();
-    }
-
-    public void InteractWithMainMenu()
-    {
-        if (mainMenuPanel != null) // If panel exists
-        {
-            if (inMenuMode) // If panel is already open
-            {
-                mainMenuPanel.SetActive(false); // Close panel
-                inMenuMode = false;
-            }
-            else // If panel is closed
-            {
-                MenuActions.Singleton.RelocateMainMenu();
-                mainMenuPanel.SetActive(true); // Open panel
-                inMenuMode = true;
-            }
-        }
     }
 
     public void AddSavesToMenuUI()
@@ -300,5 +295,11 @@ public class MenuActions : MonoBehaviour
                 projectExists[i - 65] = false;
             }
         }
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quitting game...");
+        Application.Quit();
     }
 }
