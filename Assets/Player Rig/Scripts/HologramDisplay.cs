@@ -27,6 +27,7 @@ public class HologramDisplay : MonoBehaviour
         Singleton = this;
     }
 
+    // TODO: Remove these objects, make them references to the original objects instead
     public GameObject holoCubePrefab; // Cube GameObject
     public GameObject holoSpherePrefab; // Sphere GameObject
     public GameObject holoCylinderPrefab; // Cylinder GameObject
@@ -62,6 +63,44 @@ public class HologramDisplay : MonoBehaviour
             currentHologram.transform.position = position;
             currentHologram.transform.rotation = rotation;
         }
+    }
+
+    public void SetHologramToShape(string shapeID)
+    {
+        GameObject newHologram;
+
+        switch (shapeID)
+        {
+            case "cube":
+                newHologram = holoCubePrefab;
+                break;
+            case "sphere":
+                newHologram = holoSpherePrefab;
+                break;
+            case "cylinder":
+                newHologram = holoCylinderPrefab;
+                break;
+            case "pyramid":
+                newHologram = holoPyramidPrefab;
+                break;
+            case "floor":
+                newHologram = holoFloorPrefab;
+                break;
+            case "pillar":
+                newHologram = holoPillarPrefab;
+                break;
+            case "shortpillar":
+                newHologram = holoShortPillarPrefab;
+                break;
+            case "wall":
+                newHologram = holoWallPrefab;
+                break;
+            default:
+                newHologram = holoCubePrefab;
+                break;
+        }
+
+        currentHologram = newHologram;
     }
 
     public void SetHologramToCube()

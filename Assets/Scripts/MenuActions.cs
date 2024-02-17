@@ -41,7 +41,10 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Text scalingAssistanceText;
 
     [SerializeField] Image catalogCurrentSelection;
-    [SerializeField] Sprite squareAsset;
+    // TODO: Replace individual sprites with array, below
+    // [SerializeField] Sprite[] spriteArray;
+    Sprite[] shapeAssetArray; 
+    [SerializeField] Sprite cubeAsset;
     [SerializeField] Sprite sphereAsset;
     [SerializeField] Sprite cylinderAsset;
     [SerializeField] Sprite pyramidAsset;
@@ -49,8 +52,8 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Sprite pillarAsset;
     [SerializeField] Sprite shortPillarAsset;
     [SerializeField] Sprite wallAsset;
-    Sprite[] spriteArray = new Sprite[10];
 
+    Sprite[] levelSpriteArray = new Sprite[10];
     [SerializeField] GameObject[] levelThumbnailsLoadMenu = new GameObject[10];
     [SerializeField] GameObject[] levelThumbnailsSaveMenu = new GameObject[10];
     [SerializeField] GameObject[] loadButtons = new GameObject[10];
@@ -116,10 +119,42 @@ public class MenuActions : MonoBehaviour
         Application.Quit();
     }
 
+    public void SelectShape(string shapeID)
+    {
+        ObjectCreator.Singleton.ChangeToShape(shapeID);
+        catalogCurrentSelection.sprite = GetShapeSprite(shapeID);
+        HologramDisplay.Singleton.SetHologramToShape(shapeID);
+    }
+
+    private Sprite GetShapeSprite(string shapeID)
+    {
+        switch (shapeID)
+        {
+            case "cube":
+                return cubeAsset;
+            case "sphere":
+                return sphereAsset;
+            case "cylinder":
+                return cylinderAsset;
+            case "pyramid":
+                return pyramidAsset;
+            case "floor":
+                return floorAsset;
+            case "pillar":
+                return pillarAsset;
+            case "shortpillar":
+                return shortPillarAsset;
+            case "wall":
+                return wallAsset;
+            default:
+                return cubeAsset; // TODO: Change to warningAsset (need to create)
+        }
+    }
+
     public void SelectCube()
     {
         ObjectCreator.Singleton.ChangeToShape("cube");
-        catalogCurrentSelection.sprite = squareAsset;
+        catalogCurrentSelection.sprite = cubeAsset;
         HologramDisplay.Singleton.SetHologramToCube();
     }
 
@@ -252,10 +287,10 @@ public class MenuActions : MonoBehaviour
             {
                 bytes = File.ReadAllBytes(filePath + "save" + (char)i + "thumbnail.png");
                 textureConverter.LoadImage(bytes);
-                spriteArray[i - 65] = Sprite.Create(textureConverter, new Rect(0, 0, textureConverter.width, textureConverter.height), new Vector2(), 100.0f);
-                spriteArray[i - 65].name = "sprite" + (char)i;
-                levelThumbnailsLoadMenu[i - 65].GetComponent<Image>().sprite = spriteArray[i - 65];
-                levelThumbnailsSaveMenu[i - 65].GetComponent<Image>().sprite = spriteArray[i - 65];
+                levelSpriteArray[i - 65] = Sprite.Create(textureConverter, new Rect(0, 0, textureConverter.width, textureConverter.height), new Vector2(), 100.0f);
+                levelSpriteArray[i - 65].name = "sprite" + (char)i;
+                levelThumbnailsLoadMenu[i - 65].GetComponent<Image>().sprite = levelSpriteArray[i - 65];
+                levelThumbnailsSaveMenu[i - 65].GetComponent<Image>().sprite = levelSpriteArray[i - 65];
                 projectExists[i - 65] = true;
                 textureConverter = new Texture2D(2, 2);
             }
