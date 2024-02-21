@@ -53,8 +53,11 @@ public class ObjectCreator : MonoBehaviour
 
     public bool inMoveMode; // True if there is currently a selected object in move mode
     public bool inEditMode; // True if there is currently a selected object in edit mode
+    public bool isautoPaint = true;
 
     public HologramDisplay hologramDisplay;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -97,6 +100,62 @@ public class ObjectCreator : MonoBehaviour
         GameObject block = Instantiate(currentObjectType, position, Quaternion.Euler(rotation)); // Places cube in level
         block.tag = "Block";
         BlockRangler.ActionHistory.PushCreateAction(block);
+        if(isautoPaint) 
+        {
+                switch (ObjectPainter._singleton.current_wrap)
+            {
+                case "red":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.red;
+                    break;
+                case "blue":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.blue;
+                    break;
+                case "yellow":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.yellow;
+                    break;
+                case "white":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.white;
+                    break;
+                case "black":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.black;
+                    break;
+                case "green":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.green;
+                    break;
+                case "brown":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.brown;
+                    break;
+                case "orange":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.orange;
+                    break;
+                case "purple":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.purple;
+                    break;
+                case "pink":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.pink;
+                    break;
+                case "gray":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.gray;
+                    break;
+                case "cyan":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.cyan;
+                    break;
+                case "stone":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.stone;
+                    break;
+                case "glass":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.glass;
+                    break;
+                case "space":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.space;
+                    break;
+                case "smile":
+                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.smile;
+                    break;
+            }
+            
+        }
+        
     }
 
     public void EraseObject()
