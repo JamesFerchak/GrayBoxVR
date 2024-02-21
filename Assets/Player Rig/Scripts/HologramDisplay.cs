@@ -99,56 +99,8 @@ public class HologramDisplay : MonoBehaviour
                 newHologram = holoCubePrefab;
                 break;
         }
-
+        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
         currentHologram = newHologram;
-    }
-
-    public void SetHologramToCube()
-    {
-        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
-        currentHologram = holoCubePrefab;
-    }
-
-    public void SetHologramToSphere()
-    {
-        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
-        currentHologram = holoSpherePrefab;
-    }
-
-    public void SetHologramToCylinder()
-    {
-        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
-        currentHologram = holoCylinderPrefab;
-    }
-
-    public void SetHologramToPyramid()
-    {
-        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
-        currentHologram = holoPyramidPrefab;
-    }
-
-    public void SetHologramToFloor()
-    {
-        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
-        currentHologram = holoFloorPrefab;
-    }
-
-    public void SetHologramToPillar()
-    {
-        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
-        currentHologram = holoPillarPrefab;
-    }
-
-    public void SetHologramToShortPillar()
-    {
-        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
-        currentHologram = holoShortPillarPrefab;
-    }
-
-    public void SetHologramToWall()
-    {
-        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
-        currentHologram = holoWallPrefab;
     }
 
     public void ToggleHologram()

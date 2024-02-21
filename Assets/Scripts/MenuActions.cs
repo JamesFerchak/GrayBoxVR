@@ -41,17 +41,7 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Text scalingAssistanceText;
 
     [SerializeField] Image catalogCurrentSelection;
-    // TODO: Replace individual sprites with array, below
-    // [SerializeField] Sprite[] spriteArray;
-    Sprite[] shapeAssetArray; 
-    [SerializeField] Sprite cubeAsset;
-    [SerializeField] Sprite sphereAsset;
-    [SerializeField] Sprite cylinderAsset;
-    [SerializeField] Sprite pyramidAsset;
-    [SerializeField] Sprite floorAsset;
-    [SerializeField] Sprite pillarAsset;
-    [SerializeField] Sprite shortPillarAsset;
-    [SerializeField] Sprite wallAsset;
+    [SerializeField] Sprite[] shapeAssetArray; 
 
     Sprite[] levelSpriteArray = new Sprite[10];
     [SerializeField] GameObject[] levelThumbnailsLoadMenu = new GameObject[10];
@@ -141,17 +131,11 @@ public class MenuActions : MonoBehaviour
     public void SwitchMenuTabs(int tabID) // 0: Options, 1: Shapes, 2: Save, 3: Load, 4: Wraps
     {
         // Closes menu tabs except for the given tabID
-        for (int i = 0; i <= 5; i++)
+        for (int i = 0; i < mainMenuTabs.Length; i++)
         {
-            if (i != tabID)
-            {
-                mainMenuTabs[i].SetActive(true);
-            }
-            else
-            {
-                mainMenuTabs[i].SetActive(false);
-            }
+            mainMenuTabs[i].SetActive(false);
         }
+        mainMenuTabs[tabID].SetActive(true);
     }
 
     // TODO: SelectShape will be used going forward, other Select functions will be removed
@@ -167,80 +151,24 @@ public class MenuActions : MonoBehaviour
         switch (shapeID)
         {
             case "cube":
-                return cubeAsset;
+                return shapeAssetArray[0];
             case "sphere":
-                return sphereAsset;
+                return shapeAssetArray[1];
             case "cylinder":
-                return cylinderAsset;
+                return shapeAssetArray[2];
             case "pyramid":
-                return pyramidAsset;
-            case "floor":
-                return floorAsset;
-            case "pillar":
-                return pillarAsset;
-            case "shortpillar":
-                return shortPillarAsset;
+                return shapeAssetArray[3];
             case "wall":
-                return wallAsset;
+                return shapeAssetArray[4];
+            case "pillar":
+                return shapeAssetArray[5];
+            case "shortpillar":
+                return shapeAssetArray[6];
+            case "floor":
+                return shapeAssetArray[7];
             default:
-                return cubeAsset; // TODO: Change to warningAsset (need to create)
+                return shapeAssetArray[0]; // Defaults to cube
         }
-    }
-
-    public void SelectCube()
-    {
-        ObjectCreator.Singleton.ChangeToShape("cube");
-        catalogCurrentSelection.sprite = cubeAsset;
-        HologramDisplay.Singleton.SetHologramToCube();
-    }
-
-    public void SelectSphere()
-    {
-        ObjectCreator.Singleton.ChangeToShape("sphere");
-        catalogCurrentSelection.sprite = sphereAsset;
-        HologramDisplay.Singleton.SetHologramToSphere();
-    }
-
-    public void SelectCylinder()
-    {
-        ObjectCreator.Singleton.ChangeToShape("cylinder");
-        catalogCurrentSelection.sprite = cylinderAsset;
-        HologramDisplay.Singleton.SetHologramToCylinder();
-    }
-
-    public void SelectPyramid()
-    {
-        ObjectCreator.Singleton.ChangeToShape("pyramid");
-        catalogCurrentSelection.sprite = pyramidAsset;
-        HologramDisplay.Singleton.SetHologramToPyramid();
-    }
-
-    public void SelectFloor()
-    {
-        ObjectCreator.Singleton.ChangeToShape("floor");
-        catalogCurrentSelection.sprite = floorAsset;
-        HologramDisplay.Singleton.SetHologramToFloor();
-    }
-
-    public void SelectPillar()
-    {
-        ObjectCreator.Singleton.ChangeToShape("pillar");
-        catalogCurrentSelection.sprite = pillarAsset;
-        HologramDisplay.Singleton.SetHologramToPillar();
-    }
-
-    public void SelectShortPillar()
-    {
-        ObjectCreator.Singleton.ChangeToShape("shortpillar");
-        catalogCurrentSelection.sprite = shortPillarAsset;
-        HologramDisplay.Singleton.SetHologramToShortPillar();
-    }
-
-    public void SelectWall()
-    {
-        ObjectCreator.Singleton.ChangeToShape("wall");
-        catalogCurrentSelection.sprite = wallAsset;
-        HologramDisplay.Singleton.SetHologramToWall();
     }
 
     public void SelectColor(string color)
