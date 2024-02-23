@@ -140,73 +140,76 @@ public class ObjectPainter : MonoBehaviour
                 switch (current_wrap)
                 {
                     case "red":
-                        gameObject.GetComponent<MeshRenderer>().material = red;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = red;
                         break;
                     case "blue":
-                        gameObject.GetComponent<MeshRenderer>().material = blue;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = blue;
                         break;
                     case "yellow":
-                        gameObject.GetComponent<MeshRenderer>().material = yellow;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
                         break;
                     case "white":
-                        gameObject.GetComponent<MeshRenderer>().material = white;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = white;
                         break;
                     case "black":
-                        gameObject.GetComponent<MeshRenderer>().material = black;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = black;
                         break;
                     case "green":
-                        gameObject.GetComponent<MeshRenderer>().material = green;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = green;
                         break;
                     case "brown":
-                        gameObject.GetComponent<MeshRenderer>().material = brown;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = brown;
                         break;
                     case "orange":
-                        gameObject.GetComponent<MeshRenderer>().material = orange;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = orange;
                         break;
                     case "purple":
-                        gameObject.GetComponent<MeshRenderer>().material = purple;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = purple;
                         break;
                     case "pink":
-                        gameObject.GetComponent<MeshRenderer>().material = pink;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = pink;
                         break;
                     case "gray":
-                        gameObject.GetComponent<MeshRenderer>().material = gray;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = gray;
                         break;
                     case "cyan":
-                        gameObject.GetComponent<MeshRenderer>().material = cyan;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = cyan;
                         break;
                     case "stone":
-                        gameObject.GetComponent<MeshRenderer>().material = stone;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = stone;
                         break;
                     case "glass":
-                        gameObject.GetComponent<MeshRenderer>().material = glass;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = glass;
                         break;
                     case "space":
-                        gameObject.GetComponent<MeshRenderer>().material = space;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = space;
+                        break;
+                    case "smile":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = smile;
                         break;
                     case "brick":
-                        gameObject.GetComponent<MeshRenderer>().material = brick;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = brick;
                         break;
                     case "sand":
-                        gameObject.GetComponent<MeshRenderer>().material = sand;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = sand;
                         break;
                     case "water":
-                        gameObject.GetComponent<MeshRenderer>().material = water;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = water;
                         break;
                     case "metal":
-                        gameObject.GetComponent<MeshRenderer>().material = metal;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = metal;
                         break;
                     case "tiles":
-                        gameObject.GetComponent<MeshRenderer>().material = tiles;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = tiles;
                         break;
                     case "wood":
-                        gameObject.GetComponent<MeshRenderer>().material = wood;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = wood;
                         break;
                     case "dirt":
-                        gameObject.GetComponent<MeshRenderer>().material = dirt;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = dirt;
                         break;
                     case "grass":
-                        gameObject.GetComponent<MeshRenderer>().material = grass;
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = grass;
                         break;
                 }
             }
