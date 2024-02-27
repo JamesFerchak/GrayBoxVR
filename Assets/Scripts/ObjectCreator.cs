@@ -83,6 +83,19 @@ public class ObjectCreator : MonoBehaviour
         hologramDisplay.ShowHologram(position, Quaternion.Euler(rotation));
     }
 
+    public void AutoPaintToggle()
+    {
+        if(isautoPaint)
+        {
+            isautoPaint = false;
+        }
+
+        else
+        {
+            isautoPaint = true;
+        }
+    }
+
     public void PlaceObject()
     {
         Transform RightHand = RightHandController.Singleton.GetRightHandObject().transform;
