@@ -53,7 +53,7 @@ public class ObjectCreator : MonoBehaviour
 
     public bool inMoveMode; // True if there is currently a selected object in move mode
     public bool inEditMode; // True if there is currently a selected object in edit mode
-    public bool isautoPaint = true;
+    public bool isautoPaint = false;
 
     public HologramDisplay hologramDisplay;
 
@@ -63,6 +63,7 @@ public class ObjectCreator : MonoBehaviour
     void Start()
     {
         currentObjectType = cubePrefab;
+        isautoPaint = false;
     }
 
     // Update is called once per frame
