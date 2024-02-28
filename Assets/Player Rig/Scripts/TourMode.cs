@@ -39,6 +39,7 @@ public class TourMode : MonoBehaviour
         {
             LastEditModePosition = cam.transform.position;
             rig.transform.localScale = new Vector3(rig.transform.localScale.x / tourModeShrinkMultiplier, rig.transform.localScale.y / tourModeShrinkMultiplier, rig.transform.localScale.z / tourModeShrinkMultiplier);
+            rig.transform.position = hit.point;
             cam.transform.position = hit.point; // Select the hit object
             if (HologramDisplay.Singleton.hologramEnabled == true)
             {
@@ -62,6 +63,7 @@ public class TourMode : MonoBehaviour
     {
         Debug.Log("Back to Edit Mode Called");
         rig.transform.localScale = new Vector3(rig.transform.localScale.x * tourModeShrinkMultiplier, rig.transform.localScale.y * tourModeShrinkMultiplier, rig.transform.localScale.z * tourModeShrinkMultiplier);
+        rig.transform.position = LastEditModePosition;
         cam.transform.position = LastEditModePosition;
         if (reenableHologram == true)
         {
