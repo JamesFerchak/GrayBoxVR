@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
 
 public class ObjectCreator : MonoBehaviour
@@ -29,14 +30,6 @@ public class ObjectCreator : MonoBehaviour
 
     public GameObject currentObjectType; // The type of "block" being placed (square, circle, etc.)
     public GameObject selectedObject; // The selected object in edit mode
-    public GameObject cubePrefab; // Cube GameObject
-    public GameObject spherePrefab; // Sphere GameObject
-    public GameObject cylinderPrefab; // Cylinder GameObject
-    public GameObject pyramidPrefab; // Pyramid GameObject
-    public GameObject floorPrefab; // Cube GameObject
-    public GameObject pillarPrefab; // Long pillar GameObject
-    public GameObject shortPillarPrefab; // Short pillar GameObject
-    public GameObject wallPrefab; // Wall GameObject
 
     public Material defaultMaterial; // Material for Cube GameObject
     public Material selectedMaterial; // Material for the selected GameObject
@@ -62,7 +55,7 @@ public class ObjectCreator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentObjectType = cubePrefab;
+        currentObjectType = ObjectDefinitions.Singleton.GetObjectShape("cube");
         isautoPaint = false;
     }
 
@@ -116,60 +109,8 @@ public class ObjectCreator : MonoBehaviour
         BlockRangler.ActionHistory.PushCreateAction(block);
         if(isautoPaint) 
         {
-                switch (ObjectPainter._singleton.current_wrap)
-            {
-                case "red":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.red;
-                    break;
-                case "blue":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.blue;
-                    break;
-                case "yellow":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.yellow;
-                    break;
-                case "white":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.white;
-                    break;
-                case "black":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.black;
-                    break;
-                case "green":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.green;
-                    break;
-                case "brown":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.brown;
-                    break;
-                case "orange":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.orange;
-                    break;
-                case "purple":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.purple;
-                    break;
-                case "pink":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.pink;
-                    break;
-                case "gray":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.gray;
-                    break;
-                case "cyan":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.cyan;
-                    break;
-                case "stone":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.stone;
-                    break;
-                case "glass":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.glass;
-                    break;
-                case "space":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.space;
-                    break;
-                case "smile":
-                    block.GetComponent<MeshRenderer>().material = ObjectPainter._singleton.smile;
-                    break;
-            }
-            
+            ObjectPainter.Singleton.AutoPaintObject(block);
         }
-        
     }
 
     public void EraseObject()
@@ -185,40 +126,6 @@ public class ObjectCreator : MonoBehaviour
                 BlockRangler.ActionHistory.PushDeleteAction(hit.transform.gameObject);
                 Destroy(hit.transform.gameObject);
             }
-        }
-    }
-
-    public void ChangeToShape(string shapeID)
-    {
-        switch (shapeID)
-        {
-            case ("cube"):
-                currentObjectType = cubePrefab;
-                break;
-            case ("sphere"):
-                currentObjectType = spherePrefab;
-                break;
-            case ("cylinder"):
-                currentObjectType = cylinderPrefab;
-                break;
-            case ("pyramid"):
-                currentObjectType = pyramidPrefab;
-                break;
-            case ("floor"):
-                currentObjectType = floorPrefab;
-                break;
-            case ("pillar"):
-                currentObjectType = pillarPrefab;
-                break;
-            case ("shortpillar"):
-                currentObjectType = shortPillarPrefab;
-                break;
-            case ("wall"):
-                currentObjectType = wallPrefab;
-                break;
-            default:
-                currentObjectType = cubePrefab;
-                break;
         }
     }
 

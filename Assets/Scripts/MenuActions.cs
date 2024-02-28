@@ -141,34 +141,9 @@ public class MenuActions : MonoBehaviour
     // TODO: SelectShape will be used going forward, other Select functions will be removed
     public void SelectShape(string shapeID)
     {
-        ObjectCreator.Singleton.ChangeToShape(shapeID);
-        catalogCurrentSelection.sprite = GetShapeSprite(shapeID);
+        ObjectCreator.Singleton.currentObjectType = ObjectDefinitions.Singleton.GetObjectShape(shapeID);
+        catalogCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite(shapeID);
         HologramDisplay.Singleton.SetHologramToShape(shapeID);
-    }
-
-    private Sprite GetShapeSprite(string shapeID)
-    {
-        switch (shapeID)
-        {
-            case "cube":
-                return shapeAssetArray[0];
-            case "sphere":
-                return shapeAssetArray[1];
-            case "cylinder":
-                return shapeAssetArray[2];
-            case "pyramid":
-                return shapeAssetArray[3];
-            case "wall":
-                return shapeAssetArray[4];
-            case "pillar":
-                return shapeAssetArray[5];
-            case "shortpillar":
-                return shapeAssetArray[6];
-            case "floor":
-                return shapeAssetArray[7];
-            default:
-                return shapeAssetArray[0]; // Defaults to cube
-        }
     }
 
     public void SelectColor(string color)

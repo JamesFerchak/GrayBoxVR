@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UIElements;
 
 public class HologramDisplay : MonoBehaviour
@@ -27,33 +29,18 @@ public class HologramDisplay : MonoBehaviour
         Singleton = this;
     }
 
-    // TODO: Remove these objects, make them references to the original objects instead
-    public GameObject holoCubePrefab; // Cube GameObject
-    public GameObject holoSpherePrefab; // Sphere GameObject
-    public GameObject holoCylinderPrefab; // Cylinder GameObject
-    public GameObject holoPyramidPrefab; // Pyramid GameObject
-    public GameObject holoFloorPrefab; // Cube GameObject
-    public GameObject holoPillarPrefab; // Long pillar GameObject
-    public GameObject holoShortPillarPrefab; // Short pillar GameObject
-    public GameObject holoWallPrefab; // Wall GameObject
     public GameObject currentHologram;
-
     public bool hologramEnabled = true;
+    public Material hologramMaterial;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Converts prefabs into in-game objects
-        holoCubePrefab = Instantiate(holoCubePrefab, new Vector3(-1000.0f, 0.0f, 0.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-        holoSpherePrefab = Instantiate(holoSpherePrefab, new Vector3(-1000.0f, 0.0f, 0.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-        holoCylinderPrefab = Instantiate(holoCylinderPrefab, new Vector3(-1000.0f, 0.0f, 0.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-        holoPyramidPrefab = Instantiate(holoPyramidPrefab, new Vector3(-1000.0f, 0.0f, 0.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-        holoFloorPrefab = Instantiate(holoFloorPrefab, new Vector3(-1000.0f, 0.0f, 0.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-        holoPillarPrefab = Instantiate(holoPillarPrefab, new Vector3(-1000.0f, 0.0f, 0.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-        holoShortPillarPrefab = Instantiate(holoShortPillarPrefab, new Vector3(-1000.0f, 0.0f, 0.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-        holoWallPrefab = Instantiate(holoWallPrefab, new Vector3(-1000.0f, 0.0f, 0.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-
-        currentHologram = holoCubePrefab;
+        GameObject cubeHologramMesh = ObjectDefinitions.Singleton.GetObjectShape("cube");
+        currentHologram = Instantiate(cubeHologramMesh, Vector3.zero, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+        currentHologram.gameObject.GetComponent<MeshRenderer>().material = hologramMaterial;
+        currentHologram.tag = "Untagged";
+        currentHologram.transform.GetComponent<Collider>().enabled = false;
     }
 
     public void ShowHologram(Vector3 position, Quaternion rotation)
@@ -67,40 +54,22 @@ public class HologramDisplay : MonoBehaviour
 
     public void SetHologramToShape(string shapeID)
     {
-        GameObject newHologram;
+        GameObject newHologramMesh = ObjectDefinitions.Singleton.GetObjectShape(shapeID);
+        GameObject newHologram = Instantiate(newHologramMesh, Vector3.zero, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+        newHologram.GetComponent<MeshRenderer>().material = hologramMaterial;
 
-        switch (shapeID)
-        {
-            case "cube":
-                newHologram = holoCubePrefab;
-                break;
-            case "sphere":
-                newHologram = holoSpherePrefab;
-                break;
-            case "cylinder":
-                newHologram = holoCylinderPrefab;
-                break;
-            case "pyramid":
-                newHologram = holoPyramidPrefab;
-                break;
-            case "floor":
-                newHologram = holoFloorPrefab;
-                break;
-            case "pillar":
-                newHologram = holoPillarPrefab;
-                break;
-            case "shortpillar":
-                newHologram = holoShortPillarPrefab;
-                break;
-            case "wall":
-                newHologram = holoWallPrefab;
-                break;
-            default:
-                newHologram = holoCubePrefab;
-                break;
-        }
-        currentHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
+        GameObject oldHologram = currentHologram;
         currentHologram = newHologram;
+        currentHologram.tag = "Untagged";
+        if (currentHologram.transform.GetComponent<Collider>())
+        {
+            currentHologram.transform.GetComponent<Collider>().enabled = false;
+        }
+        if (currentHologram.transform.GetComponent<MeshCollider>())
+        {
+            currentHologram.transform.GetComponent<MeshCollider>().enabled = false;
+        }
+        oldHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
     }
 
     public void ToggleHologram()

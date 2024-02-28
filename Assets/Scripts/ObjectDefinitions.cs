@@ -23,18 +23,38 @@ public class ObjectDefinitions : MonoBehaviour
     private void Awake()
     {
         Singleton = this;
+
+        allObjects = primitiveObjects;
+
+        // TEMPORARY CODE, should be auto-generated using a file without using a sprite or preset gameobject
+        ObjectType floorObject = GenerateObjectType("floor", floorPrefab, floorSprite);
+        allObjects.Add(floorObject);
+        ObjectType pillarObject = GenerateObjectType("pillar", pillarPrefab, pillarSprite);
+        allObjects.Add(pillarObject);
+        ObjectType shortPillarObject = GenerateObjectType("shortpillar", shortPillarPrefab, shortPillarSprite);
+        allObjects.Add(shortPillarObject);
+        ObjectType wallObject = GenerateObjectType("wall", wallPrefab, wallSprite);
+        allObjects.Add(wallObject);
+
+        // We now have a list, "allObjects", that includes all preloaded objects.
     }
 
     [SerializeField] List<ObjectType> primitiveObjects; // Pre-created
     List<ObjectType> allObjects;
 
+    // TEMPORARY OBJECTS AND SPRITES FOR RECTANGLES
+    public GameObject floorPrefab;
+    public GameObject pillarPrefab;
+    public GameObject shortPillarPrefab;
+    public GameObject wallPrefab;
+    public Sprite floorSprite;
+    public Sprite pillarSprite;
+    public Sprite shortPillarSprite;
+    public Sprite wallSprite;
+
     void Start()
     {
-        allObjects = primitiveObjects;
-
-        // // To add objects during runtime (assuming x, y, z initialized)
-        // ObjectType additionalObject = GenerateObjectType(x, y, z)
-        // allObjects.Add(additionalObject);
+        
     }
 
     public GameObject GetObjectShape(string shapeID) // Gets a shape using a shapeID
