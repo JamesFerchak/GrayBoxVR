@@ -271,19 +271,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 308306161}
     m_Modifications:
     - target: {fileID: 1512406922311030549, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.9317775
+      value: 16.808098
       objectReference: {fileID: 0}
     - target: {fileID: 1512406922311030549, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.79
+      value: 29.914001
       objectReference: {fileID: 0}
     - target: {fileID: 1512406922311030549, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.3214054
+      value: 11.143738
       objectReference: {fileID: 0}
     - target: {fileID: 1512406922311030549, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -291,15 +291,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1512406922311030549, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1512406922311030549, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1512406922311030549, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1512406922311030549, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -315,13 +315,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1646506591365383498, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
       propertyPath: m_Name
-      value: Block Rangler
+      value: SCRIPT_BlockRangler
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
+--- !u!4 &99292513 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1512406922311030549, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
+  m_PrefabInstance: {fileID: 99292512}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &161642173
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +604,7 @@ Transform:
   - {fileID: 946171417}
   - {fileID: 75624457}
   - {fileID: 1968624929}
+  - {fileID: 99292513}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &334690007
@@ -758,6 +764,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1215870092}
+    - target: {fileID: 665548560889079558, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 832622555945174539, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -791,6 +801,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1215870092}
     - target: {fileID: 1679496325481463492, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_IsOn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679496325481463492, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1574632627}
@@ -810,6 +824,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1215870092}
+    - target: {fileID: 3225093092895392888, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3301058111185046545, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Type
       value: 0
@@ -865,6 +883,10 @@ PrefabInstance:
     - target: {fileID: 3702313179910289638, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: tiles
+      objectReference: {fileID: 0}
+    - target: {fileID: 3821271700390845075, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3894401674732672784, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -922,6 +944,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: wood
       objectReference: {fileID: 0}
+    - target: {fileID: 5492662194834274311, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5512887526579134670, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Name
       value: CatalogButtonWood
@@ -929,6 +955,14 @@ PrefabInstance:
     - target: {fileID: 5727297692401662996, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Name
       value: CatalogButtonWater
+      objectReference: {fileID: 0}
+    - target: {fileID: 5734860026250672247, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779942273017693809, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5813166558930477126, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_Name
@@ -1073,6 +1107,10 @@ PrefabInstance:
     - target: {fileID: 8083385594857703373, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: brick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117604675027856652, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8404976595204843895, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3240,7 +3278,6 @@ SceneRoots:
   - {fileID: 1261325581}
   - {fileID: 2012044367}
   - {fileID: 1750462031}
-  - {fileID: 99292512}
   - {fileID: 308254260}
   - {fileID: 581869013}
   - {fileID: 308306161}
