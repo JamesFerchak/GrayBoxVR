@@ -17,7 +17,7 @@ public class ObjectManipulator : MonoBehaviour
 
 	Vector3 cursorPosition => cursor.transform.position;
 	readonly float grabTreshhold = 0.8f;
-
+	bool holdingShift => LeftHandController.Singleton.altControls;
 
 	float grabRadius;
 
@@ -28,13 +28,15 @@ public class ObjectManipulator : MonoBehaviour
 	//stretching
 	bool triedToStretchAlready = false;
 	private GameObject stretchingObject = null;
-	Vector3 objectToCursorAtStart = Vector3.zero;
 	Vector3 objectScaleAtStart = Vector3.one;
 	Vector3 objectPositionAtStart = Vector3.zero;
 	float XScalar = 0;
 	float YScalar = 0;
 	float ZScalar = 0;
 	float startingScalarDot = 0;
+
+	//grouping
+	GameObject parentOfGroup = null;
 	
 	private void Awake()
 	{
@@ -46,6 +48,28 @@ public class ObjectManipulator : MonoBehaviour
 	{
 		StretchObject();
 	}
+
+	public void TryGroup()
+	{
+        Transform leftHandObject = LeftHandController.Singleton.GetLeftHandObject().transform;
+        Ray ray = new Ray(leftHandObject.position, leftHandObject.forward); //casts ray
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+		{
+			GameObject objectToAddToGroup = hit.collider.gameObject;
+			if (objectToAddToGroup.GetComponent<BuildingBlockBehavior>())
+			{
+				if (parentOfGroup == null)
+				{
+					parentOfGroup = new GameObject();
+					parentOfGroup.name = "Group";
+
+				}
+				
+				objectToAddToGroup.transform.parent = parentOfGroup.transform;
+			}
+		}
+    }
 
 	private Collider GetGrabbedCollider()
 	{
@@ -127,7 +151,6 @@ public class ObjectManipulator : MonoBehaviour
 					ZScalar = ZDotProduct < 0 ? -1 : 1;
 				}
 
-				objectToCursorAtStart = objectToCursor;
 				objectScaleAtStart = stretchingObject.transform.localScale;
 				objectPositionAtStart = stretchingObject.transform.position;
 
@@ -184,9 +207,20 @@ public class ObjectManipulator : MonoBehaviour
 
 			if (grabbedCollider != null)
 			{
-				heldObject = grabbedCollider.gameObject;
-				BlockRangler.ActionHistory.PushMoveAction(heldObject);
-				heldObject.transform.parent = transform;
+
+				//THIS DOES NOT WORK WITH ACTION HISTORY
+				if (grabbedCollider.gameObject.transform.parent == null)
+				{
+					heldObject = grabbedCollider.gameObject;
+					BlockRangler.ActionHistory.PushMoveAction(heldObject);
+					heldObject.transform.parent = transform;
+				}
+				else
+				{
+					heldObject = grabbedCollider.gameObject.transform.parent.gameObject;
+					heldObject.transform.parent = transform;
+				}
+
 
 				if (HologramDisplay.Singleton.GetHologramState())
                 {
