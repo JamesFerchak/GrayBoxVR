@@ -121,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: SaveLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: SaveLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -254,9 +254,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: SaveLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: SaveLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1229,9 +1229,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: LoadLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1275,7 +1275,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -457, y: 58.99993}
+  m_AnchoredPosition: {x: -457, y: -26}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9103091079594294124
@@ -2783,9 +2783,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: LoadLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4722,7 +4722,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -457, y: 58.99993}
+  m_AnchoredPosition: {x: -457, y: -26}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &408890942615923195
@@ -5986,9 +5986,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: SaveLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: SaveLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6519,9 +6519,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: SaveLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: SaveLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6760,9 +6760,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: SaveLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: SaveLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7104,9 +7104,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: LoadLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7229,7 +7229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -457, y: 58.99993}
+  m_AnchoredPosition: {x: -457, y: -26}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9178960063622590947
@@ -7773,9 +7773,9 @@ RectTransform:
   m_Father: {fileID: 2125937335585345434}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7185703582284968998
 CanvasRenderer:
@@ -8489,9 +8489,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: SaveLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: SaveLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8622,9 +8622,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: LoadLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9207,7 +9207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -457, y: 58.99993}
+  m_AnchoredPosition: {x: -457, y: -26.000168}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3641858380568064930
@@ -9286,8 +9286,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7529978122974149006}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.74}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.74000496}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9662,9 +9662,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: SaveLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: SaveLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10107,9 +10107,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: LoadLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10520,7 +10520,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -457, y: 58.99993}
+  m_AnchoredPosition: {x: -457, y: -26}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3420224054986373324
@@ -13262,9 +13262,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: LoadLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14154,7 +14154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -457, y: 58.99993}
+  m_AnchoredPosition: {x: -457, y: -26.000168}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2933793025764192415
@@ -15396,9 +15396,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: LoadLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15753,9 +15753,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: LoadLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15965,9 +15965,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: SaveLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: SaveLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16640,9 +16640,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: LoadLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19392,9 +19392,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: SaveLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: SaveLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19807,9 +19807,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: SaveLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: SaveLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20074,9 +20074,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690804216644614055, guid: 4a778cfdc70e9e845b33224706d397c2, type: 3}
-        m_TargetAssemblyTypeName: BlockRangler, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuActions, Assembly-CSharp
+        m_MethodName: LoadLevelWithButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20547,7 +20547,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6362803484147084556}
   m_HandleRect: {fileID: 8855499920152934364}
   m_Direction: 2
-  m_Value: 1.0000001
+  m_Value: 1.0000002
   m_Size: 0.26000002
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -21532,7 +21532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00045438675, y: 0.00012207031}
+  m_AnchoredPosition: {x: -0.00045438675, y: -0.00035694835}
   m_SizeDelta: {x: 0, y: 2500}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &8047920967158961146
@@ -23531,7 +23531,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00045438675, y: 0}
+  m_AnchoredPosition: {x: -0.00045438675, y: -0.00012810544}
   m_SizeDelta: {x: 0, y: 2500}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &8760018384613999038
@@ -23856,7 +23856,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -457, y: 58.99993}
+  m_AnchoredPosition: {x: -457, y: -26}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3795287538723601668
@@ -24067,7 +24067,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8567406095088272721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24378,8 +24378,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6926664778033300998}
   m_HandleRect: {fileID: 8429513476157892736}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.26000002
+  m_Value: -0.00000016495989
+  m_Size: 0.25999832
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
