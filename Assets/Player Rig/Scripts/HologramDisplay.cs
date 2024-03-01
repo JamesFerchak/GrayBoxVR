@@ -41,6 +41,7 @@ public class HologramDisplay : MonoBehaviour
         currentHologram.gameObject.GetComponent<MeshRenderer>().material = hologramMaterial;
         currentHologram.tag = "Untagged";
         currentHologram.transform.GetComponent<Collider>().enabled = false;
+        Destroy(currentHologram.GetComponent<BuildingBlockBehavior>());
     }
 
     public void ShowHologram(Vector3 position, Quaternion rotation)
@@ -57,6 +58,7 @@ public class HologramDisplay : MonoBehaviour
         GameObject newHologramMesh = ObjectDefinitions.Singleton.GetObjectShape(shapeID);
         GameObject newHologram = Instantiate(newHologramMesh, Vector3.zero, Quaternion.Euler(0.0f, 0.0f, 0.0f));
         newHologram.GetComponent<MeshRenderer>().material = hologramMaterial;
+        Destroy(newHologram.GetComponent<BuildingBlockBehavior>());
 
         GameObject oldHologram = currentHologram;
         currentHologram = newHologram;
@@ -70,6 +72,7 @@ public class HologramDisplay : MonoBehaviour
             currentHologram.transform.GetComponent<MeshCollider>().enabled = false;
         }
         oldHologram.transform.position = new Vector3(-1000.0f, 0.0f, 0.0f);
+        Destroy(oldHologram);
     }
 
     public void ToggleHologram()

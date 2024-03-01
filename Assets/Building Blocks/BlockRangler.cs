@@ -260,7 +260,7 @@ public class BlockRangler : MonoBehaviour
 	private void Awake()
 	{
 		Singleton = this;
-		levelPath = Application.persistentDataPath + "/";
+		levelPath = Application.persistentDataPath + "/save";
 	}
 
 	// Update is called once per frame
