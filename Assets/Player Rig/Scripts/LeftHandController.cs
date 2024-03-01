@@ -124,7 +124,7 @@ public class LeftHandController : MonoBehaviour
             }
             else
             {
-				myOM.TryGroup();
+				ObjectManipulator.TryGroup();
             }
         }
 		else

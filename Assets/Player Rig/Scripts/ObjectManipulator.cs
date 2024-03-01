@@ -36,7 +36,7 @@ public class ObjectManipulator : MonoBehaviour
 	float startingScalarDot = 0;
 
 	//grouping
-	GameObject parentOfGroup = null;
+	static GameObject parentOfGroup = null;
 	
 	private void Awake()
 	{
@@ -49,7 +49,7 @@ public class ObjectManipulator : MonoBehaviour
 		StretchObject();
 	}
 
-	public void TryGroup()
+	static public void TryGroup()
 	{
         Transform leftHandObject = LeftHandController.Singleton.GetLeftHandObject().transform;
         Ray ray = new Ray(leftHandObject.position, leftHandObject.forward); //casts ray
@@ -70,6 +70,15 @@ public class ObjectManipulator : MonoBehaviour
 			}
 		}
     }
+
+	static public void TryUngroup()
+	{
+		if (parentOfGroup != null)
+		{
+			parentOfGroup.transform.DetachChildren();
+			Destroy(parentOfGroup);
+		}
+	}
 
 	private Collider GetGrabbedCollider()
 	{
