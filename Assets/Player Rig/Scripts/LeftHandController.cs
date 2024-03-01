@@ -5,6 +5,7 @@ using Unity.XR.OpenVR;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class LeftHandController : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class LeftHandController : MonoBehaviour
 	public InputActionReference menu = null;
 	public InputActionReference lStickClick = null;
     public GameObject cursor; // Cursor for placement
+	public ActionBasedContinuousMoveProvider continousMove;
 	public bool altControls;
 
     //  -------------------------------------------------------------------------------------------------------------------  
@@ -57,13 +59,30 @@ public class LeftHandController : MonoBehaviour
 
 		if (!TourMode.Singleton.getTourModeToggle())
 		{
-            if (tValue > 0 || gValue > 0)
-            {
-                //Debug.Log("Left \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
-            }
+			if (LeftHandController.Singleton.altControls == false)
+			{
+                if (tValue > 0 || gValue > 0)
+                {
+                    //Debug.Log("Left \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
+                }
 
-            myOM.TryGrab(gValue);
-            myOM.TryStretch(tValue);
+                myOM.TryGrab(gValue);
+                myOM.TryStretch(tValue);
+            }
+			else
+			{
+				if (tValue > .7)
+				{
+                    continousMove.enableFly = true;
+                }
+				else
+				{
+					continousMove.enableFly = false;
+				}
+			}
+
+
+            
         }
 		else
 		{

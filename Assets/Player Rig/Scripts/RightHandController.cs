@@ -36,6 +36,7 @@ public class RightHandController : MonoBehaviour
     public GameObject rig; //reference to XR rig
     public GameObject cursor; // Cursor for placement
     bool teleportToggle = false; // Prevents user from constantly teleporting when holding up on the right stick
+    bool tourToggle = false;
 
 
     //  -------------------------------------------------------------------------------------------------------------------  
@@ -59,32 +60,53 @@ public class RightHandController : MonoBehaviour
         if (!TourMode.Singleton.getTourModeToggle())
         {
             // Edit Mode
-            if (!teleportToggle)
-            {
-                if (svalue.y > .8 && svalue.y <= 1)
+
+            if (LeftHandController.Singleton.altControls == false)
+            {//normal controls
+                if (!teleportToggle)
                 {
-                    Teleport();
-                    teleportToggle = true;
+                    if (svalue.y > .8 && svalue.y <= 1)
+                    {
+                        Teleport();
+                        teleportToggle = true;
+                    }
+                }
+                if (tValue > 0 || gValue > 0)
+                {
+                    //Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
+                }
+
+                if (svalue.y <= 0.8)
+                {
+                    teleportToggle = false;
+                }
+
+                myOM.TryGrab(gValue);
+                myOM.TryStretch(tValue);
+            }
+            else
+            {
+                if (!tourToggle)
+                {
+                    if (svalue.y > 0.8 && svalue.y <= 1)
+                    {
+                        TourMode.Singleton.TouristMode();
+                        tourToggle = true;
+                    }
+
+                }
+                if (svalue.y <= 0.8)
+                {
+                    tourToggle = false;
                 }
             }
-            if (tValue > 0 || gValue > 0)
-            {
-                //Debug.Log("Right: \nTrigger Value = " + tValue + "\n" + "Grip Value = " + gValue);
-            }
-
-            if (svalue.y < .8 && svalue.y >= 0)
-            {
-                teleportToggle = false;
-            }
-
-            myOM.TryGrab(gValue);
-            myOM.TryStretch(tValue);
+            
         }
         else
         {
             if (svalue.y > .8 && svalue.y <= 1)
             {
-                TourMode.Singleton.BackToEditMode();
+                //TourMode.Singleton.BackToEditMode();
             }
             if (tValue > 0 || gValue > 0)
             {
@@ -104,7 +126,7 @@ public class RightHandController : MonoBehaviour
             }
             else
             {
-                TourMode.Singleton.TouristMode();
+                
             }
             //p.PlaceObject();
         }

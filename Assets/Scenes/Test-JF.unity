@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2481,14 +2481,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentObjectType: {fileID: 0}
   selectedObject: {fileID: 0}
-  cubePrefab: {fileID: 6528006687007448033, guid: 856e7f0100f7c5f44ad40c01ab506523, type: 3}
-  spherePrefab: {fileID: 2460721882056925077, guid: 75d469cec00a1ae47a0e763c4b4a3914, type: 3}
-  cylinderPrefab: {fileID: 9134883110955198979, guid: cb9fb99b299a83145bfc37220b48e5cd, type: 3}
-  pyramidPrefab: {fileID: 7323685956055578646, guid: c1b803c3b2e5de04d82757468be5e2c3, type: 3}
-  floorPrefab: {fileID: 1848779836921310788, guid: 6ce797042be60ee4498d3e9109f079fc, type: 3}
-  pillarPrefab: {fileID: 1483614282619236612, guid: 4953a68d11ebd574eaa435cb351c6286, type: 3}
-  shortPillarPrefab: {fileID: 6192684873239664979, guid: 3eea3cb3538779f42a9e3a13bca5f124, type: 3}
-  wallPrefab: {fileID: 2007752775300737385, guid: cf49af8f0084a214bb159047a1c66034, type: 3}
   defaultMaterial: {fileID: 2100000, guid: e213134d29bb1b04c85f554e59bf365a, type: 2}
   selectedMaterial: {fileID: 2100000, guid: c0846fadc3093ef4ba08136c3757517c, type: 2}
   savedHandPos: {x: 0, y: 0, z: 0}
@@ -2743,9 +2735,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2014765379}
     - target: {fileID: 6191898617350927339, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: movey
+      value: 
+      objectReference: {fileID: 1379564784}
+    - target: {fileID: 6191898617350927339, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: cursor
       value: 
       objectReference: {fileID: 1896413317}
+    - target: {fileID: 6191898617350927339, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
+      propertyPath: continousMove
+      value: 
+      objectReference: {fileID: 1379564784}
     - target: {fileID: 6466911072458586733, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       propertyPath: cam
       value: 
@@ -2909,6 +2909,14 @@ MonoBehaviour:
   - name: pyramid
     shape: {fileID: 7323685956055578646, guid: c1b803c3b2e5de04d82757468be5e2c3, type: 3}
     sprite: {fileID: 21300000, guid: 40fdd81536850344ba831c51f5740572, type: 3}
+  floorPrefab: {fileID: 0}
+  pillarPrefab: {fileID: 0}
+  shortPillarPrefab: {fileID: 0}
+  wallPrefab: {fileID: 0}
+  floorSprite: {fileID: 0}
+  pillarSprite: {fileID: 0}
+  shortPillarSprite: {fileID: 0}
+  wallSprite: {fileID: 0}
 --- !u!1 &2001797610
 GameObject:
   m_ObjectHideFlags: 0
@@ -3123,16 +3131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad3a0a5e4fd7c9a488fb8e1fe7f0b8f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holoCubePrefab: {fileID: 6528006687007448033, guid: a50ccc5b931c71e4db27a255fc86f8d3, type: 3}
-  holoSpherePrefab: {fileID: 2460721882056925077, guid: 79d4e1668beb3fe4f95b6b17c824b1df, type: 3}
-  holoCylinderPrefab: {fileID: 9134883110955198979, guid: c1cc89d9c5e7b4b4c959be9b559f11a4, type: 3}
-  holoPyramidPrefab: {fileID: 7323685956055578646, guid: 8e8678df409ccaf44805b69a24629211, type: 3}
-  holoFloorPrefab: {fileID: 1848779836921310788, guid: 3077d1419452ae044b197c59f6ee1be0, type: 3}
-  holoPillarPrefab: {fileID: 1483614282619236612, guid: d18cf21570f425e4e8ff50c04cfbc04a, type: 3}
-  holoShortPillarPrefab: {fileID: 6192684873239664979, guid: 790127f29db8f3643bf457dd3fa3034c, type: 3}
-  holoWallPrefab: {fileID: 2007752775300737385, guid: 97a5fe4b52fc9c345a180c40577aab27, type: 3}
   currentHologram: {fileID: 0}
   hologramEnabled: 1
+  hologramMaterial: {fileID: 0}
 --- !u!4 &2014765380
 Transform:
   m_ObjectHideFlags: 0
