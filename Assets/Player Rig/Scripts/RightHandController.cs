@@ -125,7 +125,7 @@ public class RightHandController : MonoBehaviour
             }
             else
             {
-
+                ObjectManipulator.TryUngroup();
             }
             //p.EraseObject();
         }
