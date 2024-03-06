@@ -28,7 +28,8 @@ public class MenuActions : MonoBehaviour
     [SerializeField] GameObject mainMenuCanvas; // Cannot be deleted
     [SerializeField] GameObject mainMenuPanel;
     [SerializeField] GameObject[] mainMenuTabs;
-    
+    [SerializeField] GameObject[] mainMenuButtons;
+
     [SerializeField] GameObject cam;
     [SerializeField] GameObject rightHandController;
     [SerializeField] GameObject leftHandController;
@@ -134,8 +135,10 @@ public class MenuActions : MonoBehaviour
         for (int i = 0; i < mainMenuTabs.Length; i++)
         {
             mainMenuTabs[i].SetActive(false);
+            mainMenuButtons[i].SetActive(true);
         }
         mainMenuTabs[tabID].SetActive(true);
+        mainMenuButtons[tabID].SetActive(false);
     }
 
     // TODO: SelectShape will be used going forward, other Select functions will be removed
