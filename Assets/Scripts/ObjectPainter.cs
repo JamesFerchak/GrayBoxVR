@@ -50,6 +50,7 @@ public class ObjectPainter : MonoBehaviour
     public Material dirt;
     public Material grass;
 
+    public AudioClip paintNoise;
 
     public void AutoPaintObject(GameObject objectToPaint)
     {
@@ -135,6 +136,7 @@ public class ObjectPainter : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             BlockRangler.ActionHistory.PushMaterialAction(hit.transform.gameObject);
+            AudioSource.PlayClipAtPoint(paintNoise, hit.transform.position);
             if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
             {
                 switch (current_wrap)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
 
@@ -50,7 +51,7 @@ public class ObjectCreator : MonoBehaviour
 
     public HologramDisplay hologramDisplay;
 
-
+    public AudioClip placeNoise;
 
     // Start is called before the first frame update
     void Start()
@@ -105,6 +106,8 @@ public class ObjectCreator : MonoBehaviour
             RoundForRotationAssistance(RightHand.transform.eulerAngles.z));
 
         GameObject block = Instantiate(currentObjectType, position, Quaternion.Euler(rotation)); // Places cube in level
+        AudioSource.PlayClipAtPoint(placeNoise, block.transform.position);
+
         block.tag = "Block";
         BlockRangler.ActionHistory.PushCreateAction(block);
         if(isautoPaint) 

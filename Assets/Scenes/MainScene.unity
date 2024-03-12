@@ -1426,6 +1426,7 @@ MonoBehaviour:
   wood: {fileID: 2100000, guid: ce33e4891c5c6be40854d53de5b80542, type: 2}
   dirt: {fileID: 2100000, guid: 448d48541d84af64dbcf957c7add8cca, type: 2}
   grass: {fileID: 2100000, guid: be80cfbab630b034388f001a5e5c2baf, type: 2}
+  paintNoise: {fileID: 8300000, guid: 16fba6d30ed741d4a9fdd6e79ee2f3ac, type: 3}
 --- !u!1 &1028067418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2333,6 +2334,7 @@ MonoBehaviour:
   inEditMode: 0
   isautoPaint: 1
   hologramDisplay: {fileID: 2014765379}
+  placeNoise: {fileID: 8300000, guid: 16fba6d30ed741d4a9fdd6e79ee2f3ac, type: 3}
 --- !u!4 &1574632628
 Transform:
   m_ObjectHideFlags: 0

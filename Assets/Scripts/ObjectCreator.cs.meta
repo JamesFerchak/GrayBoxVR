@@ -3,7 +3,16 @@ guid: 53c1eab76e0d07b428f319dd8c280e68
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - currentObjectType: {instanceID: 0}
+  - selectedObject: {instanceID: 0}
+  - defaultMaterial: {instanceID: 0}
+  - selectedMaterial: {instanceID: 0}
+  - placementAssistDegree: {instanceID: 0}
+  - rotationAssistDegree: {instanceID: 0}
+  - scalingAssistDegree: {instanceID: 0}
+  - hologramDisplay: {instanceID: 0}
+  - placeNoise: {fileID: 8300000, guid: 16fba6d30ed741d4a9fdd6e79ee2f3ac, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
