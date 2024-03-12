@@ -1722,6 +1722,7 @@ MonoBehaviour:
   - {fileID: 1262846859}
   - {fileID: 2064666041}
   inMenuMode: 0
+  clickNoise: {fileID: 8300000, guid: 16fba6d30ed741d4a9fdd6e79ee2f3ac, type: 3}
 --- !u!4 &1215870093
 Transform:
   m_ObjectHideFlags: 0

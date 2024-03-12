@@ -52,6 +52,8 @@ public class MenuActions : MonoBehaviour
 
     public bool inMenuMode; // True if the menu is open
 
+    public AudioClip clickNoise;
+
     private void Awake()
     {
         Singleton = this;
@@ -113,6 +115,7 @@ public class MenuActions : MonoBehaviour
 
     public void InteractWithMainMenu()
     {
+        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         if (mainMenuPanel != null) // If panel exists
         {
             if (inMenuMode) // If panel is already open
@@ -131,6 +134,7 @@ public class MenuActions : MonoBehaviour
 
     public void SwitchMenuTabs(int tabID) // 0: Options, 1: Shapes, 2: Save, 3: Load, 4: Wraps
     {
+        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         // Closes menu tabs except for the given tabID
         for (int i = 0; i < mainMenuTabs.Length; i++)
         {
@@ -141,9 +145,9 @@ public class MenuActions : MonoBehaviour
         mainMenuButtons[tabID].SetActive(false);
     }
 
-    // TODO: SelectShape will be used going forward, other Select functions will be removed
     public void SelectShape(string shapeID)
     {
+        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         ObjectCreator.Singleton.currentObjectType = ObjectDefinitions.Singleton.GetObjectShape(shapeID);
         catalogCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite(shapeID);
         HologramDisplay.Singleton.SetHologramToShape(shapeID);
@@ -151,11 +155,13 @@ public class MenuActions : MonoBehaviour
 
     public void SelectColor(string color)
     {
+        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         ObjectPainter.Singleton.current_wrap = color;
     }
 
     public void SaveLevelWithButton(string saveID)
     {
+        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         BlockRangler.SaveLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
@@ -170,6 +176,7 @@ public class MenuActions : MonoBehaviour
 
     public void LoadLevelWithButton(string saveID)
     {
+        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         BlockRangler.LoadLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu();
@@ -205,6 +212,7 @@ public class MenuActions : MonoBehaviour
 
     public void QuitGame()
     {
+        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         Debug.Log("Quitting game...");
         Application.Quit();
     }
