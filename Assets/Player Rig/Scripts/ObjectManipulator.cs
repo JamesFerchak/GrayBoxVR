@@ -17,7 +17,7 @@ public class ObjectManipulator : MonoBehaviour
 
 	Vector3 cursorPosition => cursor.transform.position;
 	readonly float grabTreshhold = 0.8f;
-	bool holdingShift => LeftHandController.Singleton.altControls;
+	bool holdingShift => LeftHandController.altControls;
 
 	float grabRadius;
 

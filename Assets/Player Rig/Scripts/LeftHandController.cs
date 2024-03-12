@@ -36,7 +36,7 @@ public class LeftHandController : MonoBehaviour
 	public InputActionReference lStickClick = null;
     public GameObject cursor; // Cursor for placement
 	public ActionBasedContinuousMoveProvider continousMove;
-	public bool altControls;
+	public static bool altControls { get; private set; }
 
     //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update
@@ -59,7 +59,7 @@ public class LeftHandController : MonoBehaviour
 
 		if (!TourMode.Singleton.getTourModeToggle())
 		{
-			if (LeftHandController.Singleton.altControls == false)
+			if (altControls == false)
 			{
                 if (tValue > 0 || gValue > 0)
                 {

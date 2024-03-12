@@ -1895,60 +1895,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1479119625009411468, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
   m_PrefabInstance: {fileID: 1750462031}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1379564779 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7832451363780288796, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
-  m_PrefabInstance: {fileID: 1750462031}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1379564777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03a5df2202a8b96488c744be3bd0c33e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1379564784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1379564777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf296fc962d7184ab14ad1841598d5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_System: {fileID: 1379564779}
-  m_MoveSpeed: 2
-  m_EnableStrafe: 1
-  m_EnableFly: 0
-  m_UseGravity: 1
-  m_GravityApplicationMode: 0
-  m_ForwardSource: {fileID: 1535590575}
-  m_LeftHandMoveAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Left Hand Move
-      m_Type: 0
-      m_ExpectedControlType: Vector2
-      m_Id: 7024e648-857c-4556-b89e-49c5f7e76263
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_RightHandMoveAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Right Hand Move
-      m_Type: 0
-      m_ExpectedControlType: Vector2
-      m_Id: c3704556-7771-46e3-b9f1-baf6f5c03b49
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
 --- !u!114 &1379564790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2285,11 +2231,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!4 &1535590575 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 261835933880748023, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
-  m_PrefabInstance: {fileID: 1750462031}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1574632626
 GameObject:
   m_ObjectHideFlags: 0
@@ -2653,9 +2594,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1459917715}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1479119625009411468, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1379564784}
     - targetCorrespondingSourceObject: {fileID: 1479119625009411468, guid: 8245e2931ee22ed47b455624747526f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1379564790}

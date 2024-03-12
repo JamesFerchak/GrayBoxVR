@@ -61,7 +61,7 @@ public class RightHandController : MonoBehaviour
         {
             // Edit Mode
 
-            if (LeftHandController.Singleton.altControls == false)
+            if (LeftHandController.altControls == false)
             {//normal controls
                 if (!teleportToggle)
                 {

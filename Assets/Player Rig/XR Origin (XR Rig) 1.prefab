@@ -687,7 +687,7 @@ MonoBehaviour:
   menu: {fileID: -4710085500694152614, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   lStickClick: {fileID: -771463947295927999, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   cursor: {fileID: 0}
-  altControls: 0
+  continousMove: {fileID: 0}
 --- !u!114 &888311422869325435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,6 +847,7 @@ GameObject:
   - component: {fileID: 2014953589454974015}
   - component: {fileID: 6311578432504032527}
   - component: {fileID: 7255307964919082079}
+  - component: {fileID: 4047989847714225147}
   m_Layer: 0
   m_Name: XR Origin (XR Rig) 1
   m_TagString: Untagged
@@ -1036,6 +1037,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 6311578432504032527}
   collider: {fileID: 2014953589454974015}
+--- !u!114 &4047989847714225147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479119625009411468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf296fc962d7184ab14ad1841598d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_System: {fileID: 7832451363780288796}
+  m_MoveSpeed: 2
+  m_EnableStrafe: 1
+  m_EnableFly: 0
+  m_UseGravity: 1
+  m_GravityApplicationMode: 0
+  m_ForwardSource: {fileID: 261835933880748023}
+  m_LeftHandMoveAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Left Hand Move
+      m_Type: 0
+      m_ExpectedControlType: Vector2
+      m_Id: 7024e648-857c-4556-b89e-49c5f7e76263
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  m_RightHandMoveAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Right Hand Move
+      m_Type: 0
+      m_ExpectedControlType: Vector2
+      m_Id: c3704556-7771-46e3-b9f1-baf6f5c03b49
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!1 &2511608249233989799
 GameObject:
   m_ObjectHideFlags: 0
