@@ -687,7 +687,7 @@ MonoBehaviour:
   menu: {fileID: -4710085500694152614, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   lStickClick: {fileID: -771463947295927999, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   cursor: {fileID: 0}
-  continousMove: {fileID: 0}
+  continousMove: {fileID: 4047989847714225147}
 --- !u!114 &888311422869325435
 MonoBehaviour:
   m_ObjectHideFlags: 0
