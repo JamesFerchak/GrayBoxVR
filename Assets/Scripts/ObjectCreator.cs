@@ -52,6 +52,7 @@ public class ObjectCreator : MonoBehaviour
     public HologramDisplay hologramDisplay;
 
     public AudioClip placeNoise;
+    public AudioClip destroyNoise;
 
     // Start is called before the first frame update
     void Start()
@@ -123,6 +124,7 @@ public class ObjectCreator : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
+            AudioSource.PlayClipAtPoint(destroyNoise, hit.transform.position);
             // Destroy the hit object
             if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
             {
