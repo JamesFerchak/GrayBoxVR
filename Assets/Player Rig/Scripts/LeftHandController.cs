@@ -37,6 +37,11 @@ public class LeftHandController : MonoBehaviour
     public GameObject cursor; // Cursor for placement
 	public ActionBasedContinuousMoveProvider continousMove;
 	public static bool altControls { get; private set; }
+	public GameObject RightControlUI;
+    public GameObject RightAltControlUI;
+    public GameObject LeftControlUI;
+    public GameObject LeftAltControlUI;
+
 
     //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update
@@ -103,11 +108,23 @@ public class LeftHandController : MonoBehaviour
 			if (altControls == true)
 			{
 				altControls = false;
-			}
+				RightAltControlUI.SetActive(false);
+                LeftAltControlUI.SetActive(false);
+                RightControlUI.SetActive(true);
+                LeftControlUI.SetActive(true);
+
+
+
+            }
 			else
 			{
 				altControls = true;
-			} 
+                RightAltControlUI.SetActive(true);
+                LeftAltControlUI.SetActive(true);
+                RightControlUI.SetActive(false);
+                LeftControlUI.SetActive(false);
+
+            } 
 		}
 		else
 		{
