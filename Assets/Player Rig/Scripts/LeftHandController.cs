@@ -84,6 +84,7 @@ public class LeftHandController : MonoBehaviour
 				{
 					continousMove.enableFly = false;
 				}
+				myOM.TryDuplicate(gValue);
 			}
 
 

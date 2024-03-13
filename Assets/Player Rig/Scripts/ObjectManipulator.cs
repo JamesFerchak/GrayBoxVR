@@ -80,6 +80,66 @@ public class ObjectManipulator : MonoBehaviour
 		}
 	}
 
+	public void TryDuplicate(float grabValue)
+	{
+        if (heldObject == null && grabValue >= grabTreshhold && !triedToGrabAlready && stretchingObject == null)
+        {
+            triedToGrabAlready = true;
+
+            Collider objectToDuplicateCollider = GetGrabbedCollider();
+
+            if (objectToDuplicateCollider != null)
+            {
+
+                if (objectToDuplicateCollider.gameObject.transform.parent == null)
+                {
+					GameObject newBlock = ObjectCreator.Singleton.PlaceObject(objectToDuplicateCollider.gameObject);
+					heldObject = newBlock;
+                    heldObject.transform.parent = transform;
+                }
+                else
+                {
+					//MAKE IT SO GROUPS CAN BE DUPLICATED
+                }
+
+
+                if (HologramDisplay.Singleton.GetHologramState())
+                {
+                    HologramDisplay.Singleton.ToggleHologram();
+                    hologramIsTempDisabled = true;
+                }
+            }
+
+        }
+        else if (heldObject != null && grabValue < grabTreshhold)
+        {
+            // Object scaling code, uses the RoundForPlacementAssistance and RoundForRotation functions from the rightHandController's palette script
+            float xPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.x);
+            float yPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.y);
+            float zPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.z);
+            heldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
+            Vector3 rotation = new Vector3(
+            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.x),
+            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.y),
+            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.z));
+            heldObject.transform.rotation = Quaternion.Euler(rotation);
+
+			BlockRangler.ActionHistory.PushCreateAction(heldObject);
+
+            heldObject.transform.parent = null;
+            heldObject = null;
+
+            if (hologramIsTempDisabled)
+            {
+                HologramDisplay.Singleton.ToggleHologram();
+                hologramIsTempDisabled = false;
+            }
+        }
+
+        //if we've ungrabbed, get ready to try again
+        if (grabValue < grabTreshhold) triedToGrabAlready = false;
+    }
+
 	private Collider GetGrabbedCollider()
 	{
 		List<Collider> possibleColliders = new(Physics.OverlapSphere(cursor.transform.position, grabRadius));

@@ -117,6 +117,24 @@ public class ObjectCreator : MonoBehaviour
         }
     }
 
+    public GameObject PlaceObject(GameObject objectToDuplicate)
+    {
+
+        Vector3 position = objectToDuplicate.transform.position;
+
+        Quaternion rotation = objectToDuplicate.transform.rotation;
+
+        GameObject block = Instantiate(Resources.Load($"Blocks/{BlockRangler.SimplifyObjectName(objectToDuplicate.name)}", typeof(GameObject)), position, rotation) as GameObject;
+        block.GetComponent<Renderer>().material = objectToDuplicate.GetComponent<Renderer>().material;
+        AudioSource.PlayClipAtPoint(placeNoise, block.transform.position);
+        block.transform.localScale = objectToDuplicate.transform.localScale;
+        block.tag = "Block";
+
+        return block;
+    }
+
+
+
     public void EraseObject()
     {
         Transform RightHandObject = RightHandController.Singleton.GetRightHandObject().transform;

@@ -99,6 +99,7 @@ public class RightHandController : MonoBehaviour
                 {
                     tourToggle = false;
                 }
+                myOM.TryDuplicate(gValue);
             }
             
         }

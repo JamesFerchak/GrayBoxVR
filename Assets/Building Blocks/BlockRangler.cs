@@ -70,14 +70,14 @@ public class BlockRangler : MonoBehaviour
 			actionType = thisActionType;
 		}
 
-		//this takes the name of an individual object and returns the name of the prefab it came from
-		private static string SimplifyObjectName(string input)
-		{
-			return input.Contains('(') ? input.Substring(0, (input.IndexOf('('))) : input;
-		}
 
 	}
 
+	//this takes the name of an individual object and returns the name of the prefab it came from
+	public static string SimplifyObjectName(string input)
+	{
+		return input.Contains('(') ? input.Substring(0, (input.IndexOf('('))) : input;
+	}
 
 
 	public static class ActionHistory
@@ -206,6 +206,7 @@ public class BlockRangler : MonoBehaviour
 				block.transform.position = actionToUndo.position;
 				block.transform.rotation = actionToUndo.rotation;
 				block.transform.localScale = actionToUndo.scale;
+				block.GetComponent<Renderer>().material = actionToUndo.material;
 				block.tag = "Block";
 
 				Action undoneAction = new Action(block, actionType.Create);
