@@ -27,13 +27,13 @@ public class ObjectDefinitions : MonoBehaviour
         allObjects = primitiveObjects;
 
         // TEMPORARY CODE, should be auto-generated using a file without using a sprite or preset gameobject
-        ObjectType floorObject = GenerateObjectType("floor", floorPrefab, floorSprite);
+        ObjectType floorObject = GenerateObjectType("floor", floorPrefab);
         allObjects.Add(floorObject);
-        ObjectType pillarObject = GenerateObjectType("pillar", pillarPrefab, pillarSprite);
+        ObjectType pillarObject = GenerateObjectType("pillar", pillarPrefab);
         allObjects.Add(pillarObject);
-        ObjectType shortPillarObject = GenerateObjectType("shortpillar", shortPillarPrefab, shortPillarSprite);
+        ObjectType shortPillarObject = GenerateObjectType("shortpillar", shortPillarPrefab);
         allObjects.Add(shortPillarObject);
-        ObjectType wallObject = GenerateObjectType("wall", wallPrefab, wallSprite);
+        ObjectType wallObject = GenerateObjectType("wall", wallPrefab);
         allObjects.Add(wallObject);
 
         // We now have a list, "allObjects", that includes all preloaded objects.
@@ -42,15 +42,15 @@ public class ObjectDefinitions : MonoBehaviour
     [SerializeField] List<ObjectType> primitiveObjects; // Pre-created
     List<ObjectType> allObjects;
 
+    [SerializeField] Sprite placeholderSprite;
+    [SerializeField] Camera spriteCamera;
+    [SerializeField] GameObject spritePosition;
+
     // TEMPORARY OBJECTS AND SPRITES FOR RECTANGLES
     public GameObject floorPrefab;
     public GameObject pillarPrefab;
     public GameObject shortPillarPrefab;
     public GameObject wallPrefab;
-    public Sprite floorSprite;
-    public Sprite pillarSprite;
-    public Sprite shortPillarSprite;
-    public Sprite wallSprite;
 
     void Start()
     {
@@ -81,13 +81,26 @@ public class ObjectDefinitions : MonoBehaviour
         return allObjects[0].sprite;
     }
 
-    ObjectType GenerateObjectType(string n, GameObject m, Sprite s)
+    ObjectType GenerateObjectType(string n, GameObject m)
     {
         ObjectType newObject;
         newObject.name = n;
         newObject.shape = m;
-        newObject.sprite = s;
+        newObject.sprite = placeholderSprite;
         return newObject;
+    }
+
+    public Sprite GenerateObjectSprite(GameObject newObject) // VERY UNFINISHED
+    {
+        Vector3 objectPosition = spritePosition.transform.position;
+        Quaternion objectRotation = spritePosition.transform.rotation;
+        GameObject createdObject = Instantiate(newObject, objectPosition, objectRotation);
+        spriteCamera.Render();
+        Texture2D image = new Texture2D(spriteCamera.targetTexture.width, spriteCamera.targetTexture.height);
+        image.ReadPixels(new Rect(0, 0, spriteCamera.targetTexture.width, spriteCamera.targetTexture.height), 0, 0);
+        image.Apply();
+        Sprite newSprite = Sprite.Create(image, new Rect(0, 0, image.width, image.height), new Vector2(), 100.0f);
+        return newSprite;
     }
 }
 
