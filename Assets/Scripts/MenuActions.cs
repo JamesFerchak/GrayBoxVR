@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 using System.IO;
 using Image = UnityEngine.UI.Image;
+using UnityEngine.ProBuilder.Shapes;
+using Sprite = UnityEngine.Sprite;
 
 public class MenuActions : MonoBehaviour
 {
@@ -42,7 +44,7 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Text scalingAssistanceText;
 
     [SerializeField] Image catalogCurrentSelection;
-    [SerializeField] Sprite[] shapeAssetArray; 
+    [SerializeField] Image[] shapeButtonThumbnails; 
 
     Sprite[] levelSpriteArray = new Sprite[10];
     [SerializeField] GameObject[] levelThumbnailsLoadMenu = new GameObject[10];
@@ -90,7 +92,9 @@ public class MenuActions : MonoBehaviour
             }
         });
 
-        AddSavesToMenuUI();
+        RefreshShapeThumbnails();
+        RefreshSaveThumbnails();
+        catalogCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite("0");
     }
 
     private void Update()
@@ -182,9 +186,8 @@ public class MenuActions : MonoBehaviour
         InteractWithMainMenu();
     }
 
-    public void AddSavesToMenuUI()
+    public void RefreshSaveThumbnails()
     {
-        // Code to load images into load menu and save menu
         Texture2D textureConverter = new Texture2D(2, 2);
         byte[] bytes;
 
@@ -207,6 +210,21 @@ public class MenuActions : MonoBehaviour
                 loadButtons[i - 65].SetActive(false);
                 projectExists[i - 65] = false;
             }
+        }
+    }
+
+    public void RefreshShapeThumbnails()
+    {
+        StartCoroutine(RefreshShapeThumbnailsCoroutine());
+    }
+
+    private IEnumerator RefreshShapeThumbnailsCoroutine()
+    {
+        for (int i = 0; i < shapeButtonThumbnails.Length; i++)
+        {
+            string shapeID = i.ToString();
+            yield return StartCoroutine(ObjectDefinitions.Singleton.GenerateObjectSprite(shapeID)); // Wait for coroutine to finish
+            shapeButtonThumbnails[i].GetComponent<Image>().sprite = ObjectDefinitions.Singleton.GetObjectSprite(shapeID);
         }
     }
 

@@ -26,15 +26,15 @@ public class ObjectDefinitions : MonoBehaviour
 
         allObjects = primitiveObjects;
 
-        // TEMPORARY CODE, should be auto-generated using a file without using a sprite or preset gameobject
-        ObjectType floorObject = GenerateObjectType("floor", floorPrefab);
-        allObjects.Add(floorObject);
-        ObjectType pillarObject = GenerateObjectType("pillar", pillarPrefab);
-        allObjects.Add(pillarObject);
-        ObjectType shortPillarObject = GenerateObjectType("shortpillar", shortPillarPrefab);
-        allObjects.Add(shortPillarObject);
-        ObjectType wallObject = GenerateObjectType("wall", wallPrefab);
+        // TEMPORARY CODE, should be auto-generated using a file without using a preset gameobject
+        ObjectType wallObject = GenerateObjectType("4", wallPrefab);
         allObjects.Add(wallObject);
+        ObjectType pillarObject = GenerateObjectType("5", pillarPrefab);
+        allObjects.Add(pillarObject);
+        ObjectType shortPillarObject = GenerateObjectType("6", shortPillarPrefab);
+        allObjects.Add(shortPillarObject);
+        ObjectType floorObject = GenerateObjectType("7", floorPrefab);
+        allObjects.Add(floorObject);
 
         // We now have a list, "allObjects", that includes all preloaded objects.
     }
@@ -42,9 +42,11 @@ public class ObjectDefinitions : MonoBehaviour
     [SerializeField] List<ObjectType> primitiveObjects; // Pre-created
     List<ObjectType> allObjects;
 
+    [SerializeField] static int maximumObjects;
     [SerializeField] Sprite placeholderSprite;
     [SerializeField] Camera spriteCamera;
-    [SerializeField] GameObject spritePosition;
+    [SerializeField] Camera originalCamera;
+    [SerializeField] GameObject spriteScreenshotPosition;
 
     // TEMPORARY OBJECTS AND SPRITES FOR RECTANGLES
     public GameObject floorPrefab;
@@ -81,6 +83,20 @@ public class ObjectDefinitions : MonoBehaviour
         return allObjects[0].sprite;
     }
 
+    public void SetObjectSprite(string shapeID, Sprite newSprite) // Sets a sprite using a shapeID
+    {
+        Debug.Log("SetObjectSprite for " + shapeID + " called!");
+        for (int i = 0; i < allObjects.Count; i++)
+        {
+            if (shapeID == allObjects[i].name)
+            {
+                ObjectType myObject = allObjects[i];
+                myObject.sprite = newSprite;
+                allObjects[i] = myObject;
+            }
+        }
+    }
+
     ObjectType GenerateObjectType(string n, GameObject m)
     {
         ObjectType newObject;
@@ -90,17 +106,37 @@ public class ObjectDefinitions : MonoBehaviour
         return newObject;
     }
 
-    public Sprite GenerateObjectSprite(GameObject newObject) // VERY UNFINISHED
+    WaitForEndOfFrame frameEnd = new WaitForEndOfFrame();
+
+    public IEnumerator GenerateObjectSprite(string shapeID) // Returns a sprite of the given object
     {
-        Vector3 objectPosition = spritePosition.transform.position;
-        Quaternion objectRotation = spritePosition.transform.rotation;
-        GameObject createdObject = Instantiate(newObject, objectPosition, objectRotation);
+        // Swap to screenshot camera
+        originalCamera.enabled = false;
+        spriteCamera.enabled = true;
+
+        // Create the object to take a screenshot of
+        GameObject newObject = GetObjectShape(shapeID);
+        Vector3 objectPosition = spriteScreenshotPosition.transform.position;
+        Quaternion objectRotation = spriteScreenshotPosition.transform.rotation;
+        GameObject screenshottedObject = Instantiate(newObject, objectPosition, objectRotation);
+
+        // Wait until the end of the frame to prevent errors
+        yield return frameEnd;
+
+        // Render the image and convert it into a sprite
         spriteCamera.Render();
-        Texture2D image = new Texture2D(spriteCamera.targetTexture.width, spriteCamera.targetTexture.height);
-        image.ReadPixels(new Rect(0, 0, spriteCamera.targetTexture.width, spriteCamera.targetTexture.height), 0, 0);
+        Texture2D image = new Texture2D(682, 422, TextureFormat.RGB24, true); // DO NOT CHANGE VALUES
+        image.ReadPixels(new Rect(0, 0, 682, 422), 0, 0);
         image.Apply();
-        Sprite newSprite = Sprite.Create(image, new Rect(0, 0, image.width, image.height), new Vector2(), 100.0f);
-        return newSprite;
+        Sprite newSprite = Sprite.Create(image, new Rect(0, 0, image.width, image.height), new Vector2(), 1.0f);
+
+        // Clean up and set the new object sprite
+        SetObjectSprite(shapeID, newSprite);
+        Destroy(screenshottedObject);
+
+        // Swap back to original camera
+        originalCamera.enabled = true;
+        spriteCamera.enabled = false;
     }
 }
 
