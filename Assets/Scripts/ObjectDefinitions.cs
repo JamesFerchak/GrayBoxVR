@@ -125,8 +125,8 @@ public class ObjectDefinitions : MonoBehaviour
 
         // Render the image and convert it into a sprite
         spriteCamera.Render();
-        Texture2D image = new Texture2D(682, 422, TextureFormat.RGB24, true); // DO NOT CHANGE VALUES
-        image.ReadPixels(new Rect(0, 0, 682, 422), 0, 0);
+        Texture2D image = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, true);
+        image.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         image.Apply();
         Sprite newSprite = Sprite.Create(image, new Rect(0, 0, image.width, image.height), new Vector2(), 1.0f);
 
