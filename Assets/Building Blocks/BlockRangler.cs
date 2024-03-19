@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 
 public class BlockRangler : MonoBehaviour
 {
-	readonly static int actionHistorySize = 50;
+	readonly static int actionHistorySize = 500;
 	public static string levelPath;
 
 	private static BlockRangler _singleton;
@@ -35,7 +35,9 @@ public class BlockRangler : MonoBehaviour
 		Move,
 		Create,
 		Delete,
-		MaterialChange
+		MaterialChange,
+		Group,
+		Ungroup
 	}
 
 	private class Action
@@ -47,17 +49,7 @@ public class BlockRangler : MonoBehaviour
 		public Vector3 scale;
 		public Material material;
 		public actionType actionType;
-
-		public Action(GameObject affectedObject)
-		{
-			myGameObject = affectedObject;
-			gameObjectName = SimplifyObjectName(affectedObject.name);
-			position = affectedObject.transform.position;
-			rotation = affectedObject.transform.rotation;
-			scale = affectedObject.transform.localScale;
-			material = affectedObject.GetComponent<Renderer>().material;
-			actionType = actionType.Move;
-		}
+		public bool isGrouped;
 
 		public Action(GameObject affectedObject, actionType thisActionType)
 		{
@@ -84,6 +76,7 @@ public class BlockRangler : MonoBehaviour
 	{
 		private static Action[] actions = new Action[actionHistorySize];
 		private static int[] actionObjectIDs = new int[actionHistorySize];
+		private static bool[] actionIsEndOfChain = new bool[actionHistorySize];
 		private static int TopIndex = 0;
 		private static int TopIndexPlusOne => TopIndex == actionHistorySize - 1 ? 0 : TopIndex + 1;
 		private static int TopIndexMinusOne => TopIndex == 0 ? actionHistorySize - 1 : TopIndex - 1;
@@ -150,7 +143,7 @@ public class BlockRangler : MonoBehaviour
 		public static void PushMoveAction(GameObject objectToRecord)
 		{
 			IncrementBothIndices();
-			Action actionToPush = new Action(objectToRecord);
+			Action actionToPush = new Action(objectToRecord, actionType.Move);
 			PushAction(actionToPush, objectToRecord);
 		}
 
@@ -173,6 +166,16 @@ public class BlockRangler : MonoBehaviour
             IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.MaterialChange);
 			PushAction(actionToPush, objectToRecord); 
+		}
+
+		public static void PushGroupAction()
+		{
+			IncrementBothIndices();
+		}
+
+		public static void PushUngroupAction()
+		{
+
 		}
 
 		public static void UndoAction()
@@ -214,9 +217,6 @@ public class BlockRangler : MonoBehaviour
 			}
 			else if (actionToUndo.actionType == actionType.Create)
 			{
-				/*	We are deleting an object, so let's save a reference to that object to swap
-					every object with when a replacement of that object might be created. we will
-					save this reference to a list of deleted objects.*/
 				Action undoneAction = new Action(objectToUndo, actionType.Delete);
 				PushAction(undoneAction, objectToUndo);
 				Destroy(objectToUndo);
@@ -227,9 +227,9 @@ public class BlockRangler : MonoBehaviour
 				PushAction(undoneAction, objectToUndo);
 				objectToUndo.GetComponent<Renderer>().material = actionToUndo.material;
 			}
-			else if (/*objectToUndo != null && actionToUndo != null &&*/ actionToUndo.actionType == actionType.Move)
+			else if (actionToUndo.actionType == actionType.Move)
 			{
-				Action undoneAction = new Action(objectToUndo);
+				Action undoneAction = new Action(objectToUndo, actionType.Move);
 				PushAction(undoneAction, objectToUndo);
 
 				objectToUndo.transform.position = actionToUndo.position;
@@ -274,7 +274,9 @@ public class BlockRangler : MonoBehaviour
 			LoadLevel("coolLevel");
 	}
 
-	public static void SaveLevel(string levelName)
+    #region SAVING
+
+    public static void SaveLevel(string levelName)
 	{
 		BinaryFormatter myFormatter = new();
 		FileStream myStream = new(levelPath + levelName + ".kek", FileMode.Create);
@@ -337,4 +339,6 @@ public class BlockRangler : MonoBehaviour
 		}
 
 	}
+
+    #endregion
 }

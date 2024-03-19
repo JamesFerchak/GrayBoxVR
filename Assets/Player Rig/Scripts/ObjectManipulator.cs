@@ -17,14 +17,13 @@ public class ObjectManipulator : MonoBehaviour
 
 	Vector3 cursorPosition => cursor.transform.position;
 	readonly float grabTreshhold = 0.8f;
-	bool holdingShift => LeftHandController.altControls;
 
 	float grabRadius;
 
-	private GameObject heldObject = null;
+	public GameObject heldObject { get; private set; }
 	bool triedToGrabAlready = false;
 	bool hologramIsTempDisabled = false;
-	
+
 	//stretching
 	bool triedToStretchAlready = false;
 	private GameObject stretchingObject = null;
@@ -36,10 +35,12 @@ public class ObjectManipulator : MonoBehaviour
 	float startingScalarDot = 0;
 
 	//grouping
-	static GameObject parentOfGroup = null;
+	public static GameObject parentOfGroup {get; private set;}
 	
 	private void Awake()
 	{
+		parentOfGroup = null;
+		heldObject = null;
 		grabRadius = cursor.transform.localScale.x;
 	}
 

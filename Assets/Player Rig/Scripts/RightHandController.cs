@@ -129,7 +129,6 @@ public class RightHandController : MonoBehaviour
             {
                 
             }
-            //p.PlaceObject();
         }
         else
         {
