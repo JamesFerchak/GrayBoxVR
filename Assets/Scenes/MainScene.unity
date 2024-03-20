@@ -1851,6 +1851,9 @@ MonoBehaviour:
   - name: 3
     shape: {fileID: 7323685956055578646, guid: c1b803c3b2e5de04d82757468be5e2c3, type: 3}
     sprite: {fileID: 21300000, guid: 40fdd81536850344ba831c51f5740572, type: 3}
+  - name: 8
+    shape: {fileID: 8278181195397622377, guid: ee6bf342b56ad5a40aa2f649f8d63d5c, type: 3}
+    sprite: {fileID: 0}
   placeholderSprite: {fileID: 21300000, guid: fdcad01d23593ad468ba1ea29d4d8e47, type: 3}
   spriteCamera: {fileID: 75212089}
   originalCamera: {fileID: 259601211}
