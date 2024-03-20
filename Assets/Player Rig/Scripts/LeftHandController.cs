@@ -37,7 +37,8 @@ public class LeftHandController : MonoBehaviour
     public GameObject cursor; // Cursor for placement
 	public ActionBasedContinuousMoveProvider continousMove;
 	public static bool altControls { get; private set; }
-	public GameObject RightControlUI;
+	public static bool altControlsHold { get; private set; }
+    public GameObject RightControlUI;
     public GameObject RightAltControlUI;
     public GameObject LeftControlUI;
     public GameObject LeftAltControlUI;
@@ -52,6 +53,7 @@ public class LeftHandController : MonoBehaviour
 		yButton.action.started += yToggle;
 		lStickClick.action.started += lStickClickToggle;
 		menu.action.started += menuToggle;
+		altControlsHold = false;
 		myOM = GetComponent<ObjectManipulator>();
 		if (myOM == null) Debug.LogError("NO OBJECT MANIPULATOR ON THIS SCRIPT!!!");
 	}
@@ -61,6 +63,25 @@ public class LeftHandController : MonoBehaviour
 	{
 		float tValue = lTrigger.action.ReadValue<float>();
 		float gValue = lGrip.action.ReadValue<float>();
+		if (altControlsHold == true)
+		{
+			float xValue = xButton.action.ReadValue<float>();
+			Debug.Log(xValue);
+			if (xValue == 1)
+			{
+				altControls = true;
+			}
+			else
+			{
+				altControls = false;
+			}
+
+			checkAltControls();
+		}
+		
+
+		
+
 
 		if (!TourMode.Singleton.getTourModeToggle())
 		{
@@ -101,36 +122,58 @@ public class LeftHandController : MonoBehaviour
 		
 	}
 
+
+	void checkAltControls()
+	{
+        if (altControls == true)
+        {
+            RightAltControlUI.SetActive(true);
+            LeftAltControlUI.SetActive(true);
+            RightControlUI.SetActive(false);
+            LeftControlUI.SetActive(false);
+        }
+        else
+        {
+            RightAltControlUI.SetActive(false);
+            LeftAltControlUI.SetActive(false);
+            RightControlUI.SetActive(true);
+            LeftControlUI.SetActive(true);
+        }
+    }
+
 	public void xToggle(InputAction.CallbackContext context)
 	{
-		//Debug.Log("X button pressed.");
-		if (!TourMode.Singleton.getTourModeToggle())
+		if (altControlsHold == false)
 		{
-			if (altControls == true)
-			{
-				altControls = false;
-				RightAltControlUI.SetActive(false);
-                LeftAltControlUI.SetActive(false);
-                RightControlUI.SetActive(true);
-                LeftControlUI.SetActive(true);
+            //Debug.Log("X button pressed.");
+            if (!TourMode.Singleton.getTourModeToggle())
+            {
+                if (altControls == true)
+                {
+                    altControls = false;
+                    RightAltControlUI.SetActive(false);
+                    LeftAltControlUI.SetActive(false);
+                    RightControlUI.SetActive(true);
+                    LeftControlUI.SetActive(true);
 
 
+
+                }
+                else
+                {
+                    altControls = true;
+                    RightAltControlUI.SetActive(true);
+                    LeftAltControlUI.SetActive(true);
+                    RightControlUI.SetActive(false);
+                    LeftControlUI.SetActive(false);
+
+                }
+            }
+            else
+            {
 
             }
-			else
-			{
-				altControls = true;
-                RightAltControlUI.SetActive(true);
-                LeftAltControlUI.SetActive(true);
-                RightControlUI.SetActive(false);
-                LeftControlUI.SetActive(false);
-
-            } 
-		}
-		else
-		{
-
-		}
+        }
 	}
 	public void yToggle(InputAction.CallbackContext context)
 	{
