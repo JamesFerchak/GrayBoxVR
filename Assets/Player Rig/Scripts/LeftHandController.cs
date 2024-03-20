@@ -63,24 +63,25 @@ public class LeftHandController : MonoBehaviour
 	{
 		float tValue = lTrigger.action.ReadValue<float>();
 		float gValue = lGrip.action.ReadValue<float>();
+
 		if (altControlsHold == true)
 		{
-			float xValue = xButton.action.ReadValue<float>();
-			Debug.Log(xValue);
-			if (xValue == 1)
+			if (myOM.heldObject == null && RightHandController.Singleton.myOM.heldObject == null)
 			{
-				altControls = true;
-			}
-			else
-			{
-				altControls = false;
-			}
+                float xValue = xButton.action.ReadValue<float>();
+                Debug.Log(xValue);
+                if (xValue == 1)
+                {
+                    altControls = true;
+                }
+                else
+                {
+                    altControls = false;
+                }
 
-			checkAltControls();
+                checkAltControls();
+            }
 		}
-		
-
-		
 
 
 		if (!TourMode.Singleton.getTourModeToggle())
@@ -143,37 +144,41 @@ public class LeftHandController : MonoBehaviour
 
 	public void xToggle(InputAction.CallbackContext context)
 	{
-		if (altControlsHold == false)
+		if (myOM.heldObject == null && RightHandController.Singleton.myOM.heldObject == null)
 		{
-            //Debug.Log("X button pressed.");
-            if (!TourMode.Singleton.getTourModeToggle())
+            if (altControlsHold == false)
             {
-                if (altControls == true)
+                //Debug.Log("X button pressed.");
+                if (!TourMode.Singleton.getTourModeToggle())
                 {
-                    altControls = false;
-                    RightAltControlUI.SetActive(false);
-                    LeftAltControlUI.SetActive(false);
-                    RightControlUI.SetActive(true);
-                    LeftControlUI.SetActive(true);
+                    if (altControls == true)
+                    {
+                        altControls = false;
+                        RightAltControlUI.SetActive(false);
+                        LeftAltControlUI.SetActive(false);
+                        RightControlUI.SetActive(true);
+                        LeftControlUI.SetActive(true);
 
 
 
+                    }
+                    else
+                    {
+                        altControls = true;
+                        RightAltControlUI.SetActive(true);
+                        LeftAltControlUI.SetActive(true);
+                        RightControlUI.SetActive(false);
+                        LeftControlUI.SetActive(false);
+
+                    }
                 }
                 else
                 {
-                    altControls = true;
-                    RightAltControlUI.SetActive(true);
-                    LeftAltControlUI.SetActive(true);
-                    RightControlUI.SetActive(false);
-                    LeftControlUI.SetActive(false);
 
                 }
             }
-            else
-            {
-
-            }
         }
+		
 	}
 	public void yToggle(InputAction.CallbackContext context)
 	{

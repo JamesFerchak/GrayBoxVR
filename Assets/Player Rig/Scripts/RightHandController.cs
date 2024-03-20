@@ -22,7 +22,7 @@ public class RightHandController : MonoBehaviour
         }
     }
 
-    ObjectManipulator myOM;
+    public ObjectManipulator myOM { get; private set; }
 
     //  -------------------------------------------------------------------------------------------------------------------  
     // Input references
