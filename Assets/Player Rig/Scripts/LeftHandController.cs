@@ -219,4 +219,17 @@ public class LeftHandController : MonoBehaviour
 		return altControls;
 	}
 
+	public void switchAltControlScheme()
+	{
+		if (altControlsHold == true)
+		{
+			altControlsHold = false;
+		}
+		else
+		{
+			altControlsHold = true;
+		}
+	}
+
+
 }

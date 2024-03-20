@@ -228,6 +228,12 @@ public class MenuActions : MonoBehaviour
         }
     }
 
+    public void AltControlSchemeToggle()
+    {
+        LeftHandController.Singleton.switchAltControlScheme();
+    }
+
+
     public void QuitGame()
     {
         AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
