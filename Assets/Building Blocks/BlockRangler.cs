@@ -36,7 +36,7 @@ public class BlockRangler : MonoBehaviour
 		Create,
 		Delete,
 		MaterialChange,
-		Group,
+		AddToGroup,
 		Ungroup
 	}
 
@@ -107,9 +107,9 @@ public class BlockRangler : MonoBehaviour
 			BottomIndex = TopIndexPlusOne;
 		}
 		
-		private static void PushAction(Action actionToRecord, GameObject objectToRecord)
+		private static void PushAction(Action actionToRecord)
 		{
-			SetActionObject(objectToRecord);
+			SetActionObject(actionToRecord.myGameObject);
 			actions[TopIndex] = actionToRecord;
 		}
 
@@ -144,33 +144,35 @@ public class BlockRangler : MonoBehaviour
 		{
 			IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.Move);
-			PushAction(actionToPush, objectToRecord);
+			PushAction(actionToPush);
 		}
 
 		public static void PushCreateAction(GameObject objectToRecord)
 		{
             IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.Create);
-			PushAction(actionToPush, objectToRecord); 
+			PushAction(actionToPush); 
 		}
 
 		public static void PushDeleteAction(GameObject objectToRecord)
 		{
             IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.Delete);
-			PushAction(actionToPush, objectToRecord); 
+			PushAction(actionToPush); 
 		}
 
 		public static void PushMaterialAction(GameObject objectToRecord)
 		{
             IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.MaterialChange);
-			PushAction(actionToPush, objectToRecord); 
+			PushAction(actionToPush); 
 		}
 
-		public static void PushGroupAction()
+		public static void PushAddToGroupAction()
 		{
 			IncrementBothIndices();
+			Action actionToPush = new Action(ObjectManipulator.parentOfGroup, actionType.AddToGroup);
+			PushAction(actionToPush);
 		}
 
 		public static void PushUngroupAction()
@@ -213,24 +215,28 @@ public class BlockRangler : MonoBehaviour
 				block.tag = "Block";
 
 				Action undoneAction = new Action(block, actionType.Create);
-				PushAction(undoneAction, block);
+				PushAction(undoneAction);
 			}
 			else if (actionToUndo.actionType == actionType.Create)
 			{
 				Action undoneAction = new Action(objectToUndo, actionType.Delete);
-				PushAction(undoneAction, objectToUndo);
+				PushAction(undoneAction);
 				Destroy(objectToUndo);
 			} 
 			else if (actionToUndo.actionType == actionType.MaterialChange)
 			{
 				Action undoneAction = new Action(objectToUndo, actionType.MaterialChange);
-				PushAction(undoneAction, objectToUndo);
+				PushAction(undoneAction);
 				objectToUndo.GetComponent<Renderer>().material = actionToUndo.material;
+			}
+			else if (actionToUndo.actionType == actionType.AddToGroup)
+			{
+
 			}
 			else if (actionToUndo.actionType == actionType.Move)
 			{
 				Action undoneAction = new Action(objectToUndo, actionType.Move);
-				PushAction(undoneAction, objectToUndo);
+				PushAction(undoneAction);
 
 				objectToUndo.transform.position = actionToUndo.position;
 				objectToUndo.transform.rotation = actionToUndo.rotation;
