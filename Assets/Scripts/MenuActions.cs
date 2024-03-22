@@ -129,6 +129,7 @@ public class MenuActions : MonoBehaviour
             }
             else // If panel is closed
             {
+                RefreshSaveThumbnails();
                 MenuActions.Singleton.RelocateMainMenu();
                 mainMenuPanel.SetActive(true); // Open panel
                 inMenuMode = true;
@@ -170,6 +171,7 @@ public class MenuActions : MonoBehaviour
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
         ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
+
         
         if (!projectExists[(int)saveID[0] - 65])
         {
@@ -183,7 +185,7 @@ public class MenuActions : MonoBehaviour
         AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         BlockRangler.LoadLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
-        InteractWithMainMenu();
+        InteractWithMainMenu(); // Closes menu
     }
 
     public void RefreshSaveThumbnails()
