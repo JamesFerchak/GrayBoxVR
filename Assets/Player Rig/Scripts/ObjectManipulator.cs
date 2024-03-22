@@ -64,10 +64,20 @@ public class ObjectManipulator : MonoBehaviour
 				{
 					parentOfGroup = new GameObject();
 					parentOfGroup.name = "Group";
-
 				}
-				
+
+				List<GameObject> groupedObjects = new List<GameObject>();
+				for (int thisObject = 0; thisObject < parentOfGroup.transform.childCount; thisObject++)
+				{
+					groupedObjects.Add(parentOfGroup.transform.GetChild(thisObject).gameObject);
+				}
+
 				objectToAddToGroup.transform.parent = parentOfGroup.transform;
+
+				groupedObjects.Add(objectToAddToGroup);
+
+				BlockRangler.ActionHistory.PushAddToGroupAction(groupedObjects);
+				
 			}
 		}
     }
@@ -76,7 +86,13 @@ public class ObjectManipulator : MonoBehaviour
 	{
 		if (parentOfGroup != null)
 		{
-			parentOfGroup.transform.DetachChildren();
+            List<GameObject> groupedObjects = new List<GameObject>();
+            for (int thisObject = 0; thisObject < parentOfGroup.transform.childCount; thisObject++)
+            {
+                groupedObjects.Add(parentOfGroup.transform.GetChild(thisObject).gameObject);
+            }
+			BlockRangler.ActionHistory.PushUngroupAction(groupedObjects);
+            parentOfGroup.transform.DetachChildren();
 			Destroy(parentOfGroup);
 		}
 	}

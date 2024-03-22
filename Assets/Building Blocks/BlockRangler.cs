@@ -49,7 +49,9 @@ public class BlockRangler : MonoBehaviour
 		public Vector3 scale;
 		public Material material;
 		public actionType actionType;
-		public bool isGrouped;
+
+		public List<GameObject> groupedObjects;
+		public List<int> groupedObjectIDs;
 
 		public Action(GameObject affectedObject, actionType thisActionType)
 		{
@@ -62,7 +64,19 @@ public class BlockRangler : MonoBehaviour
 			actionType = thisActionType;
 		}
 
-
+		public Action(GameObject affectedObject, actionType thisActionType, List<GameObject> inputGroupedObjects)
+		{
+			myGameObject = affectedObject;
+			gameObjectName = SimplifyObjectName(affectedObject.name);
+			position = affectedObject.transform.position;
+			rotation = affectedObject.transform.rotation;
+			scale = affectedObject.transform.localScale;
+			material = affectedObject.GetComponent<Renderer>().material;
+			actionType = thisActionType;
+			groupedObjects = inputGroupedObjects;
+			groupedObjectIDs = new List<int>();
+			foreach (GameObject thisObject in inputGroupedObjects) groupedObjectIDs.Add(thisObject.GetInstanceID());
+		}
 	}
 
 	//this takes the name of an individual object and returns the name of the prefab it came from
@@ -109,8 +123,8 @@ public class BlockRangler : MonoBehaviour
 		
 		private static void PushAction(Action actionToRecord)
 		{
-			SetActionObject(actionToRecord.myGameObject);
-			actions[TopIndex] = actionToRecord;
+            SetActionObject(actionToRecord.myGameObject);
+            actions[TopIndex] = actionToRecord;
 		}
 
 		private static void SetActionObject(GameObject objectToRecord)
@@ -168,14 +182,14 @@ public class BlockRangler : MonoBehaviour
 			PushAction(actionToPush); 
 		}
 
-		public static void PushAddToGroupAction()
+		public static void PushAddToGroupAction(List<GameObject> groupedObjects)
 		{
 			IncrementBothIndices();
 			Action actionToPush = new Action(ObjectManipulator.parentOfGroup, actionType.AddToGroup);
 			PushAction(actionToPush);
 		}
 
-		public static void PushUngroupAction()
+		public static void PushUngroupAction(List<GameObject> groupedObjects)
 		{
 
 		}
@@ -206,7 +220,6 @@ public class BlockRangler : MonoBehaviour
 
 			if (actionToUndo.actionType == actionType.Delete)
 			{
-
 				GameObject block = Instantiate(Resources.Load($"Blocks/{actionToUndo.gameObjectName}", typeof(GameObject))) as GameObject;
 				block.transform.position = actionToUndo.position;
 				block.transform.rotation = actionToUndo.rotation;
