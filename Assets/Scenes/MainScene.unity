@@ -1852,7 +1852,16 @@ MonoBehaviour:
     shape: {fileID: 7323685956055578646, guid: c1b803c3b2e5de04d82757468be5e2c3, type: 3}
     sprite: {fileID: 21300000, guid: 40fdd81536850344ba831c51f5740572, type: 3}
   - name: 8
-    shape: {fileID: 8278181195397622377, guid: ee6bf342b56ad5a40aa2f649f8d63d5c, type: 3}
+    shape: {fileID: 4102658463299203730, guid: 891921c44fd00b74fb6f8b84302788aa, type: 3}
+    sprite: {fileID: 0}
+  - name: 9
+    shape: {fileID: 4681311056156244616, guid: 5695ea7278c903f4db5e62852c38b60f, type: 3}
+    sprite: {fileID: 0}
+  - name: 10
+    shape: {fileID: 4681311056156244616, guid: 0a0c458054030de45ba4a06560314b36, type: 3}
+    sprite: {fileID: 0}
+  - name: 11
+    shape: {fileID: 4681311056156244616, guid: 63c8a956995372f46a8bdb70126c0176, type: 3}
     sprite: {fileID: 0}
   placeholderSprite: {fileID: 21300000, guid: fdcad01d23593ad468ba1ea29d4d8e47, type: 3}
   spriteCamera: {fileID: 75212089}
