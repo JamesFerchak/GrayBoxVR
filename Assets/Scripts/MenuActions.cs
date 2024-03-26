@@ -48,7 +48,6 @@ public class MenuActions : MonoBehaviour
 
     Sprite[] levelSpriteArray = new Sprite[10];
     [SerializeField] GameObject[] levelThumbnailsLoadMenu = new GameObject[10];
-    [SerializeField] GameObject[] levelThumbnailsSaveMenu = new GameObject[10];
     [SerializeField] GameObject[] loadButtons = new GameObject[10];
     bool[] projectExists = new bool[10];
 
@@ -203,7 +202,6 @@ public class MenuActions : MonoBehaviour
                 levelSpriteArray[i - 65] = Sprite.Create(textureConverter, new Rect(0, 0, textureConverter.width, textureConverter.height), new Vector2(), 100.0f);
                 levelSpriteArray[i - 65].name = "sprite" + (char)i;
                 levelThumbnailsLoadMenu[i - 65].GetComponent<Image>().sprite = levelSpriteArray[i - 65];
-                levelThumbnailsSaveMenu[i - 65].GetComponent<Image>().sprite = levelSpriteArray[i - 65];
                 projectExists[i - 65] = true;
                 textureConverter = new Texture2D(2, 2);
             }
