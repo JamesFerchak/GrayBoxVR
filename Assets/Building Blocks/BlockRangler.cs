@@ -50,8 +50,9 @@ public class BlockRangler : MonoBehaviour
 		public Material material;
 		public actionType actionType;
 
-		public List<GameObject> groupedObjects;
+		public List<Action> groupedActions;
 		public List<int> groupedObjectIDs;
+		public bool groupChange => groupedActions != null;
 
 		public Action(GameObject affectedObject, actionType thisActionType)
 		{
@@ -60,8 +61,11 @@ public class BlockRangler : MonoBehaviour
 			position = affectedObject.transform.position;
 			rotation = affectedObject.transform.rotation;
 			scale = affectedObject.transform.localScale;
-			material = affectedObject.GetComponent<Renderer>().material;
-			actionType = thisActionType;
+			if (affectedObject.GetComponent<Renderer>() != null)
+                material = affectedObject.GetComponent<Renderer>().material;
+            else
+                material = null;
+            actionType = thisActionType;
 		}
 
 		public Action(GameObject affectedObject, actionType thisActionType, List<GameObject> inputGroupedObjects)
@@ -71,11 +75,19 @@ public class BlockRangler : MonoBehaviour
 			position = affectedObject.transform.position;
 			rotation = affectedObject.transform.rotation;
 			scale = affectedObject.transform.localScale;
-			material = affectedObject.GetComponent<Renderer>().material;
+			if (affectedObject.GetComponent<Renderer>() != null)
+				material = affectedObject.GetComponent<Renderer>().material;
+			else
+				material = null;
 			actionType = thisActionType;
-			groupedObjects = inputGroupedObjects;
+			groupedActions = new List<Action>();
 			groupedObjectIDs = new List<int>();
-			foreach (GameObject thisObject in inputGroupedObjects) groupedObjectIDs.Add(thisObject.GetInstanceID());
+			foreach (GameObject thisObject in inputGroupedObjects)
+			{
+				groupedObjectIDs.Add(thisObject.GetInstanceID());
+				Action thisAction = new Action(thisObject, actionType.Move);
+				groupedActions.Add(thisAction);
+			}
 		}
 	}
 
@@ -90,7 +102,6 @@ public class BlockRangler : MonoBehaviour
 	{
 		private static Action[] actions = new Action[actionHistorySize];
 		private static int[] actionObjectIDs = new int[actionHistorySize];
-		private static bool[] actionIsEndOfChain = new bool[actionHistorySize];
 		private static int TopIndex = 0;
 		private static int TopIndexPlusOne => TopIndex == actionHistorySize - 1 ? 0 : TopIndex + 1;
 		private static int TopIndexMinusOne => TopIndex == 0 ? actionHistorySize - 1 : TopIndex - 1;
@@ -148,6 +159,17 @@ public class BlockRangler : MonoBehaviour
 							actionObjectIDs[objectIndex] = objectToRecord.GetInstanceID();
 							actions[objectIndex].myGameObject = objectToRecord;
 						}
+						if (actions[objectIndex].groupChange)
+						{
+							for (int i = 0; i < actions[objectIndex].groupedActions.Count; i++)
+							{
+								if (actions[objectIndex].groupedObjectIDs[i] == objectToReplaceID)
+								{
+									actions[objectIndex].groupedObjectIDs[i] = objectToRecord.GetInstanceID();
+									actions[objectIndex].groupedActions[i].myGameObject = objectToRecord;
+                                }
+							}
+						}
 					}
 				}
 			}
@@ -185,13 +207,15 @@ public class BlockRangler : MonoBehaviour
 		public static void PushAddToGroupAction(List<GameObject> groupedObjects)
 		{
 			IncrementBothIndices();
-			Action actionToPush = new Action(ObjectManipulator.parentOfGroup, actionType.AddToGroup);
+			Action actionToPush = new Action(ObjectManipulator.parentOfGroup, actionType.AddToGroup, groupedObjects);
 			PushAction(actionToPush);
 		}
 
 		public static void PushUngroupAction(List<GameObject> groupedObjects)
 		{
-
+			IncrementBothIndices();
+			Action actionToPush = new Action(ObjectManipulator.parentOfGroup, actionType.Ungroup, groupedObjects);
+			PushAction(actionToPush);
 		}
 
 		public static void UndoAction()
@@ -220,7 +244,11 @@ public class BlockRangler : MonoBehaviour
 
 			if (actionToUndo.actionType == actionType.Delete)
 			{
-				GameObject block = Instantiate(Resources.Load($"Blocks/{actionToUndo.gameObjectName}", typeof(GameObject))) as GameObject;
+				GameObject block;
+				if (!actionToUndo.groupChange)
+					block = Instantiate(Resources.Load($"Blocks/{actionToUndo.gameObjectName}", typeof(GameObject))) as GameObject;
+				else
+					block = new GameObject();
 				block.transform.position = actionToUndo.position;
 				block.transform.rotation = actionToUndo.rotation;
 				block.transform.localScale = actionToUndo.scale;
@@ -243,6 +271,10 @@ public class BlockRangler : MonoBehaviour
 				objectToUndo.GetComponent<Renderer>().material = actionToUndo.material;
 			}
 			else if (actionToUndo.actionType == actionType.AddToGroup)
+			{
+
+			}
+			else if (actionToUndo.actionType == actionType.Ungroup)
 			{
 
 			}
