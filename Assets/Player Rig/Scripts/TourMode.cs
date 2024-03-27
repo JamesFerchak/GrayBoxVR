@@ -44,7 +44,7 @@ public class TourMode : MonoBehaviour
             cam.transform.position = hit.point; // Select the hit object
             if (HologramDisplay.Singleton.hologramEnabled == true)
             {
-                HologramDisplay.Singleton.hologramEnabled = false;
+                HologramDisplay.Singleton.ToggleHologram();
                 reenableHologram = true;
             }
             else
@@ -68,7 +68,8 @@ public class TourMode : MonoBehaviour
         cam.transform.position = LastEditModePosition;
         if (reenableHologram == true)
         {
-            HologramDisplay.Singleton.hologramEnabled = true;
+            HologramDisplay.Singleton.ToggleHologram();
+
         }
         inTourMode = false;
     }
