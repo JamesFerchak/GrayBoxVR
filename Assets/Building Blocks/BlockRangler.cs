@@ -386,6 +386,8 @@ public class BlockRangler : MonoBehaviour
 				//set scale
 				instance.transform.localScale = new Vector3(levelToLoad.blockScales[0], levelToLoad.blockScales[1], levelToLoad.blockScales[2]);
 				levelToLoad.blockScales.RemoveRange(0, 3);
+
+				instance.tag = "Block";
 			}
 		}
 
