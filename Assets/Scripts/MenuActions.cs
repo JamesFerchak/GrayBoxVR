@@ -9,6 +9,7 @@ using System.IO;
 using Image = UnityEngine.UI.Image;
 using UnityEngine.ProBuilder.Shapes;
 using Sprite = UnityEngine.Sprite;
+using System;
 
 public class MenuActions : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class MenuActions : MonoBehaviour
     [SerializeField] GameObject[] levelThumbnailsLoadMenu = new GameObject[10];
     [SerializeField] GameObject[] loadButtons = new GameObject[10];
     bool[] projectExists = new bool[10];
+    string levelPath;
 
     public bool inMenuMode; // True if the menu is open
 
@@ -58,6 +60,19 @@ public class MenuActions : MonoBehaviour
     private void Awake()
     {
         Singleton = this;
+        #if UNITY_STANDALONE_WIN
+            levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
+            levelPath += "/GrayboxVR/";
+        #else
+			levelPath = Application.persistentDataPath + "/";
+        #endif
+        Debug.Log("Level Path: " + levelPath);
+
+        // Check if the directory exists, if not, create it
+        if (!Directory.Exists(levelPath))
+        {
+            Directory.CreateDirectory(levelPath);
+        }
     }
 
     private void Start()
@@ -169,7 +184,7 @@ public class MenuActions : MonoBehaviour
         BlockRangler.SaveLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
-        ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
+        ScreenCapture.CaptureScreenshot(levelPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
 
         
         if (!projectExists[(int)saveID[0] - 65])
@@ -192,12 +207,11 @@ public class MenuActions : MonoBehaviour
         Texture2D textureConverter = new Texture2D(2, 2);
         byte[] bytes;
 
-        string filePath = Application.persistentDataPath + "/";
         for (int i = 65; i < 75; i++)
         {
-            if (File.Exists(filePath + "save" + (char)i + "thumbnail.png"))
+            if (File.Exists(levelPath + "save" + (char)i + "thumbnail.png"))
             {
-                bytes = File.ReadAllBytes(filePath + "save" + (char)i + "thumbnail.png");
+                bytes = File.ReadAllBytes(levelPath + "save" + (char)i + "thumbnail.png");
                 textureConverter.LoadImage(bytes);
                 levelSpriteArray[i - 65] = Sprite.Create(textureConverter, new Rect(0, 0, textureConverter.width, textureConverter.height), new Vector2(), 100.0f);
                 levelSpriteArray[i - 65].name = "sprite" + (char)i;
