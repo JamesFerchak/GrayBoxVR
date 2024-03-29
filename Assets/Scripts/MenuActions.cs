@@ -187,7 +187,7 @@ public class MenuActions : MonoBehaviour
         BlockRangler.SaveLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
-        ScreenCapture.CaptureScreenshot(levelPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
+        ScreenCapture.CaptureScreenshot(levelPath + "save" + saveID + "thumbnail.png"); // Saves to project directory
 
         
         if (!projectExists[(int)saveID[0] - 65])
