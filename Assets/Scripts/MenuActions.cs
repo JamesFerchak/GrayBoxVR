@@ -102,8 +102,12 @@ public class MenuActions : MonoBehaviour
             }
         });
 
-        levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
-        levelPath += "/GrayboxVR/";
+        #if UNITY_STANDALONE_WIN
+			string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
+			levelPath += "/GrayboxVR/";
+		#else
+			levelPath = Application.persistentDataPath + "/";
+		#endif
 
         RefreshShapeThumbnails();
         RefreshSavedProjects();
