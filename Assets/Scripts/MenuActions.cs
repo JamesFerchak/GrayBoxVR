@@ -50,6 +50,7 @@ public class MenuActions : MonoBehaviour
     [SerializeField] GameObject[] levelThumbnailsLoadMenu = new GameObject[10];
     [SerializeField] GameObject[] loadButtons = new GameObject[10];
     bool[] projectExists = new bool[10];
+    string levelPath;
 
     public bool inMenuMode; // True if the menu is open
 
