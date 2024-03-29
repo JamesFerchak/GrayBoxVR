@@ -8,6 +8,7 @@ using System;
 using UnityEditor;
 using UnityEngine.UIElements;
 using Unity.XR.CoreUtils;
+using Environment = System.Environment;
 
 public class BlockRangler : MonoBehaviour
 {
@@ -350,11 +351,24 @@ public class BlockRangler : MonoBehaviour
 	private void Awake()
 	{
 		Singleton = this;
-		levelPath = Application.persistentDataPath + "/";
-	}
 
-	// Update is called once per frame
-	void Update()
+		#if UNITY_STANDALONE_WIN
+			string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
+			levelPath += "/GrayboxVR/";
+		#else
+			levelPath = Application.persistentDataPath + "/";
+		#endif
+		Debug.Log("Level Path: " + levelPath);
+
+		// Check if the directory exists, if not, create it
+        if (!Directory.Exists(levelPath))
+        {
+            Directory.CreateDirectory(levelPath);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.S))
 			SaveLevel("coolLevel");
@@ -424,6 +438,8 @@ public class BlockRangler : MonoBehaviour
 				//set scale
 				instance.transform.localScale = new Vector3(levelToLoad.blockScales[0], levelToLoad.blockScales[1], levelToLoad.blockScales[2]);
 				levelToLoad.blockScales.RemoveRange(0, 3);
+
+				instance.tag = "Block";
 			}
 		}
 

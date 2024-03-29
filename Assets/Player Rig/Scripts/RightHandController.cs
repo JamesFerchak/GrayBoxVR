@@ -27,7 +27,10 @@ public class RightHandController : MonoBehaviour
     //  -------------------------------------------------------------------------------------------------------------------  
     // Input references
     public InputActionReference aButton = null; // reference to the A button action in the input map.
+    
     public InputActionReference rTrigger = null; // reference to the trigger action in the input map.
+    public float tValue;
+
     public InputActionReference bButton = null;
     public InputActionReference rGrip = null;
     public InputActionReference stick = null;
@@ -55,7 +58,7 @@ public class RightHandController : MonoBehaviour
     void Update()
     {
         Vector2 svalue = stick.action.ReadValue<Vector2>();
-        float tValue = rTrigger.action.ReadValue<float>();
+        tValue = rTrigger.action.ReadValue<float>();
         float gValue = rGrip.action.ReadValue<float>();
         if (!TourMode.Singleton.getTourModeToggle())
         {

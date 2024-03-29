@@ -98,11 +98,11 @@ public class LeftHandController : MonoBehaviour
             }
 			else
 			{
-				if (tValue > .7)
+				if (tValue > .7 || RightHandController.Singleton.tValue > .7)
 				{
                     continousMove.enableFly = true;
                 }
-				else
+				else if(tValue < .7 && RightHandController.Singleton.tValue < .7)
 				{
 					continousMove.enableFly = false;
 				}
