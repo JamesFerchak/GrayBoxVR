@@ -25,18 +25,6 @@ public class ObjectDefinitions : MonoBehaviour
         Singleton = this;
 
         allObjects = primitiveObjects;
-
-        // TEMPORARY CODE, should be auto-generated using a file without using a preset gameobject
-        ObjectType wallObject = GenerateObjectType("4", wallPrefab);
-        allObjects.Add(wallObject);
-        ObjectType pillarObject = GenerateObjectType("5", pillarPrefab);
-        allObjects.Add(pillarObject);
-        ObjectType shortPillarObject = GenerateObjectType("6", shortPillarPrefab);
-        allObjects.Add(shortPillarObject);
-        ObjectType floorObject = GenerateObjectType("7", floorPrefab);
-        allObjects.Add(floorObject);
-
-        // We now have a list, "allObjects", that includes all preloaded objects.
     }
 
     [SerializeField] List<ObjectType> primitiveObjects; // Pre-created
@@ -47,12 +35,6 @@ public class ObjectDefinitions : MonoBehaviour
     [SerializeField] Camera spriteCamera;
     [SerializeField] Camera originalCamera;
     [SerializeField] GameObject spriteScreenshotPosition;
-
-    // TEMPORARY OBJECTS AND SPRITES FOR RECTANGLES
-    public GameObject floorPrefab;
-    public GameObject pillarPrefab;
-    public GameObject shortPillarPrefab;
-    public GameObject wallPrefab;
 
     void Start()
     {
