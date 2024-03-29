@@ -69,7 +69,7 @@ public class LeftHandController : MonoBehaviour
 			if (myOM.heldObject == null && RightHandController.Singleton.myOM.heldObject == null)
 			{
                 float xValue = xButton.action.ReadValue<float>();
-                Debug.Log(xValue);
+
                 if (xValue == 1)
                 {
                     altControls = true;
@@ -128,7 +128,7 @@ public class LeftHandController : MonoBehaviour
 	}
 
 
-	void checkAltControls()
+	public void checkAltControls()
 	{
         if (altControls == true)
         {
