@@ -102,12 +102,7 @@ public class MenuActions : MonoBehaviour
             }
         });
 
-    #if UNITY_STANDALONE_WIN
         string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/") + "/GrayboxVR/";
-    #else
-        string levelPath = Application.persistentDataPath + "/";
-    #endif
-
         RefreshShapeThumbnails();
         RefreshSavedProjects();
         catalogCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite("0");

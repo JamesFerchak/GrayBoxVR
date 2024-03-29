@@ -347,13 +347,8 @@ public class BlockRangler : MonoBehaviour
 	private void Awake()
 	{
 		Singleton = this;
-
-		#if UNITY_STANDALONE_WIN
-			string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
-			levelPath += "/GrayboxVR/";
-		#else
-			levelPath = Application.persistentDataPath + "/";
-		#endif
+		string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
+		levelPath += "/GrayboxVR/";
 		Debug.Log("Level Path: " + levelPath);
 
 		// Check if the directory exists, if not, create it
