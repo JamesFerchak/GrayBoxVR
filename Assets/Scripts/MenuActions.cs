@@ -9,6 +9,8 @@ using System.IO;
 using Image = UnityEngine.UI.Image;
 using UnityEngine.ProBuilder.Shapes;
 using Sprite = UnityEngine.Sprite;
+using System;
+using Environment = System.Environment;
 
 public class MenuActions : MonoBehaviour
 {
@@ -100,6 +102,9 @@ public class MenuActions : MonoBehaviour
             }
         });
 
+        levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
+        levelPath += "/GrayboxVR/";
+
         RefreshShapeThumbnails();
         RefreshSavedProjects();
         catalogCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite("0");
@@ -178,7 +183,7 @@ public class MenuActions : MonoBehaviour
         BlockRangler.SaveLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
-        ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
+        ScreenCapture.CaptureScreenshot(levelPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
 
         
         if (!projectExists[(int)saveID[0] - 65])
@@ -202,7 +207,6 @@ public class MenuActions : MonoBehaviour
         byte[] bytes;
         Rect dimensions = new Rect(0, 0, textureConverter.width, textureConverter.height);
 
-        string filePath = Application.persistentDataPath + "/";
         for (int i = 65; i < 75; i++)
         {
             char cID = (char)i; // Converts int into ASCII character
