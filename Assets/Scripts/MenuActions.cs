@@ -10,6 +10,7 @@ using Image = UnityEngine.UI.Image;
 using UnityEngine.ProBuilder.Shapes;
 using Sprite = UnityEngine.Sprite;
 using System;
+using Environment = System.Environment;
 
 public class MenuActions : MonoBehaviour
 {
@@ -55,24 +56,19 @@ public class MenuActions : MonoBehaviour
 
     public bool inMenuMode; // True if the menu is open
 
+    public bool controllerUIOff = false; // True if the controller ui is turned off
+
+    public GameObject leftUI;
+    public GameObject leftUIAlt;
+
+    public GameObject RightUI;
+    public GameObject RightUIAlt;
+
     public AudioClip clickNoise;
 
     private void Awake()
     {
         Singleton = this;
-        #if UNITY_STANDALONE_WIN
-            levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
-            levelPath += "/GrayboxVR/";
-        #else
-			levelPath = Application.persistentDataPath + "/";
-        #endif
-        Debug.Log("Level Path: " + levelPath);
-
-        // Check if the directory exists, if not, create it
-        if (!Directory.Exists(levelPath))
-        {
-            Directory.CreateDirectory(levelPath);
-        }
     }
 
     private void Start()
@@ -106,8 +102,9 @@ public class MenuActions : MonoBehaviour
             }
         });
 
+        levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/") + "/GrayboxVR/";
         RefreshShapeThumbnails();
-        RefreshSaveThumbnails();
+        RefreshSavedProjects();
         catalogCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite("0");
     }
 
@@ -143,7 +140,7 @@ public class MenuActions : MonoBehaviour
             }
             else // If panel is closed
             {
-                RefreshSaveThumbnails();
+                RefreshSavedProjects();
                 MenuActions.Singleton.RelocateMainMenu();
                 mainMenuPanel.SetActive(true); // Open panel
                 inMenuMode = true;
@@ -184,9 +181,10 @@ public class MenuActions : MonoBehaviour
         BlockRangler.SaveLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
-        ScreenCapture.CaptureScreenshot(levelPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
+        ScreenCapture.CaptureScreenshot(levelPath + "save" + saveID + "thumbnail.png"); // Saves to project directory
+        Debug.Log("Screenshot Path: " + levelPath + "save" + saveID + "thumbnail.png");
 
-        
+
         if (!projectExists[(int)saveID[0] - 65])
         {
             loadButtons[(int)saveID[0] - 65].SetActive(true);
@@ -202,27 +200,38 @@ public class MenuActions : MonoBehaviour
         InteractWithMainMenu(); // Closes menu
     }
 
-    public void RefreshSaveThumbnails()
+    public void RefreshSavedProjects()
     {
-        Texture2D textureConverter = new Texture2D(2, 2);
+        Texture2D textureConverter = new Texture2D(64, 64);
         byte[] bytes;
+        Rect dimensions = new Rect(0, 0, textureConverter.width, textureConverter.height);
 
         for (int i = 65; i < 75; i++)
         {
-            if (File.Exists(levelPath + "save" + (char)i + "thumbnail.png"))
+            char cID = (char)i; // Converts int into ASCII character
+            int iID = i - 65; // Used for iterating through project list
+
+            // Find and load projects
+            if (File.Exists(levelPath + "save" + cID + ".kek"))
             {
-                bytes = File.ReadAllBytes(levelPath + "save" + (char)i + "thumbnail.png");
-                textureConverter.LoadImage(bytes);
-                levelSpriteArray[i - 65] = Sprite.Create(textureConverter, new Rect(0, 0, textureConverter.width, textureConverter.height), new Vector2(), 100.0f);
-                levelSpriteArray[i - 65].name = "sprite" + (char)i;
-                levelThumbnailsLoadMenu[i - 65].GetComponent<Image>().sprite = levelSpriteArray[i - 65];
-                projectExists[i - 65] = true;
-                textureConverter = new Texture2D(2, 2);
+                loadButtons[iID].SetActive(true);
+                projectExists[iID] = true;
             }
-            else
+            else // If no project exists
             {
-                loadButtons[i - 65].SetActive(false);
-                projectExists[i - 65] = false;
+                loadButtons[iID].SetActive(false);
+                projectExists[iID] = false;
+            }
+
+            // Find and load thumbnails (not necessary)
+            if (File.Exists(levelPath + "save" + cID + "thumbnail.png"))
+            {
+                bytes = File.ReadAllBytes(levelPath + "save" + cID + "thumbnail.png");
+                textureConverter.LoadImage(bytes);
+                levelSpriteArray[iID] = Sprite.Create(textureConverter, dimensions, new Vector2(), 100.0f);
+                levelSpriteArray[iID].name = "sprite" + cID;
+                levelThumbnailsLoadMenu[iID].GetComponent<Image>().sprite = levelSpriteArray[iID];
+                textureConverter = new Texture2D(64, 64);
             }
         }
     }
@@ -254,4 +263,23 @@ public class MenuActions : MonoBehaviour
         Debug.Log("Quitting game...");
         Application.Quit();
     }
+
+    public void TurnControllerAiOff()
+    {
+        if (controllerUIOff == false)
+        {
+            controllerUIOff = true;
+            leftUI.SetActive(false);
+            leftUIAlt.SetActive(false);
+            RightUI.SetActive(false);
+            RightUIAlt.SetActive(false);
+        }
+        else
+        {
+            controllerUIOff = false;
+            LeftHandController.Singleton.checkAltControls();
+        }
+    }
+
+
 }
