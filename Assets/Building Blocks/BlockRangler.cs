@@ -7,6 +7,8 @@ using UnityEngine;
 using System;
 using UnityEditor;
 using UnityEngine.UIElements;
+using Unity.XR.CoreUtils;
+using Environment = System.Environment;
 
 public class BlockRangler : MonoBehaviour
 {
@@ -51,6 +53,7 @@ public class BlockRangler : MonoBehaviour
 		public actionType actionType;
 
 		public List<Action> groupedActions;
+		public List<GameObject> groupedObjects;
 		public List<int> groupedObjectIDs;
 		public bool groupChange => groupedActions != null;
 
@@ -62,10 +65,10 @@ public class BlockRangler : MonoBehaviour
 			rotation = affectedObject.transform.rotation;
 			scale = affectedObject.transform.localScale;
 			if (affectedObject.GetComponent<Renderer>() != null)
-                material = affectedObject.GetComponent<Renderer>().material;
-            else
-                material = null;
-            actionType = thisActionType;
+				material = affectedObject.GetComponent<Renderer>().material;
+			else
+				material = null;
+			actionType = thisActionType;
 		}
 
 		public Action(GameObject affectedObject, actionType thisActionType, List<GameObject> inputGroupedObjects)
@@ -81,10 +84,12 @@ public class BlockRangler : MonoBehaviour
 				material = null;
 			actionType = thisActionType;
 			groupedActions = new List<Action>();
+			groupedObjects = new List<GameObject>();
 			groupedObjectIDs = new List<int>();
 			foreach (GameObject thisObject in inputGroupedObjects)
 			{
 				groupedObjectIDs.Add(thisObject.GetInstanceID());
+				groupedObjects.Add(thisObject);
 				Action thisAction = new Action(thisObject, actionType.Move);
 				groupedActions.Add(thisAction);
 			}
@@ -134,14 +139,14 @@ public class BlockRangler : MonoBehaviour
 		
 		private static void PushAction(Action actionToRecord)
 		{
-            SetActionObject(actionToRecord.myGameObject);
-            actions[TopIndex] = actionToRecord;
+			SetActionObject(actionToRecord.myGameObject);
+			actions[TopIndex] = actionToRecord;
 		}
 
 		private static void SetActionObject(GameObject objectToRecord)
 		{
 			int objectToReplaceID = actionObjectIDs[TopIndex];
-            actionObjectIDs[TopIndex] = objectToRecord.GetInstanceID();
+			actionObjectIDs[TopIndex] = objectToRecord.GetInstanceID();
 
 			if (objectToReplaceID == 0)
 			{
@@ -167,7 +172,7 @@ public class BlockRangler : MonoBehaviour
 								{
 									actions[objectIndex].groupedObjectIDs[i] = objectToRecord.GetInstanceID();
 									actions[objectIndex].groupedActions[i].myGameObject = objectToRecord;
-                                }
+								}
 							}
 						}
 					}
@@ -185,21 +190,28 @@ public class BlockRangler : MonoBehaviour
 
 		public static void PushCreateAction(GameObject objectToRecord)
 		{
-            IncrementBothIndices();
+			IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.Create);
 			PushAction(actionToPush); 
 		}
 
 		public static void PushDeleteAction(GameObject objectToRecord)
 		{
-            IncrementBothIndices();
+			IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.Delete);
+			PushAction(actionToPush); 
+		}
+
+		public static void PushDeleteAction(GameObject objectToRecord, List<GameObject> groupedObjects)
+		{
+			IncrementBothIndices();
+			Action actionToPush = new Action(objectToRecord, actionType.Delete, groupedObjects);
 			PushAction(actionToPush); 
 		}
 
 		public static void PushMaterialAction(GameObject objectToRecord)
 		{
-            IncrementBothIndices();
+			IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.MaterialChange);
 			PushAction(actionToPush); 
 		}
@@ -248,14 +260,37 @@ public class BlockRangler : MonoBehaviour
 				if (!actionToUndo.groupChange)
 					block = Instantiate(Resources.Load($"Blocks/{actionToUndo.gameObjectName}", typeof(GameObject))) as GameObject;
 				else
+				{
 					block = new GameObject();
+					block.name = "Group";
+				}
 				block.transform.position = actionToUndo.position;
 				block.transform.rotation = actionToUndo.rotation;
 				block.transform.localScale = actionToUndo.scale;
-				block.GetComponent<Renderer>().material = actionToUndo.material;
+				if (block.GetComponent<Renderer>() != null)
+					block.GetComponent<Renderer>().material = actionToUndo.material;
 				block.tag = "Block";
 
-				Action undoneAction = new Action(block, actionType.Create);
+				if (actionToUndo.groupChange)
+				{
+					foreach (Action action in actionToUndo.groupedActions)
+					{
+						GameObject childBlock = Instantiate(Resources.Load($"Blocks/{action.gameObjectName}", typeof(GameObject))) as GameObject;
+						childBlock.transform.position = actionToUndo.position;
+						childBlock.transform.rotation = actionToUndo.rotation;
+						childBlock.transform.localScale = actionToUndo.scale;
+						childBlock.GetComponent<Renderer>().material = actionToUndo.material;
+						childBlock.tag = "Block";
+						childBlock.transform.parent = block.transform;
+					}
+				}
+
+
+				Action undoneAction;
+				if (!actionToUndo.groupChange)
+					undoneAction = new Action(block, actionType.Create);
+				else
+					undoneAction = new Action(block, actionType.Create, actionToUndo.groupedObjects);
 				PushAction(undoneAction);
 			}
 			else if (actionToUndo.actionType == actionType.Create)
@@ -312,11 +347,24 @@ public class BlockRangler : MonoBehaviour
 	private void Awake()
 	{
 		Singleton = this;
-		levelPath = Application.persistentDataPath + "/";
-	}
 
-	// Update is called once per frame
-	void Update()
+		#if UNITY_STANDALONE_WIN
+			string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
+			levelPath += "/GrayboxVR/";
+		#else
+			levelPath = Application.persistentDataPath + "/";
+		#endif
+		Debug.Log("Level Path: " + levelPath);
+
+		// Check if the directory exists, if not, create it
+        if (!Directory.Exists(levelPath))
+        {
+            Directory.CreateDirectory(levelPath);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.S))
 			SaveLevel("coolLevel");
@@ -325,9 +373,9 @@ public class BlockRangler : MonoBehaviour
 			LoadLevel("coolLevel");
 	}
 
-    #region SAVING
+	#region SAVING
 
-    public static void SaveLevel(string levelName)
+	public static void SaveLevel(string levelName)
 	{
 		BinaryFormatter myFormatter = new();
 		FileStream myStream = new(levelPath + levelName + ".kek", FileMode.Create);
@@ -393,5 +441,5 @@ public class BlockRangler : MonoBehaviour
 
 	}
 
-    #endregion
+	#endregion
 }
