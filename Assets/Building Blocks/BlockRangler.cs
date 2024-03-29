@@ -347,7 +347,7 @@ public class BlockRangler : MonoBehaviour
 	private void Awake()
 	{
 		Singleton = this;
-		string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
+		levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
 		levelPath += "/GrayboxVR/";
 		Debug.Log("Level Path: " + levelPath);
 
