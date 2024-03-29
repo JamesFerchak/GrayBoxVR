@@ -77,9 +77,19 @@ public class ObjectManipulator : MonoBehaviour
 				groupedObjects.Add(objectToAddToGroup);
 
 				BlockRangler.ActionHistory.PushAddToGroupAction(groupedObjects);
-				
 			}
 		}
+    }
+
+	public static List<GameObject> GetGroupedObjects()
+	{
+        List<GameObject> groupedObjects = new List<GameObject>();
+        for (int thisObject = 0; thisObject < parentOfGroup.transform.childCount; thisObject++)
+        {
+            groupedObjects.Add(parentOfGroup.transform.GetChild(thisObject).gameObject);
+        }
+
+		return groupedObjects;
     }
 
 	static public void TryUngroup()

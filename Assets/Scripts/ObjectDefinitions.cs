@@ -85,7 +85,7 @@ public class ObjectDefinitions : MonoBehaviour
 
     public void SetObjectSprite(string shapeID, Sprite newSprite) // Sets a sprite using a shapeID
     {
-        Debug.Log("SetObjectSprite for " + shapeID + " called!");
+        //Debug.Log("SetObjectSprite for " + shapeID + " called!");
         for (int i = 0; i < allObjects.Count; i++)
         {
             if (shapeID == allObjects[i].name)
