@@ -102,12 +102,11 @@ public class MenuActions : MonoBehaviour
             }
         });
 
-        #if UNITY_STANDALONE_WIN
-			string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
-			levelPath += "/GrayboxVR/";
-		#else
-			levelPath = Application.persistentDataPath + "/";
-		#endif
+    #if UNITY_STANDALONE_WIN
+        string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/") + "/GrayboxVR/";
+    #else
+        string levelPath = Application.persistentDataPath + "/";
+    #endif
 
         RefreshShapeThumbnails();
         RefreshSavedProjects();
@@ -207,7 +206,7 @@ public class MenuActions : MonoBehaviour
 
     public void RefreshSavedProjects()
     {
-        Texture2D textureConverter = new Texture2D(2, 2);
+        Texture2D textureConverter = new Texture2D(64, 64);
         byte[] bytes;
         Rect dimensions = new Rect(0, 0, textureConverter.width, textureConverter.height);
 
@@ -236,7 +235,7 @@ public class MenuActions : MonoBehaviour
                 levelSpriteArray[iID] = Sprite.Create(textureConverter, dimensions, new Vector2(), 100.0f);
                 levelSpriteArray[iID].name = "sprite" + cID;
                 levelThumbnailsLoadMenu[iID].GetComponent<Image>().sprite = levelSpriteArray[iID];
-                textureConverter = new Texture2D(2, 2);
+                textureConverter = new Texture2D(64, 64);
             }
         }
     }
