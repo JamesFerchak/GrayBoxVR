@@ -9,7 +9,6 @@ using System.IO;
 using Image = UnityEngine.UI.Image;
 using UnityEngine.ProBuilder.Shapes;
 using Sprite = UnityEngine.Sprite;
-using System;
 
 public class MenuActions : MonoBehaviour
 {
@@ -51,28 +50,22 @@ public class MenuActions : MonoBehaviour
     [SerializeField] GameObject[] levelThumbnailsLoadMenu = new GameObject[10];
     [SerializeField] GameObject[] loadButtons = new GameObject[10];
     bool[] projectExists = new bool[10];
-    string levelPath;
 
     public bool inMenuMode; // True if the menu is open
+
+    public bool controllerUIOff = false; // True if the controller ui is turned off
+
+    public GameObject leftUI;
+    public GameObject leftUIAlt;
+
+    public GameObject RightUI;
+    public GameObject RightUIAlt;
 
     public AudioClip clickNoise;
 
     private void Awake()
     {
         Singleton = this;
-        #if UNITY_STANDALONE_WIN
-            levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
-            levelPath += "/GrayboxVR/";
-        #else
-			levelPath = Application.persistentDataPath + "/";
-        #endif
-        Debug.Log("Level Path: " + levelPath);
-
-        // Check if the directory exists, if not, create it
-        if (!Directory.Exists(levelPath))
-        {
-            Directory.CreateDirectory(levelPath);
-        }
     }
 
     private void Start()
@@ -184,7 +177,7 @@ public class MenuActions : MonoBehaviour
         BlockRangler.SaveLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
-        ScreenCapture.CaptureScreenshot(levelPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
+        ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "/save" + saveID + "thumbnail.png"); // Saves to project directory
 
         
         if (!projectExists[(int)saveID[0] - 65])
@@ -208,6 +201,7 @@ public class MenuActions : MonoBehaviour
         byte[] bytes;
         Rect dimensions = new Rect(0, 0, textureConverter.width, textureConverter.height);
 
+        string filePath = Application.persistentDataPath + "/";
         for (int i = 65; i < 75; i++)
         {
             char cID = (char)i; // Converts int into ASCII character
@@ -265,4 +259,23 @@ public class MenuActions : MonoBehaviour
         Debug.Log("Quitting game...");
         Application.Quit();
     }
+
+    public void TurnControllerAiOff()
+    {
+        if (controllerUIOff == false)
+        {
+            controllerUIOff = true;
+            leftUI.SetActive(false);
+            leftUIAlt.SetActive(false);
+            RightUI.SetActive(false);
+            RightUIAlt.SetActive(false);
+        }
+        else
+        {
+            controllerUIOff = false;
+            LeftHandController.Singleton.checkAltControls();
+        }
+    }
+
+
 }
