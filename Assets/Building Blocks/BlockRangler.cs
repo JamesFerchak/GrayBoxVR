@@ -158,20 +158,22 @@ public class BlockRangler : MonoBehaviour
 				if (actions[TopIndex].myGameObject == null)
 				{
 					for (int objectIndex = 0; objectIndex < actionHistorySize; objectIndex++)
-					{
-						if (actionObjectIDs[objectIndex] == objectToReplaceID)
+					{	if (actions[objectIndex] != null)
 						{
-							actionObjectIDs[objectIndex] = objectToRecord.GetInstanceID();
-							actions[objectIndex].myGameObject = objectToRecord;
-						}
-						if (actions[objectIndex].groupChange)
-						{
-							for (int i = 0; i < actions[objectIndex].groupedActions.Count; i++)
+							if (actionObjectIDs[objectIndex] == objectToReplaceID)
 							{
-								if (actions[objectIndex].groupedObjectIDs[i] == objectToReplaceID)
+								actionObjectIDs[objectIndex] = objectToRecord.GetInstanceID();
+								actions[objectIndex].myGameObject = objectToRecord;
+							}
+							if (actions[objectIndex].groupChange)
+							{
+								for (int i = 0; i < actions[objectIndex].groupedActions.Count; i++)
 								{
-									actions[objectIndex].groupedObjectIDs[i] = objectToRecord.GetInstanceID();
-									actions[objectIndex].groupedActions[i].myGameObject = objectToRecord;
+									if (actions[objectIndex].groupedObjectIDs[i] == objectToReplaceID)
+									{
+										actions[objectIndex].groupedObjectIDs[i] = objectToRecord.GetInstanceID();
+										actions[objectIndex].groupedActions[i].myGameObject = objectToRecord;
+									}
 								}
 							}
 						}
@@ -258,33 +260,39 @@ public class BlockRangler : MonoBehaviour
 			{
 				GameObject block;
 				if (!actionToUndo.groupChange)
+				{
 					block = Instantiate(Resources.Load($"Blocks/{actionToUndo.gameObjectName}", typeof(GameObject))) as GameObject;
+					block.tag = "Block";
+				}
 				else
 				{
 					block = new GameObject();
 					block.name = "Group";
 				}
-				block.transform.position = actionToUndo.position;
-				block.transform.rotation = actionToUndo.rotation;
-				block.transform.localScale = actionToUndo.scale;
+				
 				if (block.GetComponent<Renderer>() != null)
 					block.GetComponent<Renderer>().material = actionToUndo.material;
-				block.tag = "Block";
 
 				if (actionToUndo.groupChange)
 				{
-					foreach (Action action in actionToUndo.groupedActions)
+					for (int i = 0; i < actionToUndo.groupedActions.Count; i++)
 					{
-						GameObject childBlock = Instantiate(Resources.Load($"Blocks/{action.gameObjectName}", typeof(GameObject))) as GameObject;
-						childBlock.transform.position = actionToUndo.position;
-						childBlock.transform.rotation = actionToUndo.rotation;
-						childBlock.transform.localScale = actionToUndo.scale;
-						childBlock.GetComponent<Renderer>().material = actionToUndo.material;
-						childBlock.tag = "Block";
-						childBlock.transform.parent = block.transform;
-					}
-				}
+                        GameObject childBlock = Instantiate(Resources.Load($"Blocks/{actionToUndo.groupedActions[i].gameObjectName}", typeof(GameObject))) as GameObject;
+                        childBlock.transform.position = actionToUndo.groupedActions[i].position;
+                        childBlock.transform.rotation = actionToUndo.groupedActions[i].rotation;
+                        childBlock.transform.localScale = actionToUndo.groupedActions[i].scale;
+                        childBlock.GetComponent<Renderer>().material = actionToUndo.groupedActions[i].material;
+                        childBlock.tag = "Block";
+                        childBlock.transform.parent = block.transform;
 
+                        actionToUndo.groupedObjects[i] = childBlock;
+                    }
+				}
+				
+				//have set the transform of the parent block *after* we create all the children so they enherit the transform of the parent
+				block.transform.position = actionToUndo.position;
+				block.transform.rotation = actionToUndo.rotation;
+				block.transform.localScale = actionToUndo.scale;
 
 				Action undoneAction;
 				if (!actionToUndo.groupChange)

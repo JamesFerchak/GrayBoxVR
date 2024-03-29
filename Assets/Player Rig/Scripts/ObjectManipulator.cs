@@ -63,6 +63,7 @@ public class ObjectManipulator : MonoBehaviour
 				if (parentOfGroup == null)
 				{
 					parentOfGroup = new GameObject();
+					parentOfGroup.transform.rotation = objectToAddToGroup.transform.rotation;
 					parentOfGroup.name = "Group";
 				}
 
