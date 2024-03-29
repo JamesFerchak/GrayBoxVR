@@ -182,8 +182,9 @@ public class MenuActions : MonoBehaviour
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
         ScreenCapture.CaptureScreenshot(levelPath + "save" + saveID + "thumbnail.png"); // Saves to project directory
+        Debug.Log("Screenshot Path: " + levelPath + "save" + saveID + "thumbnail.png");
 
-        
+
         if (!projectExists[(int)saveID[0] - 65])
         {
             loadButtons[(int)saveID[0] - 65].SetActive(true);

@@ -374,8 +374,9 @@ public class BlockRangler : MonoBehaviour
 	{
 		BinaryFormatter myFormatter = new();
 		FileStream myStream = new(levelPath + levelName + ".kek", FileMode.Create);
+        Debug.Log("Level Path: " + levelPath + levelName + ".kek");
 
-		LevelSavedData myData = new();
+        LevelSavedData myData = new();
 
 		myFormatter.Serialize(myStream, myData);
 		myStream.Close();
