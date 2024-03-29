@@ -107,7 +107,7 @@ public class MenuActions : MonoBehaviour
         });
 
         RefreshShapeThumbnails();
-        RefreshSaveThumbnails();
+        RefreshSavedProjects();
         catalogCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite("0");
     }
 
@@ -143,7 +143,7 @@ public class MenuActions : MonoBehaviour
             }
             else // If panel is closed
             {
-                RefreshSaveThumbnails();
+                RefreshSavedProjects();
                 MenuActions.Singleton.RelocateMainMenu();
                 mainMenuPanel.SetActive(true); // Open panel
                 inMenuMode = true;
@@ -202,27 +202,38 @@ public class MenuActions : MonoBehaviour
         InteractWithMainMenu(); // Closes menu
     }
 
-    public void RefreshSaveThumbnails()
+    public void RefreshSavedProjects()
     {
         Texture2D textureConverter = new Texture2D(2, 2);
         byte[] bytes;
+        Rect dimensions = new Rect(0, 0, textureConverter.width, textureConverter.height);
 
         for (int i = 65; i < 75; i++)
         {
-            if (File.Exists(levelPath + "save" + (char)i + "thumbnail.png"))
+            char cID = (char)i; // Converts int into ASCII character
+            int iID = i - 65; // Used for iterating through project list
+
+            // Find and load projects
+            if (File.Exists(levelPath + "save" + cID + ".kek"))
             {
-                bytes = File.ReadAllBytes(levelPath + "save" + (char)i + "thumbnail.png");
-                textureConverter.LoadImage(bytes);
-                levelSpriteArray[i - 65] = Sprite.Create(textureConverter, new Rect(0, 0, textureConverter.width, textureConverter.height), new Vector2(), 100.0f);
-                levelSpriteArray[i - 65].name = "sprite" + (char)i;
-                levelThumbnailsLoadMenu[i - 65].GetComponent<Image>().sprite = levelSpriteArray[i - 65];
-                projectExists[i - 65] = true;
-                textureConverter = new Texture2D(2, 2);
+                loadButtons[iID].SetActive(true);
+                projectExists[iID] = true;
             }
-            else
+            else // If no project exists
             {
-                loadButtons[i - 65].SetActive(false);
-                projectExists[i - 65] = false;
+                loadButtons[iID].SetActive(false);
+                projectExists[iID] = false;
+            }
+
+            // Find and load thumbnails (not necessary)
+            if (File.Exists(levelPath + "save" + cID + "thumbnail.png"))
+            {
+                bytes = File.ReadAllBytes(levelPath + "save" + cID + "thumbnail.png");
+                textureConverter.LoadImage(bytes);
+                levelSpriteArray[iID] = Sprite.Create(textureConverter, dimensions, new Vector2(), 100.0f);
+                levelSpriteArray[iID].name = "sprite" + cID;
+                levelThumbnailsLoadMenu[iID].GetComponent<Image>().sprite = levelSpriteArray[iID];
+                textureConverter = new Texture2D(2, 2);
             }
         }
     }
