@@ -288,11 +288,7 @@ public class BlockRangler : MonoBehaviour
 
 				Action undoneAction;
 				if (!actionToUndo.groupChange)
-				{
-				Debug.Log("nice");
 					undoneAction = new Action(block, actionType.Create);
-
-				}
 				else
 					undoneAction = new Action(block, actionType.Create, actionToUndo.groupedObjects);
 				PushAction(undoneAction);
