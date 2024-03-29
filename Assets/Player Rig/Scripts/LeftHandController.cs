@@ -79,7 +79,11 @@ public class LeftHandController : MonoBehaviour
                     altControls = false;
                 }
 
-                checkAltControls();
+				if (!MenuActions.Singleton.controllerUIOff)
+				{
+					checkAltControls();
+				}
+
             }
 		}
 
@@ -154,22 +158,24 @@ public class LeftHandController : MonoBehaviour
                     if (altControls == true)
                     {
                         altControls = false;
-                        RightAltControlUI.SetActive(false);
-                        LeftAltControlUI.SetActive(false);
-                        RightControlUI.SetActive(true);
-                        LeftControlUI.SetActive(true);
-
-
-
+						if (!MenuActions.Singleton.controllerUIOff)
+						{
+                            RightAltControlUI.SetActive(false);
+                            LeftAltControlUI.SetActive(false);
+                            RightControlUI.SetActive(true);
+                            LeftControlUI.SetActive(true);
+                        }
                     }
                     else
                     {
                         altControls = true;
-                        RightAltControlUI.SetActive(true);
-                        LeftAltControlUI.SetActive(true);
-                        RightControlUI.SetActive(false);
-                        LeftControlUI.SetActive(false);
-
+                        if (!MenuActions.Singleton.controllerUIOff)
+                        {
+                            RightAltControlUI.SetActive(true);
+                            LeftAltControlUI.SetActive(true);
+                            RightControlUI.SetActive(false);
+                            LeftControlUI.SetActive(false);
+                        }
                     }
                 }
                 else
