@@ -41,6 +41,8 @@ public class RightHandController : MonoBehaviour
     bool teleportToggle = false; // Prevents user from constantly teleporting when holding up on the right stick
     bool tourToggle = false;
 
+    private Transform highlight;
+    private Transform selection;
 
     //  -------------------------------------------------------------------------------------------------------------------  
     // Start is called before the first frame update
@@ -57,6 +59,14 @@ public class RightHandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // Highlight
+        if (highlight != null)
+        {
+            highlight.gameObject.GetComponent<Outline>().enabled = false;
+            highlight = null;
+        }
+
         Vector2 svalue = stick.action.ReadValue<Vector2>();
         tValue = rTrigger.action.ReadValue<float>();
         float gValue = rGrip.action.ReadValue<float>();
@@ -167,6 +177,26 @@ public class RightHandController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
         {
+            highlight = hit.transform;
+            if (highlight.CompareTag("Block") && highlight != selection)
+            {
+                if (highlight.gameObject.GetComponent<Outline>() != null)
+                {
+                    highlight.gameObject.GetComponent<Outline>().enabled = true;
+                }
+                else
+                {
+                    Outline outline = highlight.gameObject.AddComponent<Outline>();
+                    outline.enabled = true;
+                    highlight.gameObject.GetComponent<Outline>().OutlineColor = Color.magenta;
+                    highlight.gameObject.GetComponent<Outline>().OutlineWidth = 7.0f;
+                }
+            }
+            else
+            {
+                highlight = null;
+            }
+
             cam.transform.position = new Vector3(hit.point.x, cam.transform.position.y, hit.point.z); // Select the hit object
         }
         else // If nothing in line of sight
