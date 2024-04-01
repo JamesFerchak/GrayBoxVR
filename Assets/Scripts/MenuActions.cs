@@ -204,7 +204,7 @@ public class MenuActions : MonoBehaviour
     {
         Texture2D textureConverter = new Texture2D(64, 64);
         byte[] bytes;
-        Rect dimensions = new Rect(0, 0, textureConverter.width, textureConverter.height);
+        Rect dimensions;
 
         for (int i = 65; i < 75; i++)
         {
@@ -228,6 +228,7 @@ public class MenuActions : MonoBehaviour
             {
                 bytes = File.ReadAllBytes(levelPath + "save" + cID + "thumbnail.png");
                 textureConverter.LoadImage(bytes);
+                dimensions = new Rect(0, 0, textureConverter.width, textureConverter.height);
                 levelSpriteArray[iID] = Sprite.Create(textureConverter, dimensions, new Vector2(), 100.0f);
                 levelSpriteArray[iID].name = "sprite" + cID;
                 levelThumbnailsLoadMenu[iID].GetComponent<Image>().sprite = levelSpriteArray[iID];
