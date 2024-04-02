@@ -2477,8 +2477,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 9, y: -0.5}
-  m_SizeDelta: {x: -28, y: -3}
+  m_AnchoredPosition: {x: 36.5, y: -0.5}
+  m_SizeDelta: {x: 27, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3110522801196078231
 CanvasRenderer:
@@ -2521,9 +2521,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Enable X Toggle
-
-'
+  m_Text: Alt Controls On Toggle
 --- !u!1 &1046280664674064921
 GameObject:
   m_ObjectHideFlags: 0
@@ -4140,13 +4138,14 @@ RectTransform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 5037937531101148355}
   - {fileID: 5109305840306620325}
   - {fileID: 7166626191910715818}
-  m_Father: {fileID: 5781185820476473084}
+  m_Father: {fileID: 3326074462203456113}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -140.99927, y: -112.000145}
+  m_AnchoredPosition: {x: -14, y: 65}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4818584864772541060
@@ -4244,7 +4243,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -141, y: 90.999535}
+  m_AnchoredPosition: {x: -161, y: 7}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5046367022018284728
@@ -5411,7 +5410,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -140.99948, y: -12.000438}
+  m_AnchoredPosition: {x: -160.99948, y: -95.99995}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1679496325481463492
@@ -12763,7 +12762,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6055264269600315060}
+  - {fileID: 3326074462203456113}
   m_Father: {fileID: 2139880487497193849}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -18667,6 +18666,43 @@ MonoBehaviour:
           m_StringArgument: grass
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &5818963780374358605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3326074462203456113}
+  m_Layer: 5
+  m_Name: ControlsToggleList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3326074462203456113
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5818963780374358605}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8490273773238208134}
+  - {fileID: 6810228956101654585}
+  m_Father: {fileID: 6480109542213908507}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -664, y: -120}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5855480691708437766
 GameObject:
   m_ObjectHideFlags: 0
@@ -23917,8 +23953,6 @@ RectTransform:
   - {fileID: 6299364379565292270}
   - {fileID: 1588433127688639702}
   - {fileID: 7185479083604915778}
-  - {fileID: 8490273773238208134}
-  - {fileID: 6810228956101654585}
   - {fileID: 6074310785296174520}
   - {fileID: 8827485509630030134}
   - {fileID: 732615019803535496}
@@ -24100,6 +24134,85 @@ MonoBehaviour:
           m_StringArgument: 12
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &7399684761584957080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5037937531101148355}
+  - component: {fileID: 7783675034112233626}
+  - component: {fileID: 4062420204843217924}
+  m_Layer: 5
+  m_Name: DetailsText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5037937531101148355
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7399684761584957080}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8490273773238208134}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 17.699993, y: -29.6}
+  m_SizeDelta: {x: 300, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7783675034112233626
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7399684761584957080}
+  m_CullTransparentMesh: 1
+--- !u!114 &4062420204843217924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7399684761584957080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: b398aa320548c2f4f838fcead834db1b, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 2
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 230
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: We recommend keeping this enabled while you get used to the controls.
 --- !u!1 &7461408105047655829
 GameObject:
   m_ObjectHideFlags: 0
@@ -25128,7 +25241,7 @@ GameObject:
   - component: {fileID: 9186203091373678696}
   - component: {fileID: 8035028556928245076}
   m_Layer: 5
-  m_Name: PlaceholderText
+  m_Name: DetailsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25143,15 +25256,15 @@ RectTransform:
   m_GameObject: {fileID: 7988932196201872262}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6480109542213908507}
+  m_Father: {fileID: 6810228956101654585}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -61.00012}
-  m_SizeDelta: {x: 300, y: 400}
+  m_AnchoredPosition: {x: 17.2, y: -29.6}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9186203091373678696
 CanvasRenderer:
@@ -25183,8 +25296,8 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b398aa320548c2f4f838fcead834db1b, type: 3}
-    m_FontSize: 25
-    m_FontStyle: 1
+    m_FontSize: 20
+    m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 230
@@ -25194,7 +25307,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This is the CONTROLS page.
+  m_Text: If disabled, the alternate controls will only be enabled when the button
+    is held.
 --- !u!1 &8047920967158961146
 GameObject:
   m_ObjectHideFlags: 0
@@ -25461,13 +25575,14 @@ RectTransform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 6055264269600315060}
   - {fileID: 8573072892324219781}
   - {fileID: 942575341458221588}
-  m_Father: {fileID: 5781185820476473084}
+  m_Father: {fileID: 3326074462203456113}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -140.99927, y: -208.00012}
+  m_AnchoredPosition: {x: -13.000061, y: 204}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8492261209526171307
@@ -25973,7 +26088,7 @@ GameObject:
   - component: {fileID: 7753399260532675742}
   - component: {fileID: 6666927569194145209}
   m_Layer: 5
-  m_Name: OptionsText
+  m_Name: SettingsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26040,10 +26155,8 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "ENABLE HOLOGRAM allows you to toggle the hologram that appears where your
-    objects will be placed. \nENABLE AUTO-PAINT allows you to toggle whether objects
-    are automatically painted.\nDISPLAY CONTROLS allows you to toggle the controls
-    displayed next to the hand controllers.\nENABLE X TOGGLE allows you to make it
-    so that the X button only registers as being pressed when held."
+    objects will be placed. \n\nENABLE AUTO-PAINT allows you to toggle whether objects
+    are automatically painted."
 --- !u!1 &8414710819765844261
 GameObject:
   m_ObjectHideFlags: 0

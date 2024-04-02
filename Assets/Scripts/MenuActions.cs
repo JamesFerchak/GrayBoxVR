@@ -29,41 +29,42 @@ public class MenuActions : MonoBehaviour
         }
     }
 
+    // CORE MENU OBJECTS
     [SerializeField] GameObject mainMenuCanvas; // Cannot be deleted
-    [SerializeField] GameObject mainMenuPanel;
+    [SerializeField] GameObject mainMenuPanel; // Can be made visible at will
     [SerializeField] GameObject[] mainMenuTabs;
     [SerializeField] GameObject[] mainMenuButtons;
+    public bool inMenuMode; // True if the menu is open
 
-    [SerializeField] GameObject cam;
-    [SerializeField] GameObject rightHandController;
-    [SerializeField] GameObject leftHandController;
-
+    // OPTIONS MENU OBJECTS
+    [SerializeField] GameObject[] optionsTabs;
+    [SerializeField] GameObject[] optionsButtons;
     [SerializeField] Slider placementAssistanceSlider;
     [SerializeField] Text placementAssistanceText;
     [SerializeField] Slider rotationAssistanceSlider;
     [SerializeField] Text rotationAssistanceText;
     [SerializeField] Slider scalingAssistanceSlider;
     [SerializeField] Text scalingAssistanceText;
-
-    [SerializeField] Image catalogCurrentSelection;
-    [SerializeField] Image[] shapeButtonThumbnails; 
-
-    Sprite[] levelSpriteArray = new Sprite[10];
-    [SerializeField] GameObject[] levelThumbnailsLoadMenu = new GameObject[10];
-    [SerializeField] GameObject[] loadButtons = new GameObject[10];
-    bool[] projectExists = new bool[10];
-    string levelPath;
-
-    public bool inMenuMode; // True if the menu is open
-
     public bool controllerUIOff = false; // True if the controller ui is turned off
 
-    public GameObject leftUI;
-    public GameObject leftUIAlt;
+    // SHAPES MENU OBJECTS
+    [SerializeField] Image shapeCurrentSelection;
+    [SerializeField] Image[] shapeButtonThumbnails;
 
-    public GameObject RightUI;
-    public GameObject RightUIAlt;
+    // PROJECTS MENU OBJECTS
+    [SerializeField] GameObject[] projectThumbnails = new GameObject[10];
+    [SerializeField] GameObject[] loadProjectButtons = new GameObject[10];
+    bool[] projectExists = new bool[10];
+    string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/") + "/GrayboxVR/";
 
+    // OTHER OBJECTS
+    [SerializeField] GameObject cam;
+    [SerializeField] GameObject rightHandController;
+    [SerializeField] GameObject leftHandController;
+    public GameObject leftControllerUI;
+    public GameObject leftControllerUIAlt;
+    public GameObject rightControllerUI;
+    public GameObject rightControllerUIAlt;
     public AudioClip clickNoise;
 
     private void Awake()
@@ -102,10 +103,9 @@ public class MenuActions : MonoBehaviour
             }
         });
 
-        levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/") + "/GrayboxVR/";
         RefreshShapeThumbnails();
         RefreshSavedProjects();
-        catalogCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite("0");
+        shapeCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite("0");
     }
 
     private void Update()
@@ -161,11 +161,24 @@ public class MenuActions : MonoBehaviour
         mainMenuButtons[tabID].SetActive(false);
     }
 
+    public void SwitchOptionsTabs(int tabID) // 0: Settings, 1: Controls, 2: Quit
+    {
+        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        // Closes tabs except for the given tabID
+        for (int i = 0; i < optionsTabs.Length; i++)
+        {
+            optionsTabs[i].SetActive(false);
+            optionsButtons[i].SetActive(true);
+        }
+        optionsTabs[tabID].SetActive(true);
+        optionsButtons[tabID].SetActive(false);
+    }
+
     public void SelectShape(string shapeID)
     {
         AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         ObjectCreator.Singleton.currentObjectType = ObjectDefinitions.Singleton.GetObjectShape(shapeID);
-        catalogCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite(shapeID);
+        shapeCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite(shapeID);
         HologramDisplay.Singleton.SetHologramToShape(shapeID);
     }
 
@@ -187,7 +200,7 @@ public class MenuActions : MonoBehaviour
 
         if (!projectExists[(int)saveID[0] - 65])
         {
-            loadButtons[(int)saveID[0] - 65].SetActive(true);
+            loadProjectButtons[(int)saveID[0] - 65].SetActive(true);
             projectExists[(int)saveID[0] - 65] = true;
         }
     }
@@ -214,12 +227,12 @@ public class MenuActions : MonoBehaviour
             // Find and load projects
             if (File.Exists(levelPath + "save" + cID + ".kek"))
             {
-                loadButtons[iID].SetActive(true);
+                loadProjectButtons[iID].SetActive(true);
                 projectExists[iID] = true;
             }
             else // If no project exists
             {
-                loadButtons[iID].SetActive(false);
+                loadProjectButtons[iID].SetActive(false);
                 projectExists[iID] = false;
             }
 
@@ -229,9 +242,9 @@ public class MenuActions : MonoBehaviour
                 bytes = File.ReadAllBytes(levelPath + "save" + cID + "thumbnail.png");
                 textureConverter.LoadImage(bytes);
                 dimensions = new Rect(0, 0, textureConverter.width, textureConverter.height);
-                levelSpriteArray[iID] = Sprite.Create(textureConverter, dimensions, new Vector2(), 100.0f);
-                levelSpriteArray[iID].name = "sprite" + cID;
-                levelThumbnailsLoadMenu[iID].GetComponent<Image>().sprite = levelSpriteArray[iID];
+                Sprite newThumbnail = Sprite.Create(textureConverter, dimensions, new Vector2(), 100.0f);
+                newThumbnail.name = "sprite" + cID;
+                projectThumbnails[iID].GetComponent<Image>().sprite = newThumbnail;
                 textureConverter = new Texture2D(64, 64);
             }
         }
@@ -257,7 +270,6 @@ public class MenuActions : MonoBehaviour
         LeftHandController.Singleton.switchAltControlScheme();
     }
 
-
     public void QuitGame()
     {
         AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
@@ -265,15 +277,15 @@ public class MenuActions : MonoBehaviour
         Application.Quit();
     }
 
-    public void TurnControllerAiOff()
+    public void DisableControllerUI()
     {
         if (controllerUIOff == false)
         {
             controllerUIOff = true;
-            leftUI.SetActive(false);
-            leftUIAlt.SetActive(false);
-            RightUI.SetActive(false);
-            RightUIAlt.SetActive(false);
+            leftControllerUI.SetActive(false);
+            leftControllerUIAlt.SetActive(false);
+            rightControllerUI.SetActive(false);
+            rightControllerUIAlt.SetActive(false);
         }
         else
         {
