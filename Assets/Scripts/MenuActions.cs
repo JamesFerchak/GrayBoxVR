@@ -48,7 +48,6 @@ public class MenuActions : MonoBehaviour
     public bool controllerUIOff = false; // True if the controller ui is turned off
 
     // SHAPES MENU OBJECTS
-    [SerializeField] Image shapeCurrentSelection;
     [SerializeField] Image[] shapeButtonThumbnails;
 
     // PROJECTS MENU OBJECTS
@@ -109,7 +108,6 @@ public class MenuActions : MonoBehaviour
 
         RefreshShapeThumbnails();
         RefreshSavedProjects();
-        shapeCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite("0");
     }
 
     private void Update()
@@ -182,7 +180,6 @@ public class MenuActions : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         ObjectCreator.Singleton.currentObjectType = ObjectDefinitions.Singleton.GetObjectShape(shapeID);
-        shapeCurrentSelection.sprite = ObjectDefinitions.Singleton.GetObjectSprite(shapeID);
         HologramDisplay.Singleton.SetHologramToShape(shapeID);
     }
 
