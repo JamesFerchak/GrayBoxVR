@@ -49,6 +49,8 @@ public class MenuActions : MonoBehaviour
 
     // SHAPES MENU OBJECTS
     [SerializeField] Image[] shapeButtonThumbnails;
+    [SerializeField] GameObject[] shapeButtons;
+    int lastSelectedShapeIndex = 0; // Cube
 
     // PROJECTS MENU OBJECTS
     [SerializeField] GameObject[] projectThumbnails = new GameObject[10];
@@ -108,6 +110,9 @@ public class MenuActions : MonoBehaviour
 
         RefreshShapeThumbnails();
         RefreshSavedProjects();
+
+        wrapButtons[lastSelectedWrapIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
+        shapeButtons[lastSelectedShapeIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
     }
 
     private void Update()
@@ -181,13 +186,19 @@ public class MenuActions : MonoBehaviour
         AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         ObjectCreator.Singleton.currentObjectType = ObjectDefinitions.Singleton.GetObjectShape(shapeID);
         HologramDisplay.Singleton.SetHologramToShape(shapeID);
+
+        int nextSelectedShapeIndex = int.Parse(shapeID);
+        shapeButtons[lastSelectedShapeIndex].GetComponent<Image>().color = UnityEngine.Color.white;
+        shapeButtons[nextSelectedShapeIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
+        lastSelectedShapeIndex = nextSelectedShapeIndex;
     }
 
     public void SelectColor(string color)
     {
-        int nextSelectedWrapIndex = ObjectPainter.Singleton.GetButtonIndexOfWrap(color);
         AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         ObjectPainter.Singleton.current_wrap = color;
+
+        int nextSelectedWrapIndex = ObjectPainter.Singleton.GetButtonIndexOfWrap(color);
         wrapButtons[lastSelectedWrapIndex].GetComponent<Image>().color = UnityEngine.Color.white;
         wrapButtons[nextSelectedWrapIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
         lastSelectedWrapIndex = nextSelectedWrapIndex;
@@ -200,7 +211,6 @@ public class MenuActions : MonoBehaviour
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
         ScreenCapture.CaptureScreenshot(levelPath + "save" + saveID + "thumbnail.png"); // Saves to project directory
-        Debug.Log("Screenshot Path: " + levelPath + "save" + saveID + "thumbnail.png");
 
 
         if (!projectExists[(int)saveID[0] - 65])
