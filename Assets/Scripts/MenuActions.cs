@@ -57,6 +57,10 @@ public class MenuActions : MonoBehaviour
     bool[] projectExists = new bool[10];
     string levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/") + "/GrayboxVR/";
 
+    // WRAPS MENU OBJECTS
+    [SerializeField] GameObject[] wrapButtons;
+    int lastSelectedWrapIndex = 0; // Red
+
     // OTHER OBJECTS
     [SerializeField] GameObject cam;
     [SerializeField] GameObject rightHandController;
@@ -161,7 +165,7 @@ public class MenuActions : MonoBehaviour
         mainMenuButtons[tabID].SetActive(false);
     }
 
-    public void SwitchOptionsTabs(int tabID) // 0: Settings, 1: Controls, 2: Quit
+    public void SwitchOptionsTabs(int tabID) // 0: Settings, 1: Controls, 2: Quit, 3: Sharing Projects
     {
         AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         // Closes tabs except for the given tabID
@@ -184,8 +188,12 @@ public class MenuActions : MonoBehaviour
 
     public void SelectColor(string color)
     {
+        int nextSelectedWrapIndex = ObjectPainter.Singleton.GetButtonIndexOfWrap(color);
         AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
         ObjectPainter.Singleton.current_wrap = color;
+        wrapButtons[lastSelectedWrapIndex].GetComponent<Image>().color = UnityEngine.Color.white;
+        wrapButtons[nextSelectedWrapIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
+        lastSelectedWrapIndex = nextSelectedWrapIndex;
     }
 
     public void SaveLevelWithButton(string saveID)

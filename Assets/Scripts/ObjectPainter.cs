@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class ObjectPainter : MonoBehaviour
 {
@@ -101,6 +102,9 @@ public class ObjectPainter : MonoBehaviour
             case "space":
                 objectToPaint.GetComponent<MeshRenderer>().material = space;
                 break;
+            case "smile":
+                objectToPaint.GetComponent<MeshRenderer>().material = smile;
+                break;
             case "brick":
                 objectToPaint.GetComponent<MeshRenderer>().material = brick;
                 break;
@@ -150,26 +154,26 @@ public class ObjectPainter : MonoBehaviour
                     case "yellow":
                         hit.transform.gameObject.GetComponent<MeshRenderer>().material = yellow;
                         break;
-                    case "white":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = white;
-                        break;
-                    case "black":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = black;
-                        break;
                     case "green":
                         hit.transform.gameObject.GetComponent<MeshRenderer>().material = green;
                         break;
                     case "brown":
                         hit.transform.gameObject.GetComponent<MeshRenderer>().material = brown;
                         break;
-                    case "orange":
-                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = orange;
+                    case "white":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = white;
+                        break;
+                    case "black":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = black;
                         break;
                     case "purple":
                         hit.transform.gameObject.GetComponent<MeshRenderer>().material = purple;
                         break;
                     case "pink":
                         hit.transform.gameObject.GetComponent<MeshRenderer>().material = pink;
+                        break;
+                    case "orange":
+                        hit.transform.gameObject.GetComponent<MeshRenderer>().material = orange;
                         break;
                     case "gray":
                         hit.transform.gameObject.GetComponent<MeshRenderer>().material = gray;
@@ -217,6 +221,87 @@ public class ObjectPainter : MonoBehaviour
             }
 
         }
+    }
+
+    public int GetButtonIndexOfWrap(string selectedColor)
+    {
+        int selectedColorIndex = 0;
+        switch (selectedColor)
+        {
+            case "red":
+                selectedColorIndex = 0;
+                break;
+            case "blue":
+                selectedColorIndex = 1;
+                break;
+            case "yellow":
+                selectedColorIndex = 2;
+                break;
+            case "green":
+                selectedColorIndex = 3;
+                break;
+            case "brown":
+                selectedColorIndex = 4;
+                break;
+            case "white":
+                selectedColorIndex = 5;
+                break;
+            case "black":
+                selectedColorIndex = 6;
+                break;
+            case "purple":
+                selectedColorIndex = 7;
+                break;
+            case "pink":
+                selectedColorIndex = 8;
+                break;
+            case "orange":
+                selectedColorIndex = 9;
+                break;
+            case "gray":
+                selectedColorIndex = 10;
+                break;
+            case "cyan":
+                selectedColorIndex = 11;
+                break;
+            case "stone":
+                selectedColorIndex = 12;
+                break;
+            case "glass":
+                selectedColorIndex = 13;
+                break;
+            case "space":
+                selectedColorIndex = 14;
+                break;
+            case "smile":
+                selectedColorIndex = 15;
+                break;
+            case "brick":
+                selectedColorIndex = 16;
+                break;
+            case "sand":
+                selectedColorIndex = 17;
+                break;
+            case "water":
+                selectedColorIndex = 18;
+                break;
+            case "metal":
+                selectedColorIndex = 19;
+                break;
+            case "tiles":
+                selectedColorIndex = 20;
+                break;
+            case "wood":
+                selectedColorIndex = 21;
+                break;
+            case "dirt":
+                selectedColorIndex = 22;
+                break;
+            case "grass":
+                selectedColorIndex = 23;
+                break;
+        }
+        return selectedColorIndex;
     }
 }
 
