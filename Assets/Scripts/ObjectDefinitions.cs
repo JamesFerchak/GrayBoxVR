@@ -25,18 +25,6 @@ public class ObjectDefinitions : MonoBehaviour
         Singleton = this;
 
         allObjects = primitiveObjects;
-
-        // TEMPORARY CODE, should be auto-generated using a file without using a preset gameobject
-        ObjectType wallObject = GenerateObjectType("4", wallPrefab);
-        allObjects.Add(wallObject);
-        ObjectType pillarObject = GenerateObjectType("5", pillarPrefab);
-        allObjects.Add(pillarObject);
-        ObjectType shortPillarObject = GenerateObjectType("6", shortPillarPrefab);
-        allObjects.Add(shortPillarObject);
-        ObjectType floorObject = GenerateObjectType("7", floorPrefab);
-        allObjects.Add(floorObject);
-
-        // We now have a list, "allObjects", that includes all preloaded objects.
     }
 
     [SerializeField] List<ObjectType> primitiveObjects; // Pre-created
@@ -47,12 +35,6 @@ public class ObjectDefinitions : MonoBehaviour
     [SerializeField] Camera spriteCamera;
     [SerializeField] Camera originalCamera;
     [SerializeField] GameObject spriteScreenshotPosition;
-
-    // TEMPORARY OBJECTS AND SPRITES FOR RECTANGLES
-    public GameObject floorPrefab;
-    public GameObject pillarPrefab;
-    public GameObject shortPillarPrefab;
-    public GameObject wallPrefab;
 
     void Start()
     {
@@ -124,11 +106,13 @@ public class ObjectDefinitions : MonoBehaviour
         yield return frameEnd;
 
         // Render the image and convert it into a sprite
+        int height = Screen.height;
+        int width = Screen.width;
         spriteCamera.Render();
-        Texture2D image = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, true);
-        image.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        Texture2D image = new Texture2D(width, height, TextureFormat.RGB24, true);
+        image.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         image.Apply();
-        Sprite newSprite = Sprite.Create(image, new Rect(0, 0, image.width, image.height), new Vector2(), 1.0f);
+        Sprite newSprite = Sprite.Create(image, new Rect(2*(width - height)/3, 0, height, height), new Vector2(), 1.0f);
 
         // Clean up and set the new object sprite
         SetObjectSprite(shapeID, newSprite);

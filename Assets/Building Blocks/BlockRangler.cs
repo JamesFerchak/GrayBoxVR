@@ -357,7 +357,6 @@ public class BlockRangler : MonoBehaviour
 		Singleton = this;
 		levelPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("\\", "/");
 		levelPath += "/GrayboxVR/";
-		Debug.Log("Level Path: " + levelPath);
 
 		// Check if the directory exists, if not, create it
         if (!Directory.Exists(levelPath))
