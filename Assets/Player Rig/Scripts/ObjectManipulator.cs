@@ -10,6 +10,8 @@ using System;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 using System.Runtime.InteropServices;
+using static UnityEditor.FilePathAttribute;
+using UnityEngine.UIElements;
 
 public class ObjectManipulator : MonoBehaviour
 {
@@ -47,15 +49,15 @@ public class ObjectManipulator : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		StretchObject();
+		StretchObjectUpdate();
 	}
 
 	static public void TryGroup()
 	{
-        Transform leftHandObject = LeftHandController.Singleton.GetLeftHandObject().transform;
-        Ray ray = new Ray(leftHandObject.position, leftHandObject.forward); //casts ray
+		Transform leftHandObject = LeftHandController.Singleton.GetLeftHandObject().transform;
+		Ray ray = new Ray(leftHandObject.position, leftHandObject.forward); //casts ray
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+		if (Physics.Raycast(ray, out RaycastHit hit))
 		{
 			GameObject objectToAddToGroup = hit.collider.gameObject;
 			if (objectToAddToGroup.GetComponent<BuildingBlockBehavior>())
@@ -80,93 +82,115 @@ public class ObjectManipulator : MonoBehaviour
 				BlockRangler.ActionHistory.PushAddToGroupAction(groupedObjects);
 			}
 		}
-    }
+	}
 
 	public static List<GameObject> GetGroupedObjects()
 	{
-        List<GameObject> groupedObjects = new List<GameObject>();
-        for (int thisObject = 0; thisObject < parentOfGroup.transform.childCount; thisObject++)
-        {
-            groupedObjects.Add(parentOfGroup.transform.GetChild(thisObject).gameObject);
-        }
+		if (parentOfGroup == null) return null;
+
+		List<GameObject> groupedObjects = new List<GameObject>();
+		for (int thisObject = 0; thisObject < parentOfGroup.transform.childCount; thisObject++)
+		{
+			groupedObjects.Add(parentOfGroup.transform.GetChild(thisObject).gameObject);
+		}
 
 		return groupedObjects;
-    }
+	}
 
 	static public void TryUngroup()
 	{
 		if (parentOfGroup != null)
 		{
-            List<GameObject> groupedObjects = new List<GameObject>();
-            for (int thisObject = 0; thisObject < parentOfGroup.transform.childCount; thisObject++)
-            {
-                groupedObjects.Add(parentOfGroup.transform.GetChild(thisObject).gameObject);
-            }
+			List<GameObject> groupedObjects = new List<GameObject>();
+			for (int thisObject = 0; thisObject < parentOfGroup.transform.childCount; thisObject++)
+			{
+				groupedObjects.Add(parentOfGroup.transform.GetChild(thisObject).gameObject);
+			}
 			BlockRangler.ActionHistory.PushUngroupAction(groupedObjects);
-            parentOfGroup.transform.DetachChildren();
+			parentOfGroup.transform.DetachChildren();
 			Destroy(parentOfGroup);
 		}
 	}
 
 	public void TryDuplicate(float grabValue)
 	{
-        if (heldObject == null && grabValue >= grabTreshhold && !triedToGrabAlready && stretchingObject == null)
-        {
-            triedToGrabAlready = true;
+		if (heldObject == null && grabValue >= grabTreshhold && !triedToGrabAlready && stretchingObject == null)
+		{
+			triedToGrabAlready = true;
 
-            Collider objectToDuplicateCollider = GetGrabbedCollider();
+			Collider objectToDuplicateCollider = GetGrabbedCollider();
 
-            if (objectToDuplicateCollider != null)
-            {
+			if (objectToDuplicateCollider != null)
+			{
 
-                if (objectToDuplicateCollider.gameObject.transform.parent == null)
-                {
+				if (objectToDuplicateCollider.gameObject.transform.parent == null)
+				{
 					GameObject newBlock = ObjectCreator.Singleton.PlaceObject(objectToDuplicateCollider.gameObject);
 					heldObject = newBlock;
-                    heldObject.transform.parent = transform;
-                }
-                else
-                {
-					//MAKE IT SO GROUPS CAN BE DUPLICATED
-                }
+					heldObject.transform.parent = transform;
+				}
+				else
+				{
+					GameObject parent = objectToDuplicateCollider.gameObject.transform.parent.gameObject;
+					List<GameObject> theseChildren = new List<GameObject>();
 
-
+					for (int childIndex = 0; childIndex < parent.transform.childCount; childIndex++)
+                    {
+                        Transform thisChild = parent.transform.GetChild(childIndex);
+                        GameObject newChild = Instantiate(Resources.Load($"Blocks/{BlockRangler.SimplifyObjectName(thisChild.name)}", typeof(GameObject)), thisChild.position, thisChild.rotation) as GameObject;
+						newChild.GetComponent<Renderer>().material = thisChild.GetComponent<Renderer>().material;
+						newChild.transform.localScale = thisChild.localScale;
+						theseChildren.Add(newChild);
+                    }
+					parentOfGroup.transform.DetachChildren();
+					Vector3 oldParentScale = parentOfGroup.transform.localScale;
+					parentOfGroup.transform.localScale = Vector3.one;
+					parentOfGroup.transform.rotation = theseChildren[0].transform.rotation;
+					parentOfGroup.transform.position = theseChildren[0].transform.position;
+					for (int thisChild = 0; thisChild < theseChildren.Count; thisChild++)
+					{
+						theseChildren[thisChild].transform.parent = parentOfGroup.transform;
+					}
+					parent.transform.localScale = oldParentScale;
+					heldObject = parentOfGroup;
+					heldObject.transform.parent = transform;
+                }
                 if (HologramDisplay.Singleton.GetHologramState())
                 {
-                    HologramDisplay.Singleton.ToggleHologram();
-                    hologramIsTempDisabled = true;
-                }
-            }
+					HologramDisplay.Singleton.ToggleHologram();
+					hologramIsTempDisabled = true;
+				}
+			}
 
-        }
-        else if (heldObject != null && grabValue < grabTreshhold)
-        {
-            // Object scaling code, uses the RoundForPlacementAssistance and RoundForRotation functions from the rightHandController's palette script
-            float xPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.x);
-            float yPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.y);
-            float zPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.z);
-            heldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
-            Vector3 rotation = new Vector3(
-            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.x),
-            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.y),
-            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.z));
-            heldObject.transform.rotation = Quaternion.Euler(rotation);
+		}
+		else if (heldObject != null && grabValue < grabTreshhold)
+		{
+			// Object scaling code, uses the RoundForPlacementAssistance and RoundForRotation functions from the rightHandController's palette script
+			float xPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.x);
+			float yPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.y);
+			float zPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.z);
+			heldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
+			Vector3 rotation = new Vector3(
+			ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.x),
+			ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.y),
+			ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.z));
+			heldObject.transform.rotation = Quaternion.Euler(rotation);
 
 			BlockRangler.ActionHistory.PushCreateAction(heldObject);
 
-            heldObject.transform.parent = null;
-            heldObject = null;
+			heldObject.transform.parent = null;
+			heldObject = null;
 
-            if (hologramIsTempDisabled)
-            {
-                HologramDisplay.Singleton.ToggleHologram();
-                hologramIsTempDisabled = false;
-            }
-        }
+			if (hologramIsTempDisabled)
+			{
+				HologramDisplay.Singleton.ToggleHologram();
+				hologramIsTempDisabled = false;
+			}
+		}
 
-        //if we've ungrabbed, get ready to try again
-        if (grabValue < grabTreshhold) triedToGrabAlready = false;
-    }
+		//if we've ungrabbed, get ready to try again
+		if (grabValue < grabTreshhold) triedToGrabAlready = false;
+	}
 
 	private Collider GetGrabbedCollider()
 	{
@@ -253,12 +277,12 @@ public class ObjectManipulator : MonoBehaviour
 
 				Debug.DrawRay(stretchingObject.transform.position, -objectToCursor, Color.red, 30f, false);
 
-                if (HologramDisplay.Singleton.GetHologramState())
-                {
-                    HologramDisplay.Singleton.ToggleHologram();
-                    hologramIsTempDisabled = true;
-                }
-            }
+				if (HologramDisplay.Singleton.GetHologramState())
+				{
+					HologramDisplay.Singleton.ToggleHologram();
+					hologramIsTempDisabled = true;
+				}
+			}
 		}
 		else if (stretchingObject != null && triggerValue < grabTreshhold)
 		{
@@ -267,24 +291,24 @@ public class ObjectManipulator : MonoBehaviour
 			YScalar = 0;
 			ZScalar = 0;
 
-            if (hologramIsTempDisabled)
-            {
-                HologramDisplay.Singleton.ToggleHologram();
-                hologramIsTempDisabled = false;
-            }
-        }
+			if (hologramIsTempDisabled)
+			{
+				HologramDisplay.Singleton.ToggleHologram();
+				hologramIsTempDisabled = false;
+			}
+		}
 
 		if (triggerValue < grabTreshhold) triedToStretchAlready = false;
 	}
 
-	private void StretchObject()
+	private void StretchObjectUpdate()
 	{
 		if (stretchingObject != null)
 		{
 			Vector3 objectToCursor = objectPositionAtStart - cursorPosition;
 			stretchingObject.transform.localScale = CalculateStretchedScale(objectToCursor);
 
-            Vector3 moveObjectTo = (objectPositionAtStart + (Vector3.Dot(objectToCursor, stretchingObject.transform.right) * stretchingObject.transform.right * -Mathf.Abs(XScalar) * 0.5f
+			Vector3 moveObjectTo = (objectPositionAtStart + (Vector3.Dot(objectToCursor, stretchingObject.transform.right) * stretchingObject.transform.right * -Mathf.Abs(XScalar) * 0.5f
 				+ Mathf.Abs(XScalar) * stretchingObject.transform.right * startingScalarDot * 0.5f) +
 				(Vector3.Dot(objectToCursor, stretchingObject.transform.up) * stretchingObject.transform.up * -Mathf.Abs(YScalar) * 0.5f
 				+ Mathf.Abs(YScalar) * stretchingObject.transform.up * startingScalarDot * 0.5f) +
@@ -320,35 +344,35 @@ public class ObjectManipulator : MonoBehaviour
 
 
 				if (HologramDisplay.Singleton.GetHologramState())
-                {
-                    HologramDisplay.Singleton.ToggleHologram();
-                    hologramIsTempDisabled = true;
-                }
-            }
+				{
+					HologramDisplay.Singleton.ToggleHologram();
+					hologramIsTempDisabled = true;
+				}
+			}
 
 		}
 		else if (heldObject != null && grabValue < grabTreshhold)
 		{
 			// Object scaling code, uses the RoundForPlacementAssistance and RoundForRotation functions from the rightHandController's palette script
-            float xPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.x);
-            float yPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.y);
+			float xPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.x);
+			float yPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.y);
 			float zPosition = ObjectCreator.Singleton.RoundForPlacementAssistance(heldObject.transform.position.z);
 			heldObject.transform.position = new Vector3(xPosition, yPosition, zPosition);
-            Vector3 rotation = new Vector3(
-            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.x),
-            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.y),
-            ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.z));
+			Vector3 rotation = new Vector3(
+			ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.x),
+			ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.y),
+			ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.z));
 			heldObject.transform.rotation = Quaternion.Euler(rotation);
 
 			heldObject.transform.parent = null;
 			heldObject = null;
 
-            if (hologramIsTempDisabled)
+			if (hologramIsTempDisabled)
 			{
-                HologramDisplay.Singleton.ToggleHologram();
-                hologramIsTempDisabled = false;
-            }
-        }
+				HologramDisplay.Singleton.ToggleHologram();
+				hologramIsTempDisabled = false;
+			}
+		}
 		
 		//if we've ungrabbed, get ready to try again
 		if (grabValue < grabTreshhold) triedToGrabAlready = false;
@@ -358,11 +382,11 @@ public class ObjectManipulator : MonoBehaviour
 	private Vector3 CalculateStretchedScale(Vector3 rawValue)
 	{
 		float unroundedXvalue = objectScaleAtStart.x + (Vector3.Dot(rawValue, stretchingObject.transform.right) - startingScalarDot) * XScalar;
-        float unroundedYvalue = objectScaleAtStart.y + (Vector3.Dot(rawValue, stretchingObject.transform.up) - startingScalarDot) * YScalar;
-        float unroundedZvalue = objectScaleAtStart.z + (Vector3.Dot(rawValue, stretchingObject.transform.forward) - startingScalarDot) * ZScalar;
+		float unroundedYvalue = objectScaleAtStart.y + (Vector3.Dot(rawValue, stretchingObject.transform.up) - startingScalarDot) * YScalar;
+		float unroundedZvalue = objectScaleAtStart.z + (Vector3.Dot(rawValue, stretchingObject.transform.forward) - startingScalarDot) * ZScalar;
 		float roundedXvalue = ObjectCreator.Singleton.RoundForScalingAssistance(unroundedXvalue);
-        float roundedYvalue = ObjectCreator.Singleton.RoundForScalingAssistance(unroundedYvalue);
-        float roundedZvalue = ObjectCreator.Singleton.RoundForScalingAssistance(unroundedZvalue);
+		float roundedYvalue = ObjectCreator.Singleton.RoundForScalingAssistance(unroundedYvalue);
+		float roundedZvalue = ObjectCreator.Singleton.RoundForScalingAssistance(unroundedZvalue);
 		return new Vector3(roundedXvalue, roundedYvalue, roundedZvalue);
-    }
+	}
 }
