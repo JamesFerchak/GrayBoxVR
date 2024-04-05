@@ -41,7 +41,8 @@ public class Effects : MonoBehaviour
     public AudioClip paintBlock;
     public AudioClip group;
     public AudioClip ungroup;
-
+    public AudioClip undo;
+    public AudioClip redo;
     void playSound(Vector3 location, int effect_number)
     {
         switch (effect_number)

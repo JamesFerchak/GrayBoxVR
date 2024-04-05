@@ -386,6 +386,62 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3855792262970973579, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
   m_PrefabInstance: {fileID: 581869013}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &173907234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 173907235}
+  - component: {fileID: 173907236}
+  m_Layer: 0
+  m_Name: SCRIPT_EffectsHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &173907235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173907234}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 308306161}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &173907236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173907234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff8d4506bf5952e448c504f7f47dfa12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuOpen: {fileID: 8300000, guid: 1046c54acc15edb488bff20769dc1bed, type: 3}
+  menuClick: {fileID: 8300000, guid: f55240dc34784b84da89ff740cf94f6a, type: 3}
+  closeMenu: {fileID: 8300000, guid: f55240dc34784b84da89ff740cf94f6a, type: 3}
+  placeBlock: {fileID: 8300000, guid: 57ee9b2988e671c40a0b2b5cb4e17c48, type: 3}
+  deleteBlock: {fileID: 8300000, guid: 529ceebee42758c47999e8e8f485f2e3, type: 3}
+  saveBuild: {fileID: 8300000, guid: 89b61358413222c48b07c7917b65a4bb, type: 3}
+  loadBuild: {fileID: 8300000, guid: de9099bdbfb36e745ba422a0841e48a3, type: 3}
+  paintBlock: {fileID: 8300000, guid: b19407adde4273948ac37371c64ed805, type: 3}
+  group: {fileID: 8300000, guid: 46d1e85aca8cf384196d298c72db0b26, type: 3}
+  ungroup: {fileID: 8300000, guid: f520ae89e6aae5a46bc87723a53fe1b6, type: 3}
+  undo: {fileID: 8300000, guid: e072b48aeec2fc443be84d8761231d62, type: 3}
+  redo: {fileID: 8300000, guid: 05812c548c1cf36438b999cd2bf5acac, type: 3}
 --- !u!1 &229560954 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2636498248180966184, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
@@ -534,6 +590,7 @@ Transform:
   - {fileID: 75624457}
   - {fileID: 1968624929}
   - {fileID: 99292513}
+  - {fileID: 173907235}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &354398017 stripped
