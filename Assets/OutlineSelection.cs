@@ -13,28 +13,37 @@ public class OutLineSelection : MonoBehaviour
         // Highlight
         if (highlight != null)
         {
-            highlight.gameObject.GetComponent<Outline>().enabled = false;
+            DisableHighlight(highlight);
             highlight = null;
         }
 
         // Use raycasting from the center of the VR camera
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
 
+        // Highlight hovered object
         if (Physics.Raycast(ray, out raycastHit))
         {
-            highlight = raycastHit.transform;
-            if (highlight.CompareTag("Block") && highlight != selection)
+            Transform currentHighlight = raycastHit.transform;
+            if (currentHighlight.CompareTag("Block") && currentHighlight != selection)
             {
-                if (highlight.gameObject.GetComponent<Outline>() != null)
+                GameObject hitObject = currentHighlight.gameObject;
+                if (hitObject.GetComponent<Outline>() != null)
                 {
-                    highlight.gameObject.GetComponent<Outline>().enabled = true;
+                    hitObject.GetComponent<Outline>().enabled = true;
                 }
                 else
                 {
-                    Outline outline = highlight.gameObject.AddComponent<Outline>();
+                    Outline outline = hitObject.AddComponent<Outline>();
                     outline.enabled = true;
-                    highlight.gameObject.GetComponent<Outline>().OutlineColor = Color.magenta;
-                    highlight.gameObject.GetComponent<Outline>().OutlineWidth = 7.0f;
+                    outline.OutlineColor = Color.magenta;
+                    outline.OutlineWidth = 7.0f;
+                }
+                highlight = currentHighlight;
+
+                // Highlight all objects in the group if the hit object is part of a group
+                if (ObjectManipulator.parentOfGroup != null && hitObject.transform.IsChildOf(ObjectManipulator.parentOfGroup.transform))
+                {
+                    HighlightGroupedObjects();
                 }
             }
             else
@@ -43,25 +52,40 @@ public class OutLineSelection : MonoBehaviour
             }
         }
 
-        // Selection
-        if (Input.GetButtonDown("Fire1")) // Assuming "Fire1" is mapped to VR controller input
+        // This section remains for handling selection, which might involve different logic for grouped objects
+    }
+
+    void HighlightGroupedObjects()
+    {
+        foreach (Transform child in ObjectManipulator.parentOfGroup.transform)
         {
-            if (highlight)
+            Outline outline = child.gameObject.GetComponent<Outline>();
+            if (outline == null)
             {
-                if (selection != null)
-                {
-                    selection.gameObject.GetComponent<Outline>().enabled = false;
-                }
-                selection = raycastHit.transform;
-                selection.gameObject.GetComponent<Outline>().enabled = true;
-                highlight = null;
+                outline = child.gameObject.AddComponent<Outline>();
             }
-            else
+            outline.enabled = true;
+            outline.OutlineColor = Color.magenta;
+            outline.OutlineWidth = 7.0f;
+        }
+    }
+
+    void DisableHighlight(Transform objectTransform)
+    {
+        Outline outline = objectTransform.GetComponent<Outline>();
+        if (outline != null)
+        {
+            outline.enabled = false;
+        }
+        // Additionally, disable highlight for all objects in a group if applicable
+        if (ObjectManipulator.parentOfGroup != null && objectTransform.IsChildOf(ObjectManipulator.parentOfGroup.transform))
+        {
+            foreach (Transform child in ObjectManipulator.parentOfGroup.transform)
             {
-                if (selection)
+                outline = child.gameObject.GetComponent<Outline>();
+                if (outline != null)
                 {
-                    selection.gameObject.GetComponent<Outline>().enabled = false;
-                    selection = null;
+                    outline.enabled = false;
                 }
             }
         }

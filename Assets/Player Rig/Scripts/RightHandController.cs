@@ -177,7 +177,7 @@ public class RightHandController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit)) // If there is an object in line of sight
         {
-            highlight = hit.transform;
+           /* highlight = hit.transform;
             if (highlight.CompareTag("Block") && highlight != selection)
             {
                 if (highlight.gameObject.GetComponent<Outline>() != null)
@@ -186,8 +186,8 @@ public class RightHandController : MonoBehaviour
                 }
                 else
                 {
-                    Outline outline = highlight.gameObject.AddComponent<Outline>();
-                    outline.enabled = true;
+                   outline outline = highlight.gameObject.AddComponent<Outline>();
+                   outline.enabled = true;
                     highlight.gameObject.GetComponent<Outline>().OutlineColor = Color.magenta;
                     highlight.gameObject.GetComponent<Outline>().OutlineWidth = 7.0f;
                 }
@@ -196,7 +196,7 @@ public class RightHandController : MonoBehaviour
             {
                 highlight = null;
             }
-
+            */
             cam.transform.position = new Vector3(hit.point.x, cam.transform.position.y, hit.point.z); // Select the hit object
         }
         else // If nothing in line of sight
