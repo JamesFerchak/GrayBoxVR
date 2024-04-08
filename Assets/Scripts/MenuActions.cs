@@ -267,16 +267,11 @@ public class MenuActions : MonoBehaviour
 
     public void RefreshShapeThumbnails()
     {
-        StartCoroutine(RefreshShapeThumbnailsCoroutine());
-    }
-
-    private IEnumerator RefreshShapeThumbnailsCoroutine()
-    {
         for (int i = 0; i < shapeButtonThumbnails.Length; i++)
         {
             string shapeID = i.ToString();
-            yield return StartCoroutine(ObjectDefinitions.Singleton.GenerateObjectSprite(shapeID)); // Wait for coroutine to finish
-            shapeButtonThumbnails[i].GetComponent<Image>().sprite = ObjectDefinitions.Singleton.GetObjectSprite(shapeID);
+            Sprite objectSprite = ObjectDefinitions.Singleton.GetObjectSprite(shapeID);
+            shapeButtonThumbnails[i].GetComponent<Image>().sprite = objectSprite;
         }
     }
 
