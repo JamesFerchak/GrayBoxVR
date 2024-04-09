@@ -137,16 +137,18 @@ public class MenuActions : MonoBehaviour
 
     public void InteractWithMainMenu()
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        
         if (mainMenuPanel != null) // If panel exists
         {
             if (inMenuMode) // If panel is already open
             {
+                Effects.Singleton.playSound(cam.transform.position, 3);
                 mainMenuPanel.SetActive(false); // Close panel
                 inMenuMode = false;
             }
             else // If panel is closed
             {
+                Effects.Singleton.playSound(cam.transform.position, 1);
                 RefreshSavedProjects();
                 MenuActions.Singleton.RelocateMainMenu();
                 mainMenuPanel.SetActive(true); // Open panel
@@ -206,7 +208,7 @@ public class MenuActions : MonoBehaviour
 
     public void SaveLevelWithButton(string saveID)
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.playSound(cam.transform.position, 6);
         BlockRangler.SaveLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
@@ -222,7 +224,7 @@ public class MenuActions : MonoBehaviour
 
     public void LoadLevelWithButton(string saveID)
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.playSound(cam.transform.position, 7);
         BlockRangler.LoadLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu

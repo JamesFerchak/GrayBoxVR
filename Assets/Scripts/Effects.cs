@@ -22,7 +22,7 @@ public class Effects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Singleton = this;
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class Effects : MonoBehaviour
     public AudioClip ungroup;
     public AudioClip undo;
     public AudioClip redo;
-    void playSound(Vector3 location, int effect_number)
+    public void playSound(Vector3 location, int effect_number)
     {
         switch (effect_number)
         {
