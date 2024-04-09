@@ -3014,6 +3014,21 @@ MonoBehaviour:
   - name: 11
     shape: {fileID: 6192684873239664979, guid: 3eea3cb3538779f42a9e3a13bca5f124, type: 3}
     sprite: {fileID: 0}
+  - name: 12
+    shape: {fileID: 8278181195397622377, guid: af8f8975475bf72418910fba1463129a, type: 3}
+    sprite: {fileID: 0}
+  - name: 13
+    shape: {fileID: 6528006687007448033, guid: 856e7f0100f7c5f44ad40c01ab506523, type: 3}
+    sprite: {fileID: 0}
+  - name: 14
+    shape: {fileID: 6528006687007448033, guid: 856e7f0100f7c5f44ad40c01ab506523, type: 3}
+    sprite: {fileID: 0}
+  - name: 15
+    shape: {fileID: 6528006687007448033, guid: 856e7f0100f7c5f44ad40c01ab506523, type: 3}
+    sprite: {fileID: 0}
+  - name: 16
+    shape: {fileID: 6528006687007448033, guid: 11436f5502960ed4c8af3499352ac36b, type: 3}
+    sprite: {fileID: 0}
   placeholderSprite: {fileID: 21300000, guid: fdcad01d23593ad468ba1ea29d4d8e47, type: 3}
 --- !u!1 &1994643942 stripped
 GameObject:
