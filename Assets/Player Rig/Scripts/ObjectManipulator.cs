@@ -23,6 +23,7 @@ public class ObjectManipulator : MonoBehaviour
 	float grabRadius;
 
 	public GameObject heldObject { get; private set; }
+	bool isHoldingDuplicate;
 	bool triedToGrabAlready = false;
 	bool hologramIsTempDisabled = false;
 
@@ -156,6 +157,8 @@ public class ObjectManipulator : MonoBehaviour
 
 					heldObject = parentOfGroup;
 					heldObject.transform.parent = transform;
+
+					isHoldingDuplicate = true;
                 }
                 if (HologramDisplay.Singleton.GetHologramState())
                 {
@@ -333,8 +336,6 @@ public class ObjectManipulator : MonoBehaviour
 
 			if (grabbedCollider != null)
 			{
-
-				//THIS DOES NOT WORK WITH ACTION HISTORY
 				if (grabbedCollider.gameObject.transform.parent == null)
 				{
 					heldObject = grabbedCollider.gameObject;
@@ -369,6 +370,17 @@ public class ObjectManipulator : MonoBehaviour
 			ObjectCreator.Singleton.RoundForRotationAssistance(heldObject.transform.eulerAngles.z));
 			heldObject.transform.rotation = Quaternion.Euler(rotation);
 
+			if (heldObject.transform.childCount != 0)
+			{
+				if (isHoldingDuplicate)
+					BlockRangler.ActionHistory.PushCreateAction(heldObject, GetGroupedObjects());
+			} else
+			{
+				if (isHoldingDuplicate)
+					BlockRangler.ActionHistory.PushCreateAction(heldObject);
+			}
+
+			isHoldingDuplicate = false;
 			heldObject.transform.parent = null;
 			heldObject = null;
 

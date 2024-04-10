@@ -55,7 +55,7 @@ public class BlockRangler : MonoBehaviour
 		public List<Action> groupedActions;
 		public List<GameObject> groupedObjects;
 		public List<int> groupedObjectIDs;
-		public bool groupChange => groupedActions != null;
+		public bool isGroupChange => groupedActions != null;
 
 		public Action(GameObject affectedObject, actionType thisActionType)
 		{
@@ -165,7 +165,7 @@ public class BlockRangler : MonoBehaviour
 								actionObjectIDs[objectIndex] = objectToRecord.GetInstanceID();
 								actions[objectIndex].myGameObject = objectToRecord;
 							}
-							if (actions[objectIndex].groupChange)
+							if (actions[objectIndex].isGroupChange)
 							{
 								for (int i = 0; i < actions[objectIndex].groupedActions.Count; i++)
 								{
@@ -194,6 +194,13 @@ public class BlockRangler : MonoBehaviour
 		{
 			IncrementBothIndices();
 			Action actionToPush = new Action(objectToRecord, actionType.Create);
+			PushAction(actionToPush); 
+		}
+
+		public static void PushCreateAction(GameObject objectToRecord, List<GameObject> groupedObjects)
+		{
+			IncrementBothIndices();
+			Action actionToPush = new Action(objectToRecord, actionType.Create, groupedObjects);
 			PushAction(actionToPush); 
 		}
 
@@ -238,7 +245,6 @@ public class BlockRangler : MonoBehaviour
 				return;
 
 			DoInverseAction(TopIndex);
-
 			DecrementTopIndex();
 		}
 
@@ -259,7 +265,7 @@ public class BlockRangler : MonoBehaviour
 			if (actionToUndo.actionType == actionType.Delete)
 			{
 				GameObject block;
-				if (!actionToUndo.groupChange)
+				if (!actionToUndo.isGroupChange)
 				{
 					block = Instantiate(Resources.Load($"Blocks/{actionToUndo.gameObjectName}", typeof(GameObject))) as GameObject;
 					block.tag = "Block";
@@ -273,7 +279,7 @@ public class BlockRangler : MonoBehaviour
 				if (block.GetComponent<Renderer>() != null)
 					block.GetComponent<Renderer>().material = actionToUndo.material;
 
-				if (actionToUndo.groupChange)
+				if (actionToUndo.isGroupChange)
 				{
 					for (int i = 0; i < actionToUndo.groupedActions.Count; i++)
 					{
@@ -295,7 +301,7 @@ public class BlockRangler : MonoBehaviour
 				block.transform.localScale = actionToUndo.scale;
 
 				Action undoneAction;
-				if (!actionToUndo.groupChange)
+				if (!actionToUndo.isGroupChange)
 					undoneAction = new Action(block, actionType.Create);
 				else
 					undoneAction = new Action(block, actionType.Create, actionToUndo.groupedObjects);
@@ -303,9 +309,21 @@ public class BlockRangler : MonoBehaviour
 			}
 			else if (actionToUndo.actionType == actionType.Create)
 			{
-				Action undoneAction = new Action(objectToUndo, actionType.Delete);
-				PushAction(undoneAction);
-				Destroy(objectToUndo);
+				if (actionToUndo.isGroupChange)
+				{
+					Action undoneAction = new Action(objectToUndo, actionType.Delete, actionToUndo.groupedObjects);
+					PushAction(undoneAction);
+					for (int thisChild = 0; thisChild < objectToUndo.transform.childCount; thisChild++)
+					{
+						Destroy(objectToUndo.transform.GetChild(thisChild));
+					}
+					Destroy(objectToUndo);
+				}else
+				{
+					Action undoneAction = new Action(objectToUndo, actionType.Delete);
+					PushAction(undoneAction);
+					Destroy(objectToUndo);
+				}
 			} 
 			else if (actionToUndo.actionType == actionType.MaterialChange)
 			{
