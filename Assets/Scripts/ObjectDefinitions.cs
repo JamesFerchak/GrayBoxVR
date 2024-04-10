@@ -23,7 +23,6 @@ public class ObjectDefinitions : MonoBehaviour
     private void Awake()
     {
         Singleton = this;
-
         allObjects = primitiveObjects;
     }
 
@@ -32,14 +31,6 @@ public class ObjectDefinitions : MonoBehaviour
 
     [SerializeField] static int maximumObjects;
     [SerializeField] Sprite placeholderSprite;
-    [SerializeField] Camera spriteCamera;
-    [SerializeField] Camera originalCamera;
-    [SerializeField] GameObject spriteScreenshotPosition;
-
-    void Start()
-    {
-        
-    }
 
     public GameObject GetObjectShape(string shapeID) // Gets a shape using a shapeID
     {
@@ -62,7 +53,7 @@ public class ObjectDefinitions : MonoBehaviour
                 return possibleShape.sprite;
             }
         }
-        return allObjects[0].sprite;
+        return placeholderSprite;
     }
 
     public void SetObjectSprite(string shapeID, Sprite newSprite) // Sets a sprite using a shapeID
@@ -86,41 +77,6 @@ public class ObjectDefinitions : MonoBehaviour
         newObject.shape = m;
         newObject.sprite = placeholderSprite;
         return newObject;
-    }
-
-    WaitForEndOfFrame frameEnd = new WaitForEndOfFrame();
-
-    public IEnumerator GenerateObjectSprite(string shapeID) // Returns a sprite of the given object
-    {
-        // Swap to screenshot camera
-        originalCamera.enabled = false;
-        spriteCamera.enabled = true;
-
-        // Create the object to take a screenshot of
-        GameObject newObject = GetObjectShape(shapeID);
-        Vector3 objectPosition = spriteScreenshotPosition.transform.position;
-        Quaternion objectRotation = spriteScreenshotPosition.transform.rotation;
-        GameObject screenshottedObject = Instantiate(newObject, objectPosition, objectRotation);
-
-        // Wait until the end of the frame to prevent errors
-        yield return frameEnd;
-
-        // Render the image and convert it into a sprite
-        int height = Screen.height;
-        int width = Screen.width;
-        spriteCamera.Render();
-        Texture2D image = new Texture2D(width, height, TextureFormat.RGB24, true);
-        image.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        image.Apply();
-        Sprite newSprite = Sprite.Create(image, new Rect(2*(width - height)/3, 0, height, height), new Vector2(), 1.0f);
-
-        // Clean up and set the new object sprite
-        SetObjectSprite(shapeID, newSprite);
-        Destroy(screenshottedObject);
-
-        // Swap back to original camera
-        originalCamera.enabled = true;
-        spriteCamera.enabled = false;
     }
 }
 
