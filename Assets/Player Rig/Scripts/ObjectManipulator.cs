@@ -65,6 +65,7 @@ public class ObjectManipulator : MonoBehaviour
 				if (parentOfGroup == null)
 				{
 					parentOfGroup = new GameObject();
+					parentOfGroup.transform.position = objectToAddToGroup.transform.position;
 					parentOfGroup.transform.rotation = objectToAddToGroup.transform.rotation;
 					parentOfGroup.name = "Group";
 				}
@@ -152,6 +153,7 @@ public class ObjectManipulator : MonoBehaviour
 						theseChildren[thisChild].transform.parent = parentOfGroup.transform;
 					}
 					parent.transform.localScale = oldParentScale;
+
 					heldObject = parentOfGroup;
 					heldObject.transform.parent = transform;
                 }
@@ -236,7 +238,10 @@ public class ObjectManipulator : MonoBehaviour
 
 			if (stretchingCollider != null) {
 
-				stretchingObject = stretchingCollider.gameObject;
+				if (stretchingCollider.transform.parent == null)
+					stretchingObject = stretchingCollider.gameObject;
+				else
+					stretchingObject = stretchingCollider.transform.parent.gameObject;
 				Vector3 objectToCursor = stretchingObject.transform.position - cursorPosition;
 				BlockRangler.ActionHistory.PushMoveAction(stretchingObject);
 

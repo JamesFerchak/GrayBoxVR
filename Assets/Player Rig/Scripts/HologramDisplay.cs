@@ -57,7 +57,16 @@ public class HologramDisplay : MonoBehaviour
     {
         GameObject newHologramMesh = ObjectDefinitions.Singleton.GetObjectShape(shapeID);
         GameObject newHologram = Instantiate(newHologramMesh, Vector3.zero, Quaternion.Euler(0.0f, 0.0f, 0.0f));
-        newHologram.GetComponent<MeshRenderer>().material = hologramMaterial;
+
+        if (newHologram.transform.childCount > 0) // If the object has a child, give that the hologram effect
+        {
+            GameObject child = newHologram.transform.GetChild(0).gameObject;
+            child.GetComponent<MeshRenderer>().material = hologramMaterial;
+        }
+        else // Otherwise, the original object is the hologram
+        {
+            newHologram.GetComponent<MeshRenderer>().material = hologramMaterial;
+        }
         Destroy(newHologram.GetComponent<BuildingBlockBehavior>());
 
         GameObject oldHologram = currentHologram;
