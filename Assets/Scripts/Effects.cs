@@ -73,13 +73,16 @@ public class Effects : MonoBehaviour
                 AudioSource.PlayClipAtPoint(paintBlock, location);
                 break;
             case 9:
-                AudioSource.PlayClipAtPoint(menuOpen, location);
+                AudioSource.PlayClipAtPoint(group, location);
                 break;
             case 10:
-                AudioSource.PlayClipAtPoint(menuOpen, location);
+                AudioSource.PlayClipAtPoint(ungroup, location);
                 break;
             case 11:
-                AudioSource.PlayClipAtPoint(menuOpen, location);
+                AudioSource.PlayClipAtPoint(undo, location);
+                break;
+            case 12:
+                AudioSource.PlayClipAtPoint(redo, location);
                 break;
         }
     }
