@@ -107,7 +107,7 @@ public class ObjectCreator : MonoBehaviour
 			RoundForRotationAssistance(RightHand.transform.eulerAngles.z));
 
 		GameObject block = Instantiate(currentObjectType, position, Quaternion.Euler(rotation)); // Places cube in level
-		AudioSource.PlayClipAtPoint(placeNoise, block.transform.position);
+		Effects.Singleton.playSound(RightHandController.Singleton.transform.position, 4);
 
 		block.tag = "Block";
 		BlockRangler.ActionHistory.PushCreateAction(block);
@@ -126,8 +126,8 @@ public class ObjectCreator : MonoBehaviour
 
 		GameObject block = Instantiate(Resources.Load($"Blocks/{BlockRangler.SimplifyObjectName(objectToDuplicate.name)}", typeof(GameObject)), position, rotation) as GameObject;
 		block.GetComponent<Renderer>().material = objectToDuplicate.GetComponent<Renderer>().material;
-		AudioSource.PlayClipAtPoint(placeNoise, block.transform.position);
-		block.transform.localScale = objectToDuplicate.transform.localScale;
+        Effects.Singleton.playSound(RightHandController.Singleton.transform.position, 4);
+        block.transform.localScale = objectToDuplicate.transform.localScale;
 		block.tag = "Block";
 
 		return block;
@@ -142,7 +142,7 @@ public class ObjectCreator : MonoBehaviour
 
 		if (Physics.Raycast(ray, out RaycastHit hit))
 		{
-			AudioSource.PlayClipAtPoint(destroyNoise, hit.transform.position);
+			Effects.Singleton.playSound(hit.transform.position, 5);
 			// Destroy the hit object
 			if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
 			{

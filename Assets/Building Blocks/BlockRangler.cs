@@ -243,7 +243,7 @@ public class BlockRangler : MonoBehaviour
 		{
 			if (actions[TopIndex] == null)
 				return;
-
+			Effects.Singleton.playSound(LeftHandController.Singleton.transform.position, 11);
 			DoInverseAction(TopIndex);
 			DecrementTopIndex();
 		}
@@ -252,8 +252,8 @@ public class BlockRangler : MonoBehaviour
 		{
 			if (TopIndex + 1 == BottomIndex || (TopIndex == actionHistorySize - 1 && BottomIndex == 0))
 				return;
-
-			IncrementTopIndex();
+            Effects.Singleton.playSound(RightHandController.Singleton.transform.position, 12);
+            IncrementTopIndex();
 			DoInverseAction(TopIndex);
 		}
 
