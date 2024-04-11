@@ -62,6 +62,10 @@ public class HologramDisplay : MonoBehaviour
         {
             GameObject child = newHologram.transform.GetChild(0).gameObject;
             child.GetComponent<MeshRenderer>().material = hologramMaterial;
+            if (child.GetComponent<Light>() != null) // If child is a light source, disable the light
+            {
+                child.GetComponent<Light>().enabled = false;
+            }
         }
         else // Otherwise, the original object is the hologram
         {
