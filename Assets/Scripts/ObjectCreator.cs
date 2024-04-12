@@ -142,7 +142,7 @@ public class ObjectCreator : MonoBehaviour
 
 		if (Physics.Raycast(ray, out RaycastHit hit))
 		{
-			Effects.Singleton.playSound(hit.transform.position, 5);
+			Effects.Singleton.playSound(RightHandController.Singleton.transform.position, 5);
 			// Destroy the hit object
 			if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
 			{

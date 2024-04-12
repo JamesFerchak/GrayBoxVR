@@ -167,7 +167,7 @@ public class MenuActions : MonoBehaviour
 
     public void SwitchMenuTabs(int tabID) // 0: Options, 1: Shapes, 2: Save, 3: Load, 4: Wraps
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.playSound(cam.transform.position, 2);
         // Closes menu tabs except for the given tabID
         for (int i = 0; i < mainMenuTabs.Length; i++)
         {
@@ -180,7 +180,7 @@ public class MenuActions : MonoBehaviour
 
     public void SwitchOptionsTabs(int tabID) // 0: Settings, 1: Controls, 2: Quit, 3: Sharing Projects
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.playSound(cam.transform.position, 2);
         // Closes tabs except for the given tabID
         for (int i = 0; i < optionsTabs.Length; i++)
         {
@@ -193,7 +193,7 @@ public class MenuActions : MonoBehaviour
 
     public void SelectShape(string shapeID)
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.playSound(cam.transform.position, 2);
         ObjectCreator.Singleton.currentObjectType = ObjectDefinitions.Singleton.GetObjectShape(shapeID);
         HologramDisplay.Singleton.SetHologramToShape(shapeID);
 
@@ -205,7 +205,7 @@ public class MenuActions : MonoBehaviour
 
     public void SelectColor(string color)
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.playSound(cam.transform.position, 2);
         ObjectPainter.Singleton.current_wrap = color;
 
         int nextSelectedWrapIndex = ObjectPainter.Singleton.GetButtonIndexOfWrap(color);
@@ -216,7 +216,7 @@ public class MenuActions : MonoBehaviour
 
     public void SelectSky(int sky)
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.playSound(cam.transform.position, 2);
         SkyboxChoice.Singleton.ChangeSkybox(sky);
 
         int nextSelectedSkyIndex = sky;
@@ -227,7 +227,7 @@ public class MenuActions : MonoBehaviour
 
     public void SelectFloor(int floor)
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.playSound(cam.transform.position, 2);
         SkyboxChoice.Singleton.ChangeFloor(floor);
 
         int nextSelectedFloorIndex = floor;
@@ -314,7 +314,7 @@ public class MenuActions : MonoBehaviour
 
     public void QuitGame()
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.playSound(cam.transform.position, 2);
         Debug.Log("Quitting game...");
         Application.Quit();
     }
