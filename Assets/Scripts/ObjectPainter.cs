@@ -150,7 +150,7 @@ public class ObjectPainter : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             BlockRangler.ActionHistory.PushMaterialAction(hit.transform.gameObject);
-            Effects.Singleton.playSound(RightHandController.Singleton.transform.position, 8);
+            Effects.Singleton.PlaySound(RightHandController.Singleton.transform.position, 8);
             if (hit.transform.gameObject.GetComponent<BuildingBlockBehavior>() != null)
             {
                 Material paintingMaterial = red; // Default

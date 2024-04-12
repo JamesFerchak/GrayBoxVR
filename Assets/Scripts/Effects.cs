@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Effects : MonoBehaviour
 {
@@ -20,15 +21,9 @@ public class Effects : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Singleton = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public AudioClip menuOpen;
@@ -43,11 +38,20 @@ public class Effects : MonoBehaviour
     public AudioClip ungroup;
     public AudioClip undo;
     public AudioClip redo;
-    public void playSound(Vector3 location, int effect_number)
+
+    public ParticleSystem poofEffect;
+
+    public bool soundsEnabled = true;
+    public bool effectsEnabled = true;
+
+    public void PlaySound(Vector3 location, int effect_number)
     {
+        if (!soundsEnabled)
+        {
+            return;
+        }
         switch (effect_number)
         {
-            // AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
             case 1:
                 AudioSource.PlayClipAtPoint(menuOpen, location);
                 break;
@@ -87,6 +91,13 @@ public class Effects : MonoBehaviour
         }
     }
 
-
-
+    public void PlayEffect(Vector3 location)
+    {
+        if (!effectsEnabled)
+        {
+            return;
+        }
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, location);
+        Instantiate(poofEffect, location, rotation);
+    }
 }
