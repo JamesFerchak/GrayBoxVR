@@ -62,6 +62,12 @@ public class MenuActions : MonoBehaviour
     [SerializeField] GameObject[] wrapButtons;
     int lastSelectedWrapIndex = 0; // Red
 
+    // WORLD MENU OBJECTS
+    [SerializeField] GameObject[] skyButtons;
+    int lastSelectedSkyIndex = 0; // Default
+    [SerializeField] GameObject[] floorButtons;
+    int lastSelectedFloorIndex = 0; // Default/White
+
     // OTHER OBJECTS
     [SerializeField] GameObject cam;
     [SerializeField] GameObject rightHandController;
@@ -108,11 +114,13 @@ public class MenuActions : MonoBehaviour
             }
         });
 
+        // Prepare UI and game for start
         RefreshShapeThumbnails();
         RefreshSavedProjects();
-
         wrapButtons[lastSelectedWrapIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
         shapeButtons[lastSelectedShapeIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
+        SelectSky(0);
+        SelectFloor(0);
     }
 
     private void Update()
@@ -204,6 +212,28 @@ public class MenuActions : MonoBehaviour
         wrapButtons[lastSelectedWrapIndex].GetComponent<Image>().color = UnityEngine.Color.white;
         wrapButtons[nextSelectedWrapIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
         lastSelectedWrapIndex = nextSelectedWrapIndex;
+    }
+
+    public void SelectSky(int sky)
+    {
+        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        SkyboxChoice.Singleton.ChangeSkybox(sky);
+
+        int nextSelectedSkyIndex = sky;
+        skyButtons[lastSelectedSkyIndex].GetComponent<Image>().color = UnityEngine.Color.white;
+        skyButtons[nextSelectedSkyIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
+        lastSelectedSkyIndex = nextSelectedSkyIndex;
+    }
+
+    public void SelectFloor(int floor)
+    {
+        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        SkyboxChoice.Singleton.ChangeFloor(floor);
+
+        int nextSelectedFloorIndex = floor;
+        floorButtons[lastSelectedFloorIndex].GetComponent<Image>().color = UnityEngine.Color.white;
+        floorButtons[nextSelectedFloorIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
+        lastSelectedFloorIndex = nextSelectedFloorIndex;
     }
 
     public void SaveLevelWithButton(string saveID)
@@ -305,6 +335,4 @@ public class MenuActions : MonoBehaviour
             LeftHandController.Singleton.checkAltControls();
         }
     }
-
-
 }

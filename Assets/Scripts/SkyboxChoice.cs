@@ -19,6 +19,11 @@ public class SkyboxChoice : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        Singleton = this;
+    }
+
     public List<Material> skyboxMaterials = new List<Material>();
     public List<Material> floorMaterials = new List<Material>();
     public GameObject floor;
@@ -46,11 +51,5 @@ public class SkyboxChoice : MonoBehaviour
         {
             Debug.LogWarning("Invalid index for floor.");
         }
-    }
-
-    void Start()
-    {
-        ChangeSkybox(0);
-        ChangeFloor(0);
     }
 }
