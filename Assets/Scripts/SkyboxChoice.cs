@@ -20,25 +20,37 @@ public class SkyboxChoice : MonoBehaviour
     }
 
     public List<Material> skyboxMaterials = new List<Material>();
+    public List<Material> floorMaterials = new List<Material>();
+    public GameObject floor;
 
-    
     public void ChangeSkybox(int skyboxIndex)
     {
         if (skyboxIndex >= 0 && skyboxIndex < skyboxMaterials.Count)
         {
-            //Debug.LogWarning("trying to change skybox!!!.");
             RenderSettings.skybox = skyboxMaterials[skyboxIndex];
-            
             DynamicGI.UpdateEnvironment();
         }
         else
         {
-            Debug.LogWarning("invalid index.");
+            Debug.LogWarning("Invalid index for sky.");
+        }
+    }
+
+    public void ChangeFloor(int floorIndex)
+    {
+        if (floorIndex >= 0 && floorIndex < floorMaterials.Count)
+        {
+            floor.GetComponent<MeshRenderer>().material = floorMaterials[floorIndex];
+        }
+        else
+        {
+            Debug.LogWarning("Invalid index for floor.");
         }
     }
 
     void Start()
     {
-        ChangeSkybox(2);
+        ChangeSkybox(0);
+        ChangeFloor(0);
     }
 }

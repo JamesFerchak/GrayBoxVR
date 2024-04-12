@@ -10931,7 +10931,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: SKIES
+  m_Text: WORLD
 --- !u!1 &3255593792953317495
 GameObject:
   m_ObjectHideFlags: 0
@@ -11409,7 +11409,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: SKIES
+  m_Text: WORLD
 --- !u!1 &3309795228066795565
 GameObject:
   m_ObjectHideFlags: 0

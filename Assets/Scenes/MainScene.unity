@@ -2014,6 +2014,14 @@ MonoBehaviour:
   - {fileID: 2100000, guid: a3a02bda0a9032049ad25627480b5d20, type: 2}
   - {fileID: 2100000, guid: eb8fd6bd252589744b602770b09ccbd7, type: 2}
   - {fileID: 2100000, guid: a59fe87939f259d40a7ee37624c9568b, type: 2}
+  floorMaterials:
+  - {fileID: 2100000, guid: 9ce5ce4341e977140b83ff9e8e61f6c5, type: 2}
+  - {fileID: 2100000, guid: 9812e97448711724dafa1a62f7290408, type: 2}
+  - {fileID: 2100000, guid: 0628a53af10f68049b2aa3089144ecf6, type: 2}
+  - {fileID: 2100000, guid: 52db9a0cdc51e344b91b13bceb2536f2, type: 2}
+  - {fileID: 2100000, guid: 76981c64fb719e648ac9fb021e75ff1e, type: 2}
+  - {fileID: 2100000, guid: 06240dc8cd0b55d4eb6611d1e04b3ff9, type: 2}
+  floor: {fileID: 1261325577}
 --- !u!1 &1074982446 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4395185449134589938, guid: 74a86009572390542ad3b3ff2e5553f9, type: 3}
