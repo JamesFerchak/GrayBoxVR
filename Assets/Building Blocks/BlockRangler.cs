@@ -39,7 +39,9 @@ public class BlockRangler : MonoBehaviour
 		Delete,
 		MaterialChange,
 		AddToGroup,
-		Ungroup
+		UnAddToGroup,
+		Ungroup,
+		ReGroup
 	}
 
 	private class Action
@@ -274,6 +276,9 @@ public class BlockRangler : MonoBehaviour
 				{
 					block = new GameObject();
 					block.name = "Group";
+					block.transform.position = actionToUndo.position;
+					block.transform.rotation = actionToUndo.rotation;
+					ObjectManipulator.SetParentOfGroup(block);
 				}
 				
 				if (block.GetComponent<Renderer>() != null)
@@ -295,9 +300,7 @@ public class BlockRangler : MonoBehaviour
                     }
 				}
 				
-				//have set the transform of the parent block *after* we create all the children so they enherit the transform of the parent
-				block.transform.position = actionToUndo.position;
-				block.transform.rotation = actionToUndo.rotation;
+				//have set the scale of the parent block *after* we create all the children so they enherit the transform of the parent
 				block.transform.localScale = actionToUndo.scale;
 
 				Action undoneAction;
@@ -315,7 +318,7 @@ public class BlockRangler : MonoBehaviour
 					PushAction(undoneAction);
 					for (int thisChild = 0; thisChild < objectToUndo.transform.childCount; thisChild++)
 					{
-						Destroy(objectToUndo.transform.GetChild(thisChild));
+						Destroy(objectToUndo.transform.GetChild(thisChild).gameObject);
 					}
 					Destroy(objectToUndo);
 				}else
@@ -331,11 +334,34 @@ public class BlockRangler : MonoBehaviour
 				PushAction(undoneAction);
 				objectToUndo.GetComponent<Renderer>().material = actionToUndo.material;
 			}
-			else if (actionToUndo.actionType == actionType.AddToGroup)
+			else if (actionToUndo.actionType == actionType.UnAddToGroup)
+			{
+				//THIS IS WHERE I WAS WORKING
+				Action undoneAction = new Action(objectToUndo, actionType.AddToGroup);
+				objectToUndo.transform.DetachChildren();
+				for (int thisChild = 0; thisChild < actionToUndo.groupedObjects.Count - 1; thisChild++)
+				{
+
+				}
+			}
+			else if (actionToUndo.actionType == actionType.UnAddToGroup)
 			{
 
 			}
 			else if (actionToUndo.actionType == actionType.Ungroup)
+			{
+				Action undoneAction = new Action(objectToUndo, actionType.ReGroup, actionToUndo.groupedObjects);
+				PushAction(undoneAction);
+				GameObject newParent = new GameObject();
+				newParent.transform.position = objectToUndo.transform.position;
+				newParent.transform.rotation = objectToUndo.transform.rotation;
+				ObjectManipulator.SetParentOfGroup(newParent);
+				for (int thisChild = 0; thisChild < actionToUndo.groupedObjects.Count; thisChild++)
+				{
+					actionToUndo.groupedObjects[thisChild].transform.parent = newParent.transform;
+				}
+			}
+			else if (actionToUndo.actionType == actionType.ReGroup)
 			{
 
 			}

@@ -87,6 +87,25 @@ public class ObjectManipulator : MonoBehaviour
 		}
 	}
 
+	public static void SetParentOfGroup(GameObject newParent)
+	{
+        if (parentOfGroup != null)
+        {
+            parentOfGroup.transform.DetachChildren();
+            Destroy(parentOfGroup);
+        }
+		parentOfGroup = newParent;
+    }
+
+	public static void RemoveParentOfGroup()
+	{
+		if (parentOfGroup != null)
+		{
+			parentOfGroup.transform.DetachChildren();
+			Destroy(parentOfGroup);
+		}
+	}
+
 	public static List<GameObject> GetGroupedObjects()
 	{
 		if (parentOfGroup == null) return null;
