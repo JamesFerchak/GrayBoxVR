@@ -60,7 +60,7 @@ public class ObjectManipulator : MonoBehaviour
 
 		if (Physics.Raycast(ray, out RaycastHit hit))
 		{
-            Effects.Singleton.playSound(RightHandController.Singleton.transform.position, 9);
+            Effects.Singleton.PlaySound(RightHandController.Singleton.transform.position, 9);
             GameObject objectToAddToGroup = hit.collider.gameObject;
 			if (objectToAddToGroup.GetComponent<BuildingBlockBehavior>())
 			{
@@ -111,7 +111,7 @@ public class ObjectManipulator : MonoBehaviour
 			}
 			BlockRangler.ActionHistory.PushUngroupAction(groupedObjects);
 			parentOfGroup.transform.DetachChildren();
-			Effects.Singleton.playSound(RightHandController.Singleton.transform.position, 10);
+			Effects.Singleton.PlaySound(RightHandController.Singleton.transform.position, 10);
 			Destroy(parentOfGroup);
 		}
 	}

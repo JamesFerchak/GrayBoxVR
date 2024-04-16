@@ -99,19 +99,6 @@ public class RightHandController : MonoBehaviour
             }
             else
             {
-                if (!tourToggle)
-                {
-                    if (svalue.y > 0.8 && svalue.y <= 1)
-                    {
-                        TourMode.Singleton.TouristMode();
-                        tourToggle = true;
-                    }
-
-                }
-                if (svalue.y <= 0.8)
-                {
-                    tourToggle = false;
-                }
                 myOM.TryDuplicate(gValue);
             }
             
@@ -140,7 +127,7 @@ public class RightHandController : MonoBehaviour
             }
             else
             {
-                
+                TourMode.Singleton.TouristMode();
             }
         }
         else

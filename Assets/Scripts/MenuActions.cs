@@ -62,6 +62,12 @@ public class MenuActions : MonoBehaviour
     [SerializeField] GameObject[] wrapButtons;
     int lastSelectedWrapIndex = 0; // Red
 
+    // WORLD MENU OBJECTS
+    [SerializeField] GameObject[] skyButtons;
+    int lastSelectedSkyIndex = 0; // Default
+    [SerializeField] GameObject[] floorButtons;
+    int lastSelectedFloorIndex = 0; // Default/White
+
     // OTHER OBJECTS
     [SerializeField] GameObject cam;
     [SerializeField] GameObject rightHandController;
@@ -108,11 +114,13 @@ public class MenuActions : MonoBehaviour
             }
         });
 
+        // Prepare UI and game for start
         RefreshShapeThumbnails();
         RefreshSavedProjects();
-
         wrapButtons[lastSelectedWrapIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
         shapeButtons[lastSelectedShapeIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
+        SelectSky(0);
+        SelectFloor(0);
     }
 
     private void Update()
@@ -142,13 +150,13 @@ public class MenuActions : MonoBehaviour
         {
             if (inMenuMode) // If panel is already open
             {
-                Effects.Singleton.playSound(cam.transform.position, 3);
+                Effects.Singleton.PlaySound(cam.transform.position, 3);
                 mainMenuPanel.SetActive(false); // Close panel
                 inMenuMode = false;
             }
             else // If panel is closed
             {
-                Effects.Singleton.playSound(cam.transform.position, 1);
+                Effects.Singleton.PlaySound(cam.transform.position, 1);
                 RefreshSavedProjects();
                 MenuActions.Singleton.RelocateMainMenu();
                 mainMenuPanel.SetActive(true); // Open panel
@@ -159,7 +167,7 @@ public class MenuActions : MonoBehaviour
 
     public void SwitchMenuTabs(int tabID) // 0: Options, 1: Shapes, 2: Save, 3: Load, 4: Wraps
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.PlaySound(cam.transform.position, 2);
         // Closes menu tabs except for the given tabID
         for (int i = 0; i < mainMenuTabs.Length; i++)
         {
@@ -172,7 +180,7 @@ public class MenuActions : MonoBehaviour
 
     public void SwitchOptionsTabs(int tabID) // 0: Settings, 1: Controls, 2: Quit, 3: Sharing Projects
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.PlaySound(cam.transform.position, 2);
         // Closes tabs except for the given tabID
         for (int i = 0; i < optionsTabs.Length; i++)
         {
@@ -185,7 +193,7 @@ public class MenuActions : MonoBehaviour
 
     public void SelectShape(string shapeID)
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.PlaySound(cam.transform.position, 2);
         ObjectCreator.Singleton.currentObjectType = ObjectDefinitions.Singleton.GetObjectShape(shapeID);
         HologramDisplay.Singleton.SetHologramToShape(shapeID);
 
@@ -197,7 +205,7 @@ public class MenuActions : MonoBehaviour
 
     public void SelectColor(string color)
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.PlaySound(cam.transform.position, 2);
         ObjectPainter.Singleton.current_wrap = color;
 
         int nextSelectedWrapIndex = ObjectPainter.Singleton.GetButtonIndexOfWrap(color);
@@ -206,9 +214,31 @@ public class MenuActions : MonoBehaviour
         lastSelectedWrapIndex = nextSelectedWrapIndex;
     }
 
+    public void SelectSky(int sky)
+    {
+        Effects.Singleton.PlaySound(cam.transform.position, 2);
+        SkyboxChoice.Singleton.ChangeSkybox(sky);
+
+        int nextSelectedSkyIndex = sky;
+        skyButtons[lastSelectedSkyIndex].GetComponent<Image>().color = UnityEngine.Color.white;
+        skyButtons[nextSelectedSkyIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
+        lastSelectedSkyIndex = nextSelectedSkyIndex;
+    }
+
+    public void SelectFloor(int floor)
+    {
+        Effects.Singleton.PlaySound(cam.transform.position, 2);
+        SkyboxChoice.Singleton.ChangeFloor(floor);
+
+        int nextSelectedFloorIndex = floor;
+        floorButtons[lastSelectedFloorIndex].GetComponent<Image>().color = UnityEngine.Color.white;
+        floorButtons[nextSelectedFloorIndex].GetComponent<Image>().color = UnityEngine.Color.cyan;
+        lastSelectedFloorIndex = nextSelectedFloorIndex;
+    }
+
     public void SaveLevelWithButton(string saveID)
     {
-        Effects.Singleton.playSound(cam.transform.position, 6);
+        Effects.Singleton.PlaySound(cam.transform.position, 6);
         BlockRangler.SaveLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
@@ -224,7 +254,7 @@ public class MenuActions : MonoBehaviour
 
     public void LoadLevelWithButton(string saveID)
     {
-        Effects.Singleton.playSound(cam.transform.position, 7);
+        Effects.Singleton.PlaySound(cam.transform.position, 7);
         BlockRangler.LoadLevel("save" + saveID);
         SwitchMenuTabs(0); // Switches to Options tab
         InteractWithMainMenu(); // Closes menu
@@ -284,12 +314,12 @@ public class MenuActions : MonoBehaviour
 
     public void QuitGame()
     {
-        AudioSource.PlayClipAtPoint(clickNoise, cam.transform.position);
+        Effects.Singleton.PlaySound(cam.transform.position, 2);
         Debug.Log("Quitting game...");
         Application.Quit();
     }
 
-    public void DisableControllerUI()
+    public void ToggleControllerUI()
     {
         if (controllerUIOff == false)
         {
@@ -306,5 +336,27 @@ public class MenuActions : MonoBehaviour
         }
     }
 
+    public void ToggleSoundEffects()
+    {
+        if (Effects.Singleton.soundsEnabled)
+        {
+            Effects.Singleton.soundsEnabled = false;
+        }
+        else
+        {
+            Effects.Singleton.soundsEnabled = true;
+        }
+    }
 
+    public void ToggleVisualEffects()
+    {
+        if (Effects.Singleton.effectsEnabled)
+        {
+            Effects.Singleton.effectsEnabled = false;
+        }
+        else
+        {
+            Effects.Singleton.effectsEnabled = true;
+        }
+    }
 }
