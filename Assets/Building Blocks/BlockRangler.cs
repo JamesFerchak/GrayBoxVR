@@ -336,17 +336,24 @@ public class BlockRangler : MonoBehaviour
 			}
 			else if (actionToUndo.actionType == actionType.UnAddToGroup)
 			{
-				//THIS IS WHERE I WAS WORKING
-				Action undoneAction = new Action(objectToUndo, actionType.AddToGroup);
+				List<GameObject> originalObjects = ObjectManipulator.GetGroupedObjects();
 				objectToUndo.transform.DetachChildren();
 				for (int thisChild = 0; thisChild < actionToUndo.groupedObjects.Count - 1; thisChild++)
 				{
-
+					actionToUndo.groupedObjects[thisChild].transform.parent = objectToUndo.transform;
 				}
+				Action undoneAction = new Action(objectToUndo, actionType.AddToGroup, originalObjects);
+				PushAction(undoneAction);
 			}
 			else if (actionToUndo.actionType == actionType.UnAddToGroup)
 			{
-
+                List<GameObject> originalObjects = ObjectManipulator.GetGroupedObjects();
+                for (int thisChild = 0; thisChild < actionToUndo.groupedObjects.Count; thisChild++)
+                {
+                    actionToUndo.groupedObjects[thisChild].transform.parent = objectToUndo.transform;
+                }
+                Action undoneAction = new Action(objectToUndo, actionType.AddToGroup, originalObjects);
+				PushAction(undoneAction);
 			}
 			else if (actionToUndo.actionType == actionType.Ungroup)
 			{
@@ -363,7 +370,9 @@ public class BlockRangler : MonoBehaviour
 			}
 			else if (actionToUndo.actionType == actionType.ReGroup)
 			{
-
+				Action undoneAction = new Action(objectToUndo, actionType.Ungroup, actionToUndo.groupedObjects);
+				PushAction(undoneAction);
+				ObjectManipulator.RemoveParentOfGroup();
 			}
 			else if (actionToUndo.actionType == actionType.Move)
 			{
