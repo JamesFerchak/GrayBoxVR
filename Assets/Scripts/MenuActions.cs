@@ -46,7 +46,7 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Slider scalingAssistanceSlider;
     [SerializeField] Text scalingAssistanceText;
     public bool controllerUIOff = false; // True if the controller ui is turned off
-    public bool closeMainMenuEnabled = false; // False is true, true is false
+    public bool closeMainMenuEnabled = true;
 
     // SHAPES MENU OBJECTS
     [SerializeField] Image[] shapeButtonThumbnails;

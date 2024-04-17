@@ -2266,7 +2266,7 @@ MonoBehaviour:
   scalingAssistanceSlider: {fileID: 5757224721113376101}
   scalingAssistanceText: {fileID: 765831960311498025}
   controllerUIOff: 0
-  closeMainMenuEnabled: 0
+  closeMainMenuEnabled: 1
   shapeButtonThumbnails:
   - {fileID: 1658764727}
   - {fileID: 394610231}
