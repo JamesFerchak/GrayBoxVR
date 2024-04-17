@@ -301,7 +301,12 @@ public class BlockRangler : MonoBehaviour
 				}
 				
 				//have set the scale of the parent block *after* we create all the children so they enherit the transform of the parent
-				block.transform.localScale = actionToUndo.scale;
+				if (!actionToUndo.isGroupChange)
+				{
+                    block.transform.position = actionToUndo.position;
+                    block.transform.rotation = actionToUndo.rotation;
+                }
+                block.transform.localScale = actionToUndo.scale;
 
 				Action undoneAction;
 				if (!actionToUndo.isGroupChange)
