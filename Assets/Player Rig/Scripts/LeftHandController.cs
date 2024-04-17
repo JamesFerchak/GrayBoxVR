@@ -184,8 +184,8 @@ public class LeftHandController : MonoBehaviour
                 }
             }
         }
-		
-	}
+        MenuActions.Singleton.CloseMainMenu();
+    }
 	public void yToggle(InputAction.CallbackContext context)
 	{
 		if (!TourMode.Singleton.getTourModeToggle())
@@ -203,6 +203,7 @@ public class LeftHandController : MonoBehaviour
 		{
 			TourMode.Singleton.BackToEditMode();
 		}
+        MenuActions.Singleton.CloseMainMenu();
     }
 
 	public void menuToggle(InputAction.CallbackContext context)
@@ -213,7 +214,8 @@ public class LeftHandController : MonoBehaviour
 	public void lStickClickToggle(InputAction.CallbackContext context)
 	{
 		BlockRangler.ActionHistory.UndoAction();
-	}
+        MenuActions.Singleton.CloseMainMenu();
+    }
 
 	public GameObject GetLeftHandObject()
 	{

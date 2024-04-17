@@ -46,6 +46,7 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Slider scalingAssistanceSlider;
     [SerializeField] Text scalingAssistanceText;
     public bool controllerUIOff = false; // True if the controller ui is turned off
+    public bool closeMainMenuEnabled = false; // False is true, true is false
 
     // SHAPES MENU OBJECTS
     [SerializeField] Image[] shapeButtonThumbnails;
@@ -139,13 +140,12 @@ public class MenuActions : MonoBehaviour
     public void RelocateMainMenu()
     {
         Vector3 newMainMenuPosition = cam.transform.TransformPoint(Vector3.forward * 2);
-        newMainMenuPosition.y = 35;
+        newMainMenuPosition.y = cam.transform.position.y;
         mainMenuCanvas.transform.position = newMainMenuPosition;
     }
 
     public void InteractWithMainMenu()
     {
-        
         if (mainMenuPanel != null) // If panel exists
         {
             if (inMenuMode) // If panel is already open
@@ -158,9 +158,26 @@ public class MenuActions : MonoBehaviour
             {
                 Effects.Singleton.PlaySound(cam.transform.position, 1);
                 RefreshSavedProjects();
-                MenuActions.Singleton.RelocateMainMenu();
+                RelocateMainMenu();
                 mainMenuPanel.SetActive(true); // Open panel
                 inMenuMode = true;
+            }
+        }
+    }
+
+    public void CloseMainMenu()
+    {
+        if (closeMainMenuEnabled)
+        {
+            if (mainMenuPanel != null) // If panel exists
+            {
+                if (inMenuMode) // If panel is already open
+                {
+                    Debug.Log("Closing menu...");
+                    Effects.Singleton.PlaySound(cam.transform.position, 3);
+                    mainMenuPanel.SetActive(false); // Close panel
+                    inMenuMode = false;
+                }
             }
         }
     }
@@ -357,6 +374,18 @@ public class MenuActions : MonoBehaviour
         else
         {
             Effects.Singleton.effectsEnabled = true;
+        }
+    }
+
+    public void ToggleMenuExitOnButtonPress()
+    {
+        if (closeMainMenuEnabled)
+        {
+            closeMainMenuEnabled = false;
+        }
+        else
+        {
+            closeMainMenuEnabled = true;
         }
     }
 }

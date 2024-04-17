@@ -118,6 +118,8 @@ public class RightHandController : MonoBehaviour
     }
     public void aToggle(InputAction.CallbackContext context)
     {
+        MenuActions.Singleton.CloseMainMenu();
+
         if (!TourMode.Singleton.getTourModeToggle())
         {
             //Debug.Log("A button pressed.");
@@ -134,10 +136,11 @@ public class RightHandController : MonoBehaviour
         {
             TourMode.Singleton.BackToEditMode();
         }
-
     }
     public void bToggle(InputAction.CallbackContext context)
     {
+        MenuActions.Singleton.CloseMainMenu();
+
         if (!TourMode.Singleton.getTourModeToggle())
         {
             //Debug.Log("B button pressed.");
@@ -195,6 +198,7 @@ public class RightHandController : MonoBehaviour
 
 	public void rStickClickToggle(InputAction.CallbackContext context)
 	{
+        MenuActions.Singleton.CloseMainMenu();
         BlockRangler.ActionHistory.RedoAction();
 	}
 
