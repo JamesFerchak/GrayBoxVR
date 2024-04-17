@@ -169,10 +169,13 @@ public class MenuActions : MonoBehaviour
     {
         if (closeMainMenuEnabled)
         {
+            Debug.Log("Menu should be closed.");
             if (mainMenuPanel != null) // If panel exists
             {
+                Debug.Log("Menu exists.");
                 if (inMenuMode) // If panel is already open
                 {
+                    Debug.Log("Closing menu...");
                     Effects.Singleton.PlaySound(cam.transform.position, 3);
                     mainMenuPanel.SetActive(false); // Close panel
                     inMenuMode = false;
