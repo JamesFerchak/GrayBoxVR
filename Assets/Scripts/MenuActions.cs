@@ -46,7 +46,7 @@ public class MenuActions : MonoBehaviour
     [SerializeField] Slider scalingAssistanceSlider;
     [SerializeField] Text scalingAssistanceText;
     public bool controllerUIOff = false; // True if the controller ui is turned off
-    public bool closeMainMenuEnabled = true;
+    public bool closeMainMenuEnabled = false; // False is true, true is false
 
     // SHAPES MENU OBJECTS
     [SerializeField] Image[] shapeButtonThumbnails;
@@ -169,10 +169,8 @@ public class MenuActions : MonoBehaviour
     {
         if (closeMainMenuEnabled)
         {
-            Debug.Log("Menu should be closed.");
             if (mainMenuPanel != null) // If panel exists
             {
-                Debug.Log("Menu exists.");
                 if (inMenuMode) // If panel is already open
                 {
                     Debug.Log("Closing menu...");
