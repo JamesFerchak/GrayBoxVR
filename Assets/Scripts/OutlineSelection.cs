@@ -35,7 +35,7 @@ public class OutLineSelection : MonoBehaviour
                 {
                     Outline outline = hitObject.AddComponent<Outline>();
                     outline.enabled = true;
-                    outline.OutlineColor = Color.magenta;
+                    outline.OutlineColor = Color.red;
                     outline.OutlineWidth = 7.0f;
                 }
                 highlight = currentHighlight;
