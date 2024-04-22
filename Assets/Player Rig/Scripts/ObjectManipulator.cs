@@ -10,7 +10,6 @@ using System;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 using System.Runtime.InteropServices;
-using static UnityEditor.FilePathAttribute;
 using UnityEngine.UIElements;
 
 public class ObjectManipulator : MonoBehaviour
